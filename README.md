@@ -9,8 +9,8 @@
 | Subtitle | a 3D CRT |
 | Crate | `shellscan` |
 | Type (not a repo) | `qga_pixel` |
-| Checkout | still `~/Projects/graphics` until renamed to `~/Projects/shellscan` |
-| Remote | [github.com/kinaar8340/graphics](https://github.com/kinaar8340/graphics) |
+| Checkout | `~/Projects/shellscan` |
+| Remote | [github.com/kinaar8340/shellscan](https://github.com/kinaar8340/shellscan) |
 
 A CRT writes a glowing surface by sweeping a beam in two fields. This crate writes a glowing shell by lifting a chart through inverse-Hopf in two clocks. The pixel is a local plane-cut of the observer’s double cone. Color is a conic type, not an RGB triple. The shell is a trajectoid, so the screen has an identity and a trench, not a rectangle.
 
@@ -139,7 +139,7 @@ Default \(\hat E_{\mathrm{def}}=(0,0,1)\), \((\theta,\phi)_{\mathrm{def}}=(0,0)\
 
 | Repo | Role |
 |---|---|
-| [graphics](https://github.com/kinaar8340/graphics) | this crate |
+| [shellscan](https://github.com/kinaar8340/shellscan) | this crate |
 | [qga](https://github.com/kinaar8340/qga) | manuscript |
 | [qga_engine](https://github.com/kinaar8340/qga_engine) | math / sim |
 | [qga_gpu](https://github.com/kinaar8340/qga_gpu) | frame |

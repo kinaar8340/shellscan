@@ -39,11 +39,11 @@ If unfrozen later: one line only — load `output/slm/generic_512/` onto a named
 ## Seam
 
 ```
-graphics/scripts/export_slm_pixel.py
+shellscan/scripts/export_slm_pixel.py
   reads  output/pick/qga_pixel.bin
   loopback via vqc_demo.pipeline.loopback(bytes)
   optional: flux_trajectoid.export_slm(..., include_shell_bias=True)
-  writes graphics/output/slm/<preset>/
+  writes shellscan/output/slm/<preset>/
 ```
 
 No Rust path-dep on VQC. No VQC path-dep on `qga_gpu`. Default preset: `generic_512`. Do not name `holoeye_pluto_2` until a panel exists.
