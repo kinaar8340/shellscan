@@ -73,6 +73,7 @@ Occupancy 256 is a faceplate number. Face count `10T+2` (Goldberg) is independen
 | `setal-polyxenes-cylinder.yaml` | open cylinder | — | Scott Fig. 28 Papilionidae | extra-familial order holds |
 | `capsid-t7-p22.yaml` | (2,1) Class III | 7 | VIPERdb P22 CK paint | vs `capsid-t7` kind 1.0; vs polyoma 0.167 |
 | `capsid-t7-p22-portal.yaml` | (2,1) Class III | 7 | one pentagon = portal | vs CK \(71/72 \approx 0.986\); 11+60+1 |
+| `capsid-t7-p22-1-2.yaml` | (1,2) Class III | 7 | P22 face-degree, 7d | occupancy 12+60; vs (2,1) kind \(68/72\) |
 
 ## Setal table (paint input)
 
@@ -201,14 +202,21 @@ PYTHONPATH=scripts python3 -m recipe compare capsid-t7-p22 capsid-t7-polyoma
 
 Filed: `docs/recipe-scores/capsid-t7-p22.field.json`, `compare_t7_p22_t7.json`, `compare_t7_p22_polyoma.json`. Do not mesh snub/rhombitrihexagonal. Do not fold into `make scan`.
 
-`(2,1)` and `(1,2)` are enantiomorphs. The T=7 file does not swap them. Portal mark (this pass): `capsid-t7-p22-portal` paints one pentagon as `portal` (parabolic; four-bin, not a fifth hue). 11 pentamer + 60 hexamer + 1 portal. vs CK `kind_agree` \(71/72 \approx 0.986\) — one unique vertex, not the polyoma 0.167. Face-degree still cannot see the 12-fold portal geometry; this is a one-face flag. **Model** of the unique vertex + **Software fact** of \(1/72\). Not a Hypothesis that P22 “is” this mesh.
+`(2,1)` and `(1,2)` are enantiomorphs (VIPERdb 7l / 7d). The `(2,1)` file does not swap them. `capsid-t7-p22-1-2` is the one-line swap of the P22 face-degree table onto `(1,2)`. Occupancy still 12+60 / 420. Face-index compare vs `(2,1)` is \(68/72 \approx 0.944\): same paint rule, hull order is not a 532 correspondence. **Model** + **Software fact**. Not a Hypothesis that 7d “is” P22.
+
+```
+make recipe RECIPE=capsid-t7-p22-1-2
+PYTHONPATH=scripts python3 -m recipe compare capsid-t7-p22-1-2 capsid-t7-p22
+```
+
+Portal mark: `capsid-t7-p22-portal` paints one pentagon as `portal` (parabolic; four-bin, not a fifth hue). 11 pentamer + 60 hexamer + 1 portal. vs CK `kind_agree` \(71/72 \approx 0.986\) — one unique vertex, not the polyoma 0.167. Face-degree still cannot see the 12-fold portal geometry; this is a one-face flag. **Model** of the unique vertex + **Software fact** of \(1/72\). Not a Hypothesis that P22 “is” this mesh.
 
 ```
 make recipe RECIPE=capsid-t7-p22-portal
 PYTHONPATH=scripts python3 -m recipe compare capsid-t7-p22-portal capsid-t7
 ```
 
-A later pass, if opened: Twarock dimer/trimer as rhomb vs kite on the same 72 faces (four-bin, two unused), or the `(1,2)` enantiomorph. Not another butterfly, not a second degree paint, not `make scan`.
+A later pass, if opened: mesh 30T rhombs or mixed papova 60+90 (new F). Not a fourth paint on F=32, not `make scan`.
 
 ## T=3 (catalog vs occupant)
 
@@ -239,6 +247,7 @@ Pentagons remain the elliptic cells; hexagons are the remainder. The outline sti
 | T=7 one-face portal vs CK \(71/72\) | frozen | Model + Software fact |
 | T=3 MS2-dimer vs CK \(12/32\) | frozen | Model + Software fact |
 | T=3 kite-trimer vs CK and MS2 \(12/32\) | frozen | Model + Software fact |
+| T=7 P22 (1,2) vs (2,1) occupancy 12+60, kind \(68/72\) | frozen | Model + Software fact |
 | Atlas / pierid / faceplate / \(\gamma(s)\) / snub mesh | off | — |
 
 ## Palette (do not invent a fifth)

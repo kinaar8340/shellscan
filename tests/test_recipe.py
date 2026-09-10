@@ -316,6 +316,22 @@ def test_capsid_t7_p22_portal_one_face(tmp_path: Path):
     assert pa[occ["portal_faces"][0]]["section"] == "parabolic"
 
 
+def test_capsid_t7_p22_enantiomorph_1_2(tmp_path: Path):
+    d = _compile("capsid-t7-p22-1-2", tmp_path)
+    l = _compile("capsid-t7-p22", tmp_path)
+    assert d["m"] == 1 and d["n"] == 2
+    assert l["m"] == 2 and l["n"] == 1
+    assert d["T"] == l["T"] == 7
+    assert d["n_faces"] == l["n_faces"] == 72
+    assert d["occupancy"]["pentamer"] == l["occupancy"]["pentamer"] == 12
+    assert d["occupancy"]["hexamer"] == l["occupancy"]["hexamer"] == 60
+    pa = json.loads((tmp_path / "capsid-t7-p22-1-2" / "painted.json").read_text())
+    pb = json.loads((tmp_path / "capsid-t7-p22" / "painted.json").read_text())
+    cmp = compare_painted(pa, pb)
+    # Same occupancy; hull face order is not a 532 correspondence.
+    assert cmp["kind_agree"] == pytest.approx(68 / 72)
+
+
 def test_capsid_t7_p22_occupancy(tmp_path: Path):
     p22 = _compile("capsid-t7-p22", tmp_path)
     ck = _compile("capsid-t7", tmp_path)
