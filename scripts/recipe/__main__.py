@@ -17,6 +17,8 @@ def main(argv: list[str] | None = None) -> int:
         return _score(argv[1:])
     if argv and argv[0] == "twist-scan":
         return _twist_scan(argv[1:])
+    if argv and argv[0] == "film":
+        return _film(argv[1:])
     p = argparse.ArgumentParser(prog="recipe", description="Recipe sidecar. Not a faceplate verb.")
     p.add_argument("--all", action="store_true", help="compile every recipes/*.yaml")
     p.add_argument("--name", type=str, help="compile recipes/<name>.yaml")
@@ -94,6 +96,24 @@ def _twist_scan(argv: list[str]) -> int:
     dest.parent.mkdir(parents=True, exist_ok=True)
     dest.write_text(json.dumps(out, indent=2) + "\n")
     print(json.dumps(out, indent=2))
+    return 0
+
+
+def _film(argv: list[str]) -> int:
+    p = argparse.ArgumentParser(
+        prog="recipe film",
+        description="T=3 field strip. Sidecar PNG + ffmpeg. Not Animation A. Not γ(s).",
+    )
+    p.add_argument(
+        "--preview",
+        action="store_true",
+        help="one frame per shot (smoke), not the 60 s strip",
+    )
+    p.add_argument("--no-encode", action="store_true", help="PNG sequence only")
+    args = p.parse_args(argv)
+    from .film import run_film
+
+    run_film(preview=args.preview, encode=not args.no_encode)
     return 0
 
 

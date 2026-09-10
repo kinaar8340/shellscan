@@ -1,4 +1,4 @@
-.PHONY: test spec check export-shell headless demo stills testimony tick scan nest-headless nest-stills pick slm-loopback slm-export slm-mask track-synth track-calibrate track-gaze recipe
+.PHONY: test spec check export-shell headless demo stills testimony tick scan nest-headless nest-stills pick slm-loopback slm-export slm-mask track-synth track-calibrate track-gaze recipe film
 
 TRACK_PY := $(shell test -x .venv/bin/python && echo .venv/bin/python || echo python3)
 EYE ?= 640,360
@@ -61,6 +61,12 @@ recipe:
 	else \
 		PYTHONPATH=scripts $(TRACK_PY) -m recipe --all; \
 	fi
+
+# T=3 field strip. Sidecar PNG + ffmpeg. Not Animation A. Not make scan. Not γ(s).
+# System python3: matplotlib + ffmpeg path. .venv may not have mpl.
+film:
+	mkdir -p output/recipe/film output/mp4
+	PYTHONPATH=scripts python3 -m recipe film
 
 stills:
 	mkdir -p output/png

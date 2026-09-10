@@ -48,6 +48,7 @@ CPU only. No Vulkan. No sibling checkout.
 3. Paint faces (four-bin sections only).
 4. Pack `output/recipe/<name>/qga_pixel_field.bin` (`N×32` bytes) plus JSON manifest.
 5. Write `net.png`, `field_preview.png`, `morph.gif` (helicoid→catenoid, 8 frames).
+6. `python3 -m recipe film` — T=3 field strip MP4 from dumps + `rgb_preview`. Not `make scan`.
 
 Occupancy 256 is a faceplate number. Face count `10T+2` (Goldberg) is independent. Do not force `N == 256`. Do not bind the dump to `γ(s)`.
 
@@ -243,6 +244,25 @@ PYTHONPATH=scripts python3 -m recipe compare capsid-t3-kite capsid-t3-ms2
 
 Pentagons remain the elliptic cells; hexagons are the remainder. The outline still cannot prove it captured the occupant. Butterfly rows stay on the cylinder. No \(S^3\) / \(\mathbb{RP}^3\) lift. No \(\gamma(s)\).
 
+## T=3 field strip
+
+One sidecar MP4. Not Animation A. Not a Blender mesh. Not occupancy on \(\gamma(s)\).
+
+`make film` reuses `capsid-t3` / `capsid-t3-ms2` / `capsid-t3-kite` / `capsid-t3-rhomb30` dumps, lerps only `rgb_preview` RGB between paints, shades with amplitude × persist, applies `--mask blank` / `nappe`, ffmpeg 24 fps ~60 s. Locked eye `elev=18, azim=35`. Cards are captions, not a HUD on the shell. Faceplate unused.
+
+| Beat | Length | What |
+|---|---|---|
+| 1 Pixel | 10 s | a plane tilts; four bins light in order; card: color is conic type |
+| 2 Catalog vs occupant | 33 s | GP(1,1) F=32 CK → MS2 → kite; `section_agree` 1.0, `kind_agree` \(12/32\) on a card; F=90 rhombille coda compare-refused |
+| 3 Engine ritual | 17 s | persist rise/decay, blanking, nappe omit elliptic; 32-byte pixel; RGB is a projection |
+
+Do not splice the cylinder atlas into this film. A later strip, if opened, is cylinder isolines (Hypothesis) or the T=7 occupancy pair — still not on \(\gamma(s)\).
+
+```
+make film
+PYTHONPATH=scripts python3 -m recipe film --preview
+```
+
 ## This pass (closed)
 
 | Track | Status | Label |
@@ -256,6 +276,7 @@ Pentagons remain the elliptic cells; hexagons are the remainder. The outline sti
 | T=3 kite-trimer vs CK and MS2 \(12/32\) | frozen | Model + Software fact |
 | T=7 P22 (1,2) vs (2,1) occupancy 12+60, kind \(68/72\) | frozen | Model + Software fact |
 | T=3 rhombille 30T F=90 χ=2 all-parabolic | frozen | Model + Software fact |
+| T=3 field strip (sidecar MP4, not Animation A) | shipped | Model + Software fact |
 | Atlas / pierid / faceplate / \(\gamma(s)\) / snub mesh | off | — |
 
 ## Palette (do not invent a fifth)
@@ -264,7 +285,7 @@ Same four inner_cone hues as `docs/SPEC.md`: elliptic cyan, parabolic gold, hype
 
 ## Freeze
 
-Do not: grow a 33rd byte, fold this into `bin/shellscan.rs` or `pick`, instance geodesic orbs in `qga_gpu`, promote unfinished math into `flux_hopf_lib`, run automatic photograph segmentation, claim Goldberg polyhedra occur in lepidopteran development, re-prove clocks or nested shells as pictures, bind the field dump to `γ(s)`.
+Do not: grow a 33rd byte, fold this into `bin/shellscan.rs` or `pick`, instance geodesic orbs in `qga_gpu`, promote unfinished math into `flux_hopf_lib`, run automatic photograph segmentation, claim Goldberg polyhedra occur in lepidopteran development, re-prove clocks or nested shells as pictures, bind the field dump to `γ(s)`, splice the cylinder atlas into the T=3 field strip, put occupancy tables on the faceplate.
 
 `qga_gpu` Class I stamp (`scene_core.rs`, default 2v → 80 faces) is a volume-bench object. This sidecar’s `(2,0)` geodesic matches those counts and then stops.
 

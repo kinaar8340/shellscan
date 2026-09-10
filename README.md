@@ -52,7 +52,7 @@ Tip of the sign-mask fact: `c5c5095`. Working rule: unfreeze is one labeled sent
 | Gun / `LF` | Off |
 | HITL / named panel | Not v1 |
 | Fig 6.1 four-preset clone | Paper in `qga_gpu`. Faceplate stays elliptic. [docs/ATLAS.md](docs/ATLAS.md) |
-| Recipe sidecar | Scored; not a faceplate verb. Atlas stop. [docs/RECIPE.md](docs/RECIPE.md) |
+| Recipe sidecar | Scored; T=3 field strip is sidecar MP4, not Animation A. Atlas stop. [docs/RECIPE.md](docs/RECIPE.md) |
 
 Splat at \(4.2\), persist \(=1\): \(0.0315R\). Rails \(0.02R\) and \(\Delta R=0.08R\) both lost as pictures.
 
@@ -72,7 +72,7 @@ Do not: Scan A consume `site`, HITL Pluto, nested draw, `LF`, stacked clear wind
 - [ ] `vision_tracker` — real lens \(K\) + still. Well is specified. Scan A does not consume `site`. [docs/VISION.md](docs/VISION.md)
 - [x] Sign mask — `--mask {none,antipode,blank,nappe}` on the SLM seed. [docs/SIGN.md](docs/SIGN.md)
 - [ ] Fig 6.1 atlas — four isolated loom presets in `qga_gpu`, not a composition window on \(\gamma\). [docs/ATLAS.md](docs/ATLAS.md)
-- [x] Recipe sidecar — pass closed. Cylinder Hypothesis frozen; T=7 occupancy Model + Software fact (P22 vs CK 1.0, vs polyoma \(12/72\)). Not a faceplate verb. [docs/RECIPE.md](docs/RECIPE.md) · [scores](docs/recipe-scores/)
+- [x] Recipe sidecar — pass closed. Cylinder Hypothesis frozen; T=7 occupancy Model + Software fact (P22 vs CK 1.0, vs polyoma \(12/72\)). T=3 field strip is a sidecar MP4, not Animation A. Not a faceplate verb. [docs/RECIPE.md](docs/RECIPE.md) · [scores](docs/recipe-scores/)
 
 End goal compatible with the freeze: a pipeline that emits a drive signal (record → dump → phase package → later a named panel / glass). Not a single Vulkan window that is a 4D OAM crystal ball.
 
@@ -130,6 +130,7 @@ make recipe RECIPE=setal-polyxenes-cylinder
 PYTHONPATH=scripts python3 -m recipe score setal-polyxenes-cylinder
 PYTHONPATH=scripts python3 -m recipe twist-scan setal-plexippus-cylinder --dense
 PYTHONPATH=scripts python3 -m recipe compare capsid-t7-p22 capsid-t7
+make film             # T=3 field strip MP4 (sidecar; not make scan)
 ```
 
 Recipe verbs: `--name`, `score`, `twist-scan`, `compare`. Carriers: Goldberg `(m,n)` or open 13×36 cylinder. Scores: [docs/recipe-scores/](docs/recipe-scores/). Bound and freeze: [docs/RECIPE.md](docs/RECIPE.md).
