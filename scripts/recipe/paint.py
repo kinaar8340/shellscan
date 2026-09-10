@@ -116,6 +116,18 @@ def paint_faces(net: dict[str, Any], spec: dict[str, Any]) -> list[dict[str, Any
 
     from .dynamics import intensity_at, psi_at
 
+    portal_n = int((paint.get("portal") or {}).get("count") or 0)
+    portal_sec = _section((paint.get("portal") or {}).get("section") or "parabolic")
+    portal_ids: list[int] = []
+    if portal_n:
+        for i, face in enumerate(faces):
+            if len(face) == 5:
+                portal_ids.append(i)
+                if len(portal_ids) >= portal_n:
+                    break
+        spec["_portal_faces"] = portal_ids
+    portal_set = set(portal_ids)
+
     out: list[dict[str, Any]] = []
     chart = net.get("face_chart")
     for i, face in enumerate(faces):
@@ -142,7 +154,12 @@ def paint_faces(net: dict[str, Any], spec: dict[str, Any]) -> list[dict[str, Any
                 section = _section((spec.get("paint") or {}).get("tentacle_section", "parabolic"))
         elif mode == "caspar-klug":
             deg = len(face)
-            if deg == 5:
+            if i in portal_set:
+                kind = "portal"
+                section = portal_sec
+                offset = pent_off
+                amp = 1.0
+            elif deg == 5:
                 kind = "pentamer"
                 section = pent_sec
                 offset = pent_off

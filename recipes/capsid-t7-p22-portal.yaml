@@ -1,0 +1,27 @@
+name: capsid-t7-p22-portal
+claim: Model
+source: "P22 unique vertex: 12-fold portal at one five-fold eats five coat subunits (415 coat, not 420). Same Goldberg (2,1) as capsid-t7. One pentagon marked portal (parabolic); 71 faces stay CK. No virion JPEG."
+dynamics:
+  windings: 1
+  intensity: periodic
+  orientation: circumferential
+  morph_t: 0.0
+carrier:
+  kind: icosahedral
+  m: 2
+  n: 1
+  dual: goldberg
+wrap:
+  field: 0
+  section_lock: elliptic
+  persist: 1.0
+paint:
+  mode: caspar-klug
+  portal:
+    count: 1
+    section: parabolic
+  quasi_equivalence:
+    pentamer_offset: 0.40
+    hexamer_offset: 0.45
+    pentamer_section: elliptic
+    hexamer_section: hyperbolic

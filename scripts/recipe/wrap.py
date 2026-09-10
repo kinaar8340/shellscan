@@ -100,8 +100,10 @@ def manifest(
         "occupancy": {
             "pentamer": kinds.get("pentamer", 0),
             "hexamer": kinds.get("hexamer", 0),
+            "portal": kinds.get("portal", 0),
             "subunits_60T": 60 * int(net.get("T") or 0),
             "T": net.get("T"),
+            "portal_faces": spec.get("_portal_faces") or [],
         },
     }
 

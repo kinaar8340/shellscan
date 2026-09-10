@@ -1,0 +1,27 @@
+{
+  "n_faces": 72,
+  "section_agree": 0.9861111111111112,
+  "kind_agree": 0.9861111111111112,
+  "kinds_a": {
+    "portal": 1,
+    "pentamer": 11,
+    "hexamer": 60
+  },
+  "kinds_b": {
+    "pentamer": 12,
+    "hexamer": 60
+  },
+  "sections_a": {
+    "parabolic": 1,
+    "elliptic": 11,
+    "hyperbolic": 60
+  },
+  "sections_b": {
+    "elliptic": 12,
+    "hyperbolic": 60
+  },
+  "a": "capsid-t7-p22-portal",
+  "b": "capsid-t7",
+  "T": 7,
+  "claim": "Hypothesis"
+}
