@@ -18,7 +18,7 @@ This repo: inverse-Hopf scan / pixel model. Not a generic renderer.
 | Subtitle | a 3D CRT |
 | Crate | `shellscan` |
 | Type (not a repo) | `qga_pixel` |
-| Checkout | git clone; pin `qga_gpu` / `qga-math` tags, not `~/Projects` |
+| Checkout | git clone; pin `qga_engine@7e7866b` + `qga_gpu@b9c9994`, not `~/Projects` and not `v0.1.0` |
 | Remote | [github.com/kinaar8340/shellscan](https://github.com/kinaar8340/shellscan) |
 
 A CRT writes a glowing surface by sweeping a beam in two fields. This crate writes a glowing shell by lifting a chart through inverse-Hopf in two clocks. The pixel is a local plane-cut of the observer’s double cone. Color is a conic type, not an RGB triple. The shell is a trajectoid, so the screen has an identity and a trench, not a rectangle.

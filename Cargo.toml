@@ -11,8 +11,9 @@ readme = "README.md"
 [dependencies]
 # Thin scene crate. Do not path-dep inner_cone or flux_trajectoid.
 # Do not enable qga-gpu/qga-math — no fiber conversion in this crate.
-qga-math = { path = "../qga_engine/crates/qga-math" }
-qga-gpu = { path = "../qga_gpu/crates/qga-gpu", features = ["winit", "headless", "capture", "glow"] }
+# Same two revs as inner_cone. No v0.1.0. Do not float main.
+qga-math = { git = "https://github.com/kinaar8340/qga_engine", rev = "7e7866bb2611d4ab35e6e3c1f46a3f8dd9b4320d" }
+qga-gpu = { git = "https://github.com/kinaar8340/qga_gpu", rev = "b9c999406e266a585769a4804c6968de0e6d2237", features = ["winit", "headless", "capture", "glow"] }
 glam = "0.29"
 bytemuck = { version = "1.22", features = ["derive"] }
 anyhow = "1.0"

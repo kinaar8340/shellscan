@@ -1326,6 +1326,7 @@ checksum = "3d595e54a326bc53c1c197b32d295e14b169e3cfeaa8dc82b529f947fba6bcf5"
 [[package]]
 name = "qga-gpu"
 version = "0.1.0"
+source = "git+https://github.com/kinaar8340/qga_gpu?rev=b9c999406e266a585769a4804c6968de0e6d2237#b9c999406e266a585769a4804c6968de0e6d2237"
 dependencies = [
  "anyhow",
  "bytemuck",
@@ -1339,6 +1340,7 @@ dependencies = [
 [[package]]
 name = "qga-math"
 version = "0.1.0"
+source = "git+https://github.com/kinaar8340/qga_engine?rev=7e7866bb2611d4ab35e6e3c1f46a3f8dd9b4320d#7e7866bb2611d4ab35e6e3c1f46a3f8dd9b4320d"
 dependencies = [
  "glam",
 ]
