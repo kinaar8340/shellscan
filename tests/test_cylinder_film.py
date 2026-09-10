@@ -14,12 +14,14 @@ sys.path.insert(0, str(ROOT / "scripts"))
 from recipe.film import (  # noqa: E402
     CYL_SHOTS,
     CYLINDER_RECIPE,
+    EMBED_ORDER_BOUND,
     FPS,
     cyl_duration_seconds,
     paint_cylinder,
     run_cylinder_film,
     shot_frame_count,
     site_colors,
+    twist_card,
     twist_values,
 )
 
@@ -95,6 +97,24 @@ def test_twist_collides_after_bound():
 
 def test_twist_values_preview_is_collide():
     assert twist_values(1, True) == [0.94]
+
+
+def test_twist_card_number_matches_frame():
+    """π/4 is the dump bound, not the live angle. Same rule as the kite card."""
+    assert EMBED_ORDER_BOUND == pytest.approx(math.pi / 4.0)
+    t46, e46 = twist_card(0.46, False)
+    assert "0.46" in e46
+    assert "π/4" not in e46
+    assert "bound" not in e46
+    t91, e91 = twist_card(0.91, False)
+    assert "0.91" in e91
+    assert "π/4" not in e91
+    assert t46 == t91 == "chart φ holds · embed shears"
+    tc, ec = twist_card(0.94, True)
+    assert tc == "embed D/SD collide"
+    assert "π/4" in ec
+    assert "0.94" in ec
+    assert "shear is not a paint" in ec
 
 
 def test_cylinder_preview_keyframes(tmp_path: Path):

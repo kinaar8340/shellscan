@@ -42,6 +42,8 @@ KITE_HOLD_FRAC = 1.0 / 8.0
 KITE_CARD_T = 0.6
 CYLINDER_RECIPE = "setal-plexippus-cylinder"
 TWIST_MAX = math.pi / 2.0
+# Dump fact: embed_phi_order_ok last true at π/4. Not the live frame angle.
+EMBED_ORDER_BOUND = math.pi / 4.0
 GROUP_KEEP = {
     "D": {"D", "XD"},
     "SD": {"SD"},
@@ -799,6 +801,20 @@ def twist_values(n: int, preview: bool) -> list[float]:
     return [TWIST_MAX * i / (n_unique - 1) for i in range(n_unique)]
 
 
+def twist_card(tw: float, collided: bool) -> tuple[str, str]:
+    """Frame number is this twist. π/4 is the dump bound, only on the collide card."""
+    now = f"{tw:.2f}"
+    if collided:
+        return (
+            "embed D/SD collide",
+            f"bound last true at π/4 · now {now} · shear is not a paint",
+        )
+    return (
+        "chart φ holds · embed shears",
+        f"twist {now} rad",
+    )
+
+
 def _group_card(name: str) -> tuple[str, str]:
     hue = {
         "D": "elliptic",
@@ -871,16 +887,7 @@ def run_cylinder_film(
                 collided = not h.get("embed_phi_order_ok", True)
                 if collided and collide_twist is None:
                     collide_twist = tw
-                if collided:
-                    title, extra = (
-                        "embed D/SD collide",
-                        "chart φ still ordered · shear is not a paint",
-                    )
-                else:
-                    title, extra = (
-                        "chart φ holds · embed shears",
-                        f"twist {tw:.2f} rad · bound π/4",
-                    )
+                title, extra = twist_card(tw, collided)
                 canvas.bind(net, force=True, faint_empty=True)
                 canvas.paint(site_colors(recs), title, extra)
                 seq.write_canvas(canvas, hold)

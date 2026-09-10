@@ -277,7 +277,7 @@ Second sidecar. Hypothesis. Open 13×36 cylinder, measured *D. plexippus*. No ca
 |---|---|
 | Five group bands | D < SD < L < SV < V; SV and V share flat-pockets |
 | T1 one-bin walk | L2 T1 vs abdomen isoline |
-| Twist | chart holds, embed shears; D/SD collide past π/4 (~0.94) |
+| Twist | chart holds, embed shears; current twist on the card; bound π/4 only on the collide card |
 
 End card: Hypothesis (bounded). Not a theorem that larvae are this mesh. Faceplate unused.
 
