@@ -71,10 +71,11 @@ Do not: Scan A consume `site`, HITL Pluto, nested draw, `LF`, stacked clear wind
 - [ ] `vision_tracker` — real lens \(K\) + still. Well is specified. Scan A does not consume `site`. [docs/VISION.md](docs/VISION.md)
 - [x] Sign mask — `--mask {none,antipode,blank,nappe}` on the SLM seed. [docs/SIGN.md](docs/SIGN.md)
 - [ ] Fig 6.1 atlas — four isolated loom presets in `qga_gpu`, not a composition window on \(\gamma\). [docs/ATLAS.md](docs/ATLAS.md)
+- [ ] Recipe sidecar — dynamics → carrier → Hopf wrap → paint. Model, not a faceplate verb. [docs/RECIPE.md](docs/RECIPE.md)
 
 End goal compatible with the freeze: a pipeline that emits a drive signal (record → dump → phase package → later a named panel / glass). Not a single Vulkan window that is a 4D OAM crystal ball.
 
-The only box still worth ticking inside this crate is `make scan`. Everything else is a new claim or another repo.
+The only box still worth ticking **on the faceplate** is `make scan`. The recipe sidecar is a new claim in this crate, not a loom unfreeze.
 
 ## `qga_pixel`
 
@@ -102,7 +103,8 @@ Ten-minute CPU path (no GPU, no sibling checkout):
 
 ```
 make test             # cargo test: record, clocks, trench bind
-python3 -m pytest tests/test_parse_pixel.py tests/test_sign_mask.py -q
+# optional, if pytest is installed:
+python3 -m pytest tests/test_parse_pixel.py tests/test_sign_mask.py tests/test_recipe.py -q
 ```
 
 ```
@@ -122,6 +124,7 @@ make slm-mask         # antipode seed (ψ+π)
 make track-synth      # bench points.json (not a live still)
 make track-calibrate  # solvePnP → calib.json
 make track-gaze       # EYE=u,v → gaze.json (not consumed)
+make recipe           # sidecar: recipes/*.yaml → output/recipe/ (not γ)
 ```
 
 Sidecar (once, not in the frame loop):

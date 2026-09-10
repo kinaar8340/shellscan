@@ -1,0 +1,25 @@
+name: capsid-t3
+claim: Model
+# Caspar–Klug T=3. Class II (1,1). 12 pentamers + 20 hexamers, 180 subunits.
+# CCMV-like: hexamers have local six-fold. Theorem of the counts; Model of the paint.
+dynamics:
+  windings: 1
+  intensity: periodic
+  orientation: circumferential
+  morph_t: 0.0
+carrier:
+  kind: icosahedral
+  m: 1
+  n: 1
+  dual: goldberg
+wrap:
+  field: 0
+  section_lock: elliptic
+  persist: 1.0
+paint:
+  mode: caspar-klug
+  quasi_equivalence:
+    pentamer_offset: 0.40
+    hexamer_offset: 0.45
+    pentamer_section: elliptic
+    hexamer_section: hyperbolic

@@ -1,0 +1,25 @@
+name: banded-larva
+claim: Model
+dynamics:
+  windings: 3
+  intensity: periodic
+  orientation: circumferential
+  morph_t: 0.0
+carrier:
+  kind: icosahedral
+  m: 3
+  n: 0
+  dual: goldberg
+wrap:
+  field: 0
+  section_lock: elliptic
+  persist: 1.0
+paint:
+  mode: bands
+  bands:
+    period: 3
+    cycle: [elliptic, hyperbolic, elliptic]
+  tentacle_section: parabolic
+  singularities:
+    - {kind: tentacle, chart: anterior, count: 2, amplitude: 1.0}
+    - {kind: tentacle, chart: posterior, count: 2, amplitude: 1.0}

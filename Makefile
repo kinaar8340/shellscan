@@ -1,4 +1,4 @@
-.PHONY: test spec check export-shell headless demo stills testimony tick scan nest-headless nest-stills pick slm-loopback slm-export slm-mask track-synth track-calibrate track-gaze
+.PHONY: test spec check export-shell headless demo stills testimony tick scan nest-headless nest-stills pick slm-loopback slm-export slm-mask track-synth track-calibrate track-gaze recipe
 
 TRACK_PY := $(shell test -x .venv/bin/python && echo .venv/bin/python || echo python3)
 EYE ?= 640,360
@@ -52,6 +52,11 @@ track-calibrate:
 track-gaze:
 	mkdir -p output/track
 	$(TRACK_PY) scripts/vision_tracker.py gaze --eye-px $(EYE)
+
+# Recipe sidecar. Not a faceplate verb. Does not write output/pick/.
+# Compile only — pytest is optional (CI / `python3 -m pytest tests/test_recipe.py`).
+recipe:
+	PYTHONPATH=scripts $(TRACK_PY) -m recipe --all
 
 stills:
 	mkdir -p output/png

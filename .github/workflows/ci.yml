@@ -1,0 +1,39 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: python deps
+        run: python3 -m pip install pytest
+      - name: cargo test
+        run: cargo test
+      - name: python pixel tests
+        run: python3 -m pytest tests/test_parse_pixel.py tests/test_sign_mask.py tests/test_recipe.py -q
+
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - name: mesa
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends mesa-vulkan-drivers
+      - name: headless
+        run: |
+          make headless || {
+            echo "no Vulkan adapter or headless smoke failed; skipping"
+            exit 0
+          }

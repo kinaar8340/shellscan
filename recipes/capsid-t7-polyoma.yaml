@@ -1,0 +1,25 @@
+name: capsid-t7-polyoma
+claim: Model
+# Same T=7 Goldberg net as capsid-t7. Paint exception: 72 pentamers, 360 subunits.
+# Caspar–Klug predicts capsomer locations, not type (Liddington; Twarock VTT).
+dynamics:
+  windings: 1
+  intensity: periodic
+  orientation: circumferential
+  morph_t: 0.0
+carrier:
+  kind: icosahedral
+  m: 2
+  n: 1
+  dual: goldberg
+wrap:
+  field: 0
+  section_lock: elliptic
+  persist: 1.0
+paint:
+  mode: all-pentamer
+  quasi_equivalence:
+    pentamer_offset: 0.40
+    hexamer_offset: 0.45
+    pentamer_section: elliptic
+    hexamer_section: hyperbolic

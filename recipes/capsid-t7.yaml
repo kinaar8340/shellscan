@@ -1,0 +1,25 @@
+name: capsid-t7
+claim: Model
+# Classical Caspar–Klug T=7. Class III (2,1). 12 pentamers + 60 hexamers, 420 subunits.
+# (1,2) is the enantiomorph; this file does not swap.
+dynamics:
+  windings: 1
+  intensity: periodic
+  orientation: circumferential
+  morph_t: 0.0
+carrier:
+  kind: icosahedral
+  m: 2
+  n: 1
+  dual: goldberg
+wrap:
+  field: 0
+  section_lock: elliptic
+  persist: 1.0
+paint:
+  mode: caspar-klug
+  quasi_equivalence:
+    pentamer_offset: 0.40
+    hexamer_offset: 0.45
+    pentamer_section: elliptic
+    hexamer_section: hyperbolic
