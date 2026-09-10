@@ -1,0 +1,43 @@
+{
+  "name": "capsid-t3-kite",
+  "claim": "Model",
+  "m": 1,
+  "n": 1,
+  "T": 3,
+  "class": "II",
+  "kind": "goldberg",
+  "V": 60,
+  "F": 32,
+  "n_pentagons": 12,
+  "n_hexagons": 20,
+  "n_faces": 32,
+  "n_bytes": 1024,
+  "hash": "3009da6cdb0e50c7a7c036386384ff114a83fa066fa0b0cd4a5fccdad8933109",
+  "kinds": {
+    "pentamer": 12,
+    "trimer": 20
+  },
+  "sections": {
+    "elliptic": 12,
+    "hyperbolic": 20
+  },
+  "tentacle_indices": [],
+  "morph_t": 0.0,
+  "subunits_60T": 180,
+  "setal": null,
+  "table": null,
+  "homology": null,
+  "occupancy": {
+    "pentamer": 12,
+    "hexamer": 0,
+    "portal": 0,
+    "dimer": 0,
+    "trimer": 20,
+    "vp1": 0,
+    "vp2": 0,
+    "vp3": 0,
+    "subunits_60T": 180,
+    "T": 3,
+    "portal_faces": []
+  }
+}

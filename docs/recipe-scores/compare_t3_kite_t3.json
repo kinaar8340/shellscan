@@ -1,0 +1,25 @@
+{
+  "n_faces": 32,
+  "section_agree": 1.0,
+  "kind_agree": 0.375,
+  "kinds_a": {
+    "pentamer": 12,
+    "trimer": 20
+  },
+  "kinds_b": {
+    "pentamer": 12,
+    "hexamer": 20
+  },
+  "sections_a": {
+    "elliptic": 12,
+    "hyperbolic": 20
+  },
+  "sections_b": {
+    "elliptic": 12,
+    "hyperbolic": 20
+  },
+  "a": "capsid-t3-kite",
+  "b": "capsid-t3",
+  "T": 3,
+  "claim": "Hypothesis"
+}

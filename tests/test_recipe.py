@@ -268,6 +268,24 @@ def test_setal_compare_self(tmp_path: Path):
     assert cmp["kind_agree"] == pytest.approx(1.0)
 
 
+def test_capsid_t3_kite_vs_ck_and_ms2(tmp_path: Path):
+    kite = _compile("capsid-t3-kite", tmp_path)
+    ck = _compile("capsid-t3", tmp_path)
+    ms2 = _compile("capsid-t3-ms2", tmp_path)
+    assert kite["n_faces"] == 32
+    assert kite["occupancy"]["pentamer"] == 12
+    assert kite["occupancy"]["trimer"] == 20
+    pk = json.loads((tmp_path / "capsid-t3-kite" / "painted.json").read_text())
+    pc = json.loads((tmp_path / "capsid-t3" / "painted.json").read_text())
+    pm = json.loads((tmp_path / "capsid-t3-ms2" / "painted.json").read_text())
+    vs_ck = compare_painted(pk, pc)
+    vs_ms2 = compare_painted(pk, pm)
+    assert vs_ck["kind_agree"] == pytest.approx(12 / 32)
+    assert vs_ms2["kind_agree"] == pytest.approx(12 / 32)
+    assert vs_ck["section_agree"] == pytest.approx(1.0)
+    assert vs_ms2["section_agree"] == pytest.approx(12 / 32)
+
+
 def test_capsid_t3_ms2_dimer_vs_ck(tmp_path: Path):
     ms2 = _compile("capsid-t3-ms2", tmp_path)
     ck = _compile("capsid-t3", tmp_path)

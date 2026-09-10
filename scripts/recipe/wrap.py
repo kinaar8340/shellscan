@@ -102,6 +102,7 @@ def manifest(
             "hexamer": kinds.get("hexamer", 0),
             "portal": kinds.get("portal", 0),
             "dimer": kinds.get("dimer", 0),
+            "trimer": kinds.get("trimer", 0),
             "vp1": kinds.get("vp1", 0),
             "vp2": kinds.get("vp2", 0),
             "vp3": kinds.get("vp3", 0),
