@@ -48,7 +48,7 @@ CPU only. No Vulkan. No sibling checkout.
 3. Paint faces (four-bin sections only).
 4. Pack `output/recipe/<name>/qga_pixel_field.bin` (`N×32` bytes) plus JSON manifest.
 5. Write `net.png`, `field_preview.png`, `morph.gif` (helicoid→catenoid, 8 frames).
-6. `python3 -m recipe film` — T=3 field strip MP4 from dumps + `rgb_preview`. Not `make scan`.
+6. `python3 -m recipe film` — T=3 field strip from dumps + `rgb_preview`. `--strip cylinder` is the isoline Hypothesis. Not `make scan`. Not a live inner_cone solve.
 
 Occupancy 256 is a faceplate number. Face count `10T+2` (Goldberg) is independent. Do not force `N == 256`. Do not bind the dump to `γ(s)`.
 
@@ -246,22 +246,47 @@ Pentagons remain the elliptic cells; hexagons are the remainder. The outline sti
 
 ## T=3 field strip
 
-One sidecar MP4. Not Animation A. Not a Blender mesh. Not occupancy on \(\gamma(s)\).
+One sidecar MP4. Not Animation A. Not a Blender mesh. Not occupancy on \(\gamma(s)\). Not a live inner_cone solve.
 
-`make film` reuses `capsid-t3` / `capsid-t3-ms2` / `capsid-t3-kite` / `capsid-t3-rhomb30` dumps, lerps only `rgb_preview` RGB between paints, shades with amplitude × persist, applies `--mask blank` / `nappe`, ffmpeg 24 fps ~60 s. Locked eye `elev=18, azim=35`. Cards are captions, not a HUD on the shell. Faceplate unused.
+`make film` reuses `capsid-t3` / `capsid-t3-ms2` / `capsid-t3-kite` / `capsid-t3-rhomb30` dumps, lerps only `rgb_preview` RGB between paints, shades with amplitude × persist, applies `--mask blank` / `nappe`, ffmpeg 24 fps ~60 s. Locked eye `elev=18, azim=35`. Cards are captions, not a HUD on the shell. Faceplate unused. inner_cone owns the observer in the freeze table; it is not a verb of this MP4.
+
+Beat 1 is a sidecar legend for the hues used in Beats 2–3: a schematic plane and four `rgb_preview()` bars.
+
+color is conic type · four-bin rgb_preview() · not a live inner_cone solve · not MathFlow · not a fifth hue
 
 | Beat | Length | What |
 |---|---|---|
-| 1 Pixel | 10 s | a plane tilts; four bins light in order; card: color is conic type |
-| 2 Catalog vs occupant | 33 s | GP(1,1) F=32 CK → MS2 → kite; `section_agree` 1.0, `kind_agree` \(12/32\) on a card; F=90 rhombille coda compare-refused |
+| 1 Pixel | 10 s | schematic plane + four bars in order; palette projection, not inner_cone running |
+| 2 Catalog vs occupant | 33 s | GP(1,1) F=32 CK → MS2 → kite; kite card waits until hexagons leave gold; `section_agree` 1.0, `kind_agree` \(12/32\); F=90 rhombille coda compare-refused |
 | 3 Engine ritual | 17 s | persist rise/decay, blanking, nappe omit elliptic; 32-byte pixel; RGB is a projection |
 
-Do not splice the cylinder atlas into this film. A later strip, if opened, is cylinder isolines (Hypothesis) or the T=7 occupancy pair — still not on \(\gamma(s)\).
+Do not splice occupancy-as-capsomer shading into this film. Do not mix the cylinder atlas here.
 
 ```
 make film
 PYTHONPATH=scripts python3 -m recipe film --preview
 ```
+
+## Cylinder isoline strip
+
+Second sidecar. Hypothesis. Open 13×36 cylinder, measured *D. plexippus*. No capsid paints. Not on \(\gamma(s)\). Not T=7.
+
+`make film-cylinder` paints the plexippus sites, blanks unpainted faces, isolates the five homology groups, holds L2 for the T1 one-bin walk, then twists the generators until embed D/SD collide (chart φ still ordered). Locked eye. Four-bin `rgb_preview()` only.
+
+| Beat | What |
+|---|---|
+| Five group bands | D < SD < L < SV < V; SV and V share flat-pockets |
+| T1 one-bin walk | L2 T1 vs abdomen isoline |
+| Twist | chart holds, embed shears; D/SD collide past π/4 (~0.94) |
+
+End card: Hypothesis (bounded). Not a theorem that larvae are this mesh. Faceplate unused.
+
+```
+make film-cylinder
+PYTHONPATH=scripts python3 -m recipe film --strip cylinder --preview
+```
+
+T=7 occupancy pair stays unfilmed. Not both.
 
 ## This pass (closed)
 
@@ -277,6 +302,8 @@ PYTHONPATH=scripts python3 -m recipe film --preview
 | T=7 P22 (1,2) vs (2,1) occupancy 12+60, kind \(68/72\) | frozen | Model + Software fact |
 | T=3 rhombille 30T F=90 χ=2 all-parabolic | frozen | Model + Software fact |
 | T=3 field strip (sidecar MP4, not Animation A) | shipped | Model + Software fact |
+| Cylinder isoline strip (plexippus; T1 walk; twist D/SD) | shipped | Hypothesis |
+| T=7 occupancy pair film | off | — |
 | Atlas / pierid / faceplate / \(\gamma(s)\) / snub mesh | off | — |
 
 ## Palette (do not invent a fifth)
@@ -285,7 +312,7 @@ Same four inner_cone hues as `docs/SPEC.md`: elliptic cyan, parabolic gold, hype
 
 ## Freeze
 
-Do not: grow a 33rd byte, fold this into `bin/shellscan.rs` or `pick`, instance geodesic orbs in `qga_gpu`, promote unfinished math into `flux_hopf_lib`, run automatic photograph segmentation, claim Goldberg polyhedra occur in lepidopteran development, re-prove clocks or nested shells as pictures, bind the field dump to `γ(s)`, splice the cylinder atlas into the T=3 field strip, put occupancy tables on the faceplate.
+Do not: grow a 33rd byte, fold this into `bin/shellscan.rs` or `pick`, instance geodesic orbs in `qga_gpu`, promote unfinished math into `flux_hopf_lib`, run automatic photograph segmentation, claim Goldberg polyhedra occur in lepidopteran development, re-prove clocks or nested shells as pictures, bind the field dump to `γ(s)`, splice the cylinder atlas into the T=3 field strip, put occupancy tables on the faceplate, credit inner_cone as a verb of `make film`, mix capsid paints into the cylinder strip.
 
 `qga_gpu` Class I stamp (`scene_core.rs`, default 2v → 80 faces) is a volume-bench object. This sidecar’s `(2,0)` geodesic matches those counts and then stops.
 

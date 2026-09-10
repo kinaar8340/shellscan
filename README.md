@@ -52,7 +52,7 @@ Tip of the sign-mask fact: `c5c5095`. Working rule: unfreeze is one labeled sent
 | Gun / `LF` | Off |
 | HITL / named panel | Not v1 |
 | Fig 6.1 four-preset clone | Paper in `qga_gpu`. Faceplate stays elliptic. [docs/ATLAS.md](docs/ATLAS.md) |
-| Recipe sidecar | Scored; T=3 field strip is sidecar MP4, not Animation A. Atlas stop. [docs/RECIPE.md](docs/RECIPE.md) |
+| Recipe sidecar | Scored; T=3 field strip and cylinder isoline are sidecar MP4s, not Animation A. inner_cone owns the observer, not the film. Atlas stop. [docs/RECIPE.md](docs/RECIPE.md) |
 
 Splat at \(4.2\), persist \(=1\): \(0.0315R\). Rails \(0.02R\) and \(\Delta R=0.08R\) both lost as pictures.
 
@@ -131,6 +131,7 @@ PYTHONPATH=scripts python3 -m recipe score setal-polyxenes-cylinder
 PYTHONPATH=scripts python3 -m recipe twist-scan setal-plexippus-cylinder --dense
 PYTHONPATH=scripts python3 -m recipe compare capsid-t7-p22 capsid-t7
 make film             # T=3 field strip MP4 (sidecar; not make scan)
+make film-cylinder    # isoline Hypothesis; no capsid; not γ(s)
 ```
 
 Recipe verbs: `--name`, `score`, `twist-scan`, `compare`. Carriers: Goldberg `(m,n)` or open 13×36 cylinder. Scores: [docs/recipe-scores/](docs/recipe-scores/). Bound and freeze: [docs/RECIPE.md](docs/RECIPE.md).

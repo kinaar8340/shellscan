@@ -1,7 +1,7 @@
-"""T=3 field strip. Sidecar PNG sequence + ffmpeg.
+"""Sidecar field strips. PNG sequence + ffmpeg.
 
-Not Animation A. Not make scan. Not γ(s). Not a Lambert mesh.
-Uses qga_pixel dumps, rgb_preview(), persist, --mask blank/nappe.
+T=3 occupant triangle (Model) and cylinder isoline (Hypothesis).
+Not Animation A. Not make scan. Not γ(s). Not a live inner_cone solve.
 """
 
 from __future__ import annotations
@@ -14,11 +14,14 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
+from copy import deepcopy
+
 from .compile import build_net, compile_named, load_recipe, output_dir, recipe_dir
 from .goldberg import face_centroid
+from .paint import paint_faces
 from .render import _fit_axes
 from .setal import compare_painted
-from .wrap import RGB, parse_field, rgb_preview
+from .wrap import parse_field, rgb_preview
 
 FPS = 24
 WIDTH = 1280
@@ -32,6 +35,20 @@ GENERATOR = 0.5**0.5
 APEX_EPS = 1e-4
 PARA_EPS = 0.02
 BIN_ORDER = ("elliptic", "parabolic", "hyperbolic", "flat-pockets")
+BEAT1_CARD = "color is conic type · four-bin rgb_preview()"
+BEAT1_SUB = "not a live inner_cone solve · not MathFlow · not a fifth hue"
+# ms2_kite is 8 s. Hold gold 1 s, then lerp. Kite card after hue has left gold.
+KITE_HOLD_FRAC = 1.0 / 8.0
+KITE_CARD_T = 0.6
+CYLINDER_RECIPE = "setal-plexippus-cylinder"
+TWIST_MAX = math.pi / 2.0
+GROUP_KEEP = {
+    "D": {"D", "XD"},
+    "SD": {"SD"},
+    "L": {"L"},
+    "SV": {"SV"},
+    "V": {"V"},
+}
 
 NAMES = {
     "ck": "capsid-t3",
@@ -57,6 +74,20 @@ SHOTS: tuple[dict[str, Any], ...] = (
     {"id": "end", "beat": 3, "seconds": 2.0},
 )
 
+CYL_SHOTS: tuple[dict[str, Any], ...] = (
+    {"id": "title", "seconds": 2.0},
+    {"id": "bands_all", "seconds": 6.0},
+    {"id": "bands_D", "seconds": 2.0},
+    {"id": "bands_SD", "seconds": 2.0},
+    {"id": "bands_L", "seconds": 2.0},
+    {"id": "bands_SV", "seconds": 2.0},
+    {"id": "bands_V", "seconds": 2.0},
+    {"id": "bands_hold", "seconds": 2.0},
+    {"id": "t1_walk", "seconds": 12.0},
+    {"id": "twist", "seconds": 24.0},
+    {"id": "end", "seconds": 4.0},
+)
+
 
 @dataclass
 class Bundle:
@@ -70,7 +101,7 @@ def classify_section(
     offset: float,
     axis: tuple[float, float, float] = (0.0, 0.0, 1.0),
 ) -> str:
-    """Same bins as src/section.rs. Software fact of the copy, not a fifth hue."""
+    """Four-bin palette copy for the Beat 1 legend. Not a live inner_cone solve."""
     if abs(offset) < APEX_EPS:
         return "flat-pockets"
 
@@ -166,6 +197,21 @@ def shot_u(k: int, n: int, *, at_end: bool = False) -> float:
     if n == 1:
         return 1.0 if at_end else 0.0
     return k / (n - 1)
+
+
+def morph_lerp_t(k: int, n: int, hold_frac: float = KITE_HOLD_FRAC) -> float:
+    """Hold t=0 for hold_frac of the shot, then lerp. Preview lands on 1."""
+    if n == 1:
+        return 1.0
+    u = k / (n - 1)
+    if u <= hold_frac:
+        return 0.0
+    return (u - hold_frac) / (1.0 - hold_frac)
+
+
+def kite_card_on(t_lerp: float, threshold: float = KITE_CARD_T) -> bool:
+    """Kite caption only after hexagons have left gold."""
+    return float(t_lerp) >= threshold
 
 
 def timeline(preview: bool = False) -> list[dict[str, Any]]:
@@ -289,8 +335,11 @@ def _set_card(card, sub, text: str, extra: str = "") -> None:
     sub.set_text(extra)
 
 
-def _edges_for(colors: list[tuple[float, float, float, float]]):
-    return [(1.0, 1.0, 1.0, 0.0 if c[3] <= 0.0 else 0.16) for c in colors]
+def _edges_for(
+    colors: list[tuple[float, float, float, float]], *, faint_empty: bool = False
+):
+    empty = 0.07 if faint_empty else 0.0
+    return [(1.0, 1.0, 1.0, empty if c[3] <= 0.0 else 0.16) for c in colors]
 
 
 class NetCanvas:
@@ -303,12 +352,15 @@ class NetCanvas:
         self.card = None
         self.sub = None
         self.n_faces = None
+        self.faint_empty = False
 
-    def bind(self, net: dict[str, Any]) -> None:
+    def bind(self, net: dict[str, Any], *, force: bool = False, faint_empty: bool = False) -> None:
         n = len(net["faces"])
-        if self.col is not None and self.n_faces == n:
+        if self.col is not None and self.n_faces == n and not force:
+            self.faint_empty = faint_empty
             return
         self.close()
+        self.faint_empty = faint_empty
         fig, ax, card, sub = _new_fig(self.plt)
         verts = net["verts"]
         polys = [[verts[i] for i in face] for face in net["faces"]]
@@ -337,7 +389,7 @@ class NetCanvas:
         extra: str = "",
     ) -> None:
         self.col.set_facecolor(colors)
-        self.col.set_edgecolor(_edges_for(colors))
+        self.col.set_edgecolor(_edges_for(colors, faint_empty=self.faint_empty))
         _set_card(self.card, self.sub, text, extra)
 
     def save(self, path: Path) -> None:
@@ -430,7 +482,7 @@ def _plane_fig(plt, Poly3DCollection, Line3DCollection, n, offset, section, seen
     _style_ax(ax)
     card.set_position((0.5, 0.125))
     sub.set_position((0.5, 0.09))
-    _set_card(card, sub, "color is conic type", "inner_cone · not MathFlow · not a fifth hue")
+    _set_card(card, sub, BEAT1_CARD, BEAT1_SUB)
     xs = [0.18, 0.36, 0.54, 0.72]
     for x, name in zip(xs, BIN_ORDER):
         lit = name in seen
@@ -578,11 +630,21 @@ def run_film(
         elif sid == "ms2_kite":
             canvas.bind(ck.net)
             for k in range(n):
-                u = shot_u(k, n, at_end=True)
+                t = morph_lerp_t(k, n)
+                if kite_card_on(t):
+                    title, extra = (
+                        "kite / trimer",
+                        "hexagons hyperbolic again · kind changed, section matches CK",
+                    )
+                else:
+                    title, extra = (
+                        "MS2 dimer",
+                        "12 pentamer + 20 dimer · same catalog",
+                    )
                 canvas.paint(
-                    face_colors(ms2.recs, other=kite.recs, t=u),
-                    "kite / trimer",
-                    "hexagons hyperbolic again · kind changed, section matches CK",
+                    face_colors(ms2.recs, other=kite.recs, t=t),
+                    title,
+                    extra,
                 )
                 seq.write_canvas(canvas)
         elif sid == "kite_card":
@@ -682,5 +744,184 @@ def run_film(
         "dumps": list(NAMES.values()),
     }
     (outdir / "manifest.json").write_text(json.dumps(meta, indent=2) + "\n")
+    print(json.dumps(meta, indent=2), flush=True)
+    return meta
+
+
+def cyl_duration_seconds(preview: bool = False) -> float:
+    if preview:
+        return len(CYL_SHOTS) / FPS
+    return sum(float(s["seconds"]) for s in CYL_SHOTS)
+
+
+def site_colors(
+    recs: list[dict[str, Any]],
+    *,
+    groups: set[str] | None = None,
+    seta: str | None = None,
+) -> list[tuple[float, float, float, float]]:
+    """Occupant sites only. Plains blanked — not a fifth hue, not capsid paint."""
+    out: list[tuple[float, float, float, float]] = []
+    for rec in recs:
+        kind = rec.get("kind") or "plain"
+        if kind == "plain":
+            out.append((0.0, 0.0, 0.0, 0.0))
+            continue
+        if groups is not None and rec.get("setal_group") not in groups:
+            out.append((0.0, 0.0, 0.0, 0.0))
+            continue
+        if seta is not None and rec.get("seta") != seta:
+            out.append((0.0, 0.0, 0.0, 0.0))
+            continue
+        r, g, b = rgb_preview(rec["section"], rec["amplitude"], rec["persist"] or 1.0)
+        out.append((r, g, b, 0.96))
+    return out
+
+
+def paint_cylinder(twist: float = 0.0) -> tuple[dict[str, Any], list[dict[str, Any]], dict[str, Any]]:
+    spec = load_recipe(recipe_dir() / f"{CYLINDER_RECIPE}.yaml")
+    spec = deepcopy(spec)
+    spec["_base"] = str(recipe_dir())
+    spec.setdefault("carrier", {})
+    spec["carrier"]["kind"] = "cylinder"
+    spec["carrier"]["twist"] = float(twist)
+    net = build_net(spec)
+    recs = paint_faces(net, spec)
+    return net, recs, spec.get("_homology") or {}
+
+
+def twist_values(n: int, preview: bool) -> list[float]:
+    if n <= 1:
+        return [0.94]
+    if preview:
+        return [0.0, math.pi / 4.0, 0.94, TWIST_MAX]
+    n_unique = max(2, n // 8)
+    return [TWIST_MAX * i / (n_unique - 1) for i in range(n_unique)]
+
+
+def _group_card(name: str) -> tuple[str, str]:
+    hue = {
+        "D": "elliptic",
+        "SD": "parabolic",
+        "L": "hyperbolic",
+        "SV": "flat-pockets",
+        "V": "flat-pockets",
+    }[name]
+    return (f"{name} · {hue}", "five groups · four bins · not a capsid")
+
+
+def run_cylinder_film(
+    *,
+    outdir: Path | None = None,
+    preview: bool = False,
+    encode: bool = True,
+) -> dict[str, Any]:
+    root = Path(__file__).resolve().parents[2]
+    outdir = outdir or (root / "output" / "recipe" / "film")
+    frames_dir = outdir / "cyl_frames"
+    if frames_dir.is_dir():
+        shutil.rmtree(frames_dir)
+    seq = Sequence(frames_dir)
+    plt, Poly3DCollection, _Line = _pyplot()
+    canvas = NetCanvas(plt, Poly3DCollection)
+    net0, recs0, h0 = paint_cylinder(0.0)
+    collide_twist = None
+    for shot in CYL_SHOTS:
+        n = shot_frame_count(shot["seconds"], preview)
+        sid = shot["id"]
+        print(f"cyl {sid} ×{n}", flush=True)
+        if sid == "title":
+            fig = _title_fig(
+                plt,
+                "cylinder isoline",
+                "Hypothesis · chart φ · five groups · not a capsid",
+            )
+            seq.write_fig(fig, plt, n)
+        elif sid in ("bands_all", "bands_hold"):
+            canvas.bind(net0, faint_empty=True)
+            canvas.paint(
+                site_colors(recs0),
+                "five group bands",
+                "D < SD < L < SV < V · four-bin rgb_preview()",
+            )
+            seq.write_canvas(canvas, n)
+        elif sid.startswith("bands_"):
+            g = sid.split("_", 1)[1]
+            canvas.bind(net0, faint_empty=True)
+            title, extra = _group_card(g)
+            canvas.paint(site_colors(recs0, groups=GROUP_KEEP[g]), title, extra)
+            seq.write_canvas(canvas, n)
+        elif sid == "t1_walk":
+            canvas.bind(net0, faint_empty=True)
+            canvas.paint(
+                site_colors(recs0, seta="L2"),
+                "T1 walks one 10° bin",
+                "L2 abdomen isoline · Hypothesis",
+            )
+            seq.write_canvas(canvas, n)
+        elif sid == "twist":
+            steps = twist_values(n, preview)
+            holds = [n // len(steps)] * len(steps)
+            for i in range(n - sum(holds)):
+                holds[i] += 1
+            for tw, hold in zip(steps, holds):
+                if hold <= 0:
+                    continue
+                net, recs, h = paint_cylinder(tw)
+                collided = not h.get("embed_phi_order_ok", True)
+                if collided and collide_twist is None:
+                    collide_twist = tw
+                if collided:
+                    title, extra = (
+                        "embed D/SD collide",
+                        "chart φ still ordered · shear is not a paint",
+                    )
+                else:
+                    title, extra = (
+                        "chart φ holds · embed shears",
+                        f"twist {tw:.2f} rad · bound π/4",
+                    )
+                canvas.bind(net, force=True, faint_empty=True)
+                canvas.paint(site_colors(recs), title, extra)
+                seq.write_canvas(canvas, hold)
+        elif sid == "end":
+            fig = _title_fig(
+                plt,
+                "Hypothesis (bounded)",
+                "not a theorem that larvae are this mesh · faceplate unused",
+            )
+            seq.write_fig(fig, plt, n)
+        else:
+            raise ValueError(sid)
+    canvas.close()
+    mp4 = outdir / (
+        "cylinder_isoline_preview.mp4" if preview else "cylinder_isoline.mp4"
+    )
+    if encode:
+        encode_mp4(frames_dir, mp4)
+        dest = root / "output" / "mp4" / mp4.name
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(mp4, dest)
+    means = h0.get("phi_means") or {}
+    meta = {
+        "title": "cylinder isoline",
+        "not": "Animation A",
+        "claim": "Hypothesis",
+        "carrier": CYLINDER_RECIPE,
+        "fps": FPS,
+        "n_frames": seq.i,
+        "n_shots": len(CYL_SHOTS),
+        "seconds": round(seq.i / FPS, 4),
+        "preview": preview,
+        "mp4": str(mp4) if encode else None,
+        "faceplate": "unused",
+        "gamma": False,
+        "capsid": False,
+        "phi_order_ok": h0.get("phi_order_ok"),
+        "phi_means": means,
+        "collide_twist": collide_twist,
+        "t1_walk": "L2 one 10° bin",
+    }
+    (outdir / "cylinder_manifest.json").write_text(json.dumps(meta, indent=2) + "\n")
     print(json.dumps(meta, indent=2), flush=True)
     return meta

@@ -75,7 +75,7 @@ Do not spend another commit proving the same collapse. The loom clip is the elli
 | `vision_tracker` | Calibration + well `step()` in the sidecar. Bench RMS is the solver, not a lens. Scan A does not consume `site`. See [VISION.md](VISION.md). |
 | Sign / antipode mask | Wired on SLM seed (`--mask`). Loopback unmasked. Faceplate does not draw it. See [SIGN.md](SIGN.md). |
 | Fig 6.1 four-preset clone | Paper in `qga_gpu`, not this crate. Faceplate stays elliptic. See [ATLAS.md](ATLAS.md). |
-| Recipe sidecar | Scored off \(\gamma(s)\). T=3 field strip is sidecar MP4, not Animation A. Atlas stop. Not a faceplate verb. See [RECIPE.md](RECIPE.md). |
+| Recipe sidecar | Scored off \(\gamma(s)\). T=3 field strip and cylinder isoline are sidecar MP4s, not Animation A. inner_cone owns the observer; it is not a verb of `make film`. Atlas stop. Not a faceplate verb. See [RECIPE.md](RECIPE.md). |
 
 `make scan` is the only unfrozen faceplate verb: one head on layer 0, other layers dark. `make recipe` / `make film` do not touch \(\gamma(s)\). Tracker writes `calib.json` / `gaze.json`; the faceplate does not read them. `--webcam` stays off. Do not fold `gaze.json` into `pick` or `demo`. N1 is a ledger, not a radial graphic. Do not raise \(\Delta R\). Do not shrink splat. Do not instance more shells. Do not grow a 33rd byte. `LF` still 0. Do not open `preview_montage.png`. Do not fold the phase stack into `pick` or `demo`. Do not treat `field=1` as a visible tick. Do not grow \(\varepsilon\) or turn the gun on. B (picker \(\psi\)) and C (two heads) are not this target. Fig 6.1 four-preset clone lives in `qga_gpu`, not here. Faceplate stays elliptic. Nothing else unfreezes.
 

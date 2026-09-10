@@ -102,7 +102,13 @@ def _twist_scan(argv: list[str]) -> int:
 def _film(argv: list[str]) -> int:
     p = argparse.ArgumentParser(
         prog="recipe film",
-        description="T=3 field strip. Sidecar PNG + ffmpeg. Not Animation A. Not γ(s).",
+        description="Sidecar field strip. Not Animation A. Not γ(s). Not a live inner_cone solve.",
+    )
+    p.add_argument(
+        "--strip",
+        choices=("t3", "cylinder"),
+        default="t3",
+        help="t3 occupant triangle (default) or cylinder isoline. Not both.",
     )
     p.add_argument(
         "--preview",
@@ -111,9 +117,12 @@ def _film(argv: list[str]) -> int:
     )
     p.add_argument("--no-encode", action="store_true", help="PNG sequence only")
     args = p.parse_args(argv)
-    from .film import run_film
+    from .film import run_cylinder_film, run_film
 
-    run_film(preview=args.preview, encode=not args.no_encode)
+    if args.strip == "cylinder":
+        run_cylinder_film(preview=args.preview, encode=not args.no_encode)
+    else:
+        run_film(preview=args.preview, encode=not args.no_encode)
     return 0
 
 

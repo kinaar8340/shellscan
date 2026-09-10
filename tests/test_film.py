@@ -12,14 +12,20 @@ sys.path.insert(0, str(ROOT / "scripts"))
 
 from recipe.compile import compile_recipe  # noqa: E402
 from recipe.film import (  # noqa: E402
+    BEAT1_CARD,
+    BEAT1_SUB,
     BIN_ORDER,
     FPS,
+    KITE_CARD_T,
+    KITE_HOLD_FRAC,
     NAMES,
     SHOTS,
     classify_section,
     duration_seconds,
     face_colors,
+    kite_card_on,
     lerp_preview,
+    morph_lerp_t,
     plane_state,
     run_film,
     shot_frame_count,
@@ -41,6 +47,26 @@ def test_duration_is_sixty_seconds():
     assert shot_u(0, 1, at_end=False) == 0.0
     assert shot_u(0, 10) == 0.0
     assert shot_u(9, 10) == 1.0
+    assert "rgb_preview" in BEAT1_CARD
+    assert "not a live inner_cone solve" in BEAT1_SUB
+    assert "not MathFlow" in BEAT1_SUB
+    assert BEAT1_SUB.startswith("not a live")
+
+
+def test_kite_card_waits_for_hue_flip():
+    n = 8 * FPS
+    assert morph_lerp_t(0, n) == 0.0
+    hold_k = int(KITE_HOLD_FRAC * (n - 1))
+    assert morph_lerp_t(hold_k, n) == pytest.approx(0.0)
+    assert morph_lerp_t(n - 1, n) == pytest.approx(1.0)
+    assert kite_card_on(0.0) is False
+    assert kite_card_on(KITE_CARD_T - 0.05) is False
+    assert kite_card_on(KITE_CARD_T) is True
+    assert kite_card_on(1.0) is True
+    # 27 s + 1 s gold hold + 0.6 of remaining 7 s ≈ 32.2 s
+    t_at_card = KITE_HOLD_FRAC + KITE_CARD_T * (1.0 - KITE_HOLD_FRAC)
+    assert t_at_card == pytest.approx(0.65)
+    assert 27.0 + t_at_card * 8.0 == pytest.approx(32.2)
 
 
 def test_classify_section_four_bins():

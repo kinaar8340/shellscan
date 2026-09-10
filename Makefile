@@ -1,4 +1,4 @@
-.PHONY: test spec check export-shell headless demo stills testimony tick scan nest-headless nest-stills pick slm-loopback slm-export slm-mask track-synth track-calibrate track-gaze recipe film
+.PHONY: test spec check export-shell headless demo stills testimony tick scan nest-headless nest-stills pick slm-loopback slm-export slm-mask track-synth track-calibrate track-gaze recipe film film-cylinder
 
 TRACK_PY := $(shell test -x .venv/bin/python && echo .venv/bin/python || echo python3)
 EYE ?= 640,360
@@ -67,6 +67,11 @@ recipe:
 film:
 	mkdir -p output/recipe/film output/mp4
 	PYTHONPATH=scripts python3 -m recipe film
+
+# Cylinder isoline. Hypothesis. Not a capsid. Not on γ(s).
+film-cylinder:
+	mkdir -p output/recipe/film output/mp4
+	PYTHONPATH=scripts python3 -m recipe film --strip cylinder
 
 stills:
 	mkdir -p output/png
