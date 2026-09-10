@@ -8,6 +8,7 @@ and hexamer sites of the same protein (Model).
 from __future__ import annotations
 
 import math
+from pathlib import Path
 from typing import Any
 
 from .goldberg import face_centroid
@@ -71,11 +72,16 @@ def paint_faces(net: dict[str, Any], spec: dict[str, Any]) -> list[dict[str, Any
     """One record per face. kind ∈ {band, tentacle, pentamer, hexamer, plain}."""
     wrap = spec.get("wrap") or {}
     paint = spec.get("paint") or {}
-    mode = str(paint.get("mode") or ("caspar-klug" if net.get("kind") == "goldberg" and "bands" not in paint else "bands"))
-    if paint.get("bands"):
-        mode = "bands"
     if paint.get("mode"):
         mode = str(paint["mode"])
+    elif paint.get("table"):
+        mode = "setal-table"
+    elif paint.get("bands"):
+        mode = "bands"
+    elif net.get("kind") == "goldberg":
+        mode = "caspar-klug"
+    else:
+        mode = "bands"
     lock = _section(wrap.get("section_lock", "elliptic"))
     persist = float(wrap.get("persist", 1.0))
     field = int(wrap.get("field", 0)) & 1
@@ -89,19 +95,38 @@ def paint_faces(net: dict[str, Any], spec: dict[str, Any]) -> list[dict[str, Any
     n = len(faces)
     kinds = ["plain"] * n
     tent = []
+    tent_set: set[int] = set()
+    setal_assigned: dict[int, dict[str, Any]] = {}
+    setal_log: list[dict[str, Any]] = []
     if mode == "bands":
         tent = _tentacle_indices(net, spec)
         tent_set = set(tent)
-    else:
-        tent_set = set()
+    elif mode in ("setal-table", "sites"):
+        from .setal import assign_setal, load_setal_table, sites_from_spec
+
+        if mode == "sites":
+            rows = sites_from_spec(spec)
+        else:
+            rel = paint.get("table")
+            if not rel:
+                raise ValueError("setal-table needs paint.table")
+            base = Path(spec.get("_base") or ".")
+            rows = load_setal_table(base / rel)
+        setal_assigned, setal_log = assign_setal(net, rows)
 
     from .dynamics import intensity_at, psi_at
 
     out: list[dict[str, Any]] = []
+    chart = net.get("face_chart")
     for i, face in enumerate(faces):
-        c = face_centroid(net, face)
+        if net.get("kind") == "cylinder":
+            from .cylinder import face_centroid_euclid
+
+            c = face_centroid_euclid(net, face)
+        else:
+            c = face_centroid(net, face)
         theta, phi = _cart_to_sph(c)
-        s = _shell_s(c)
+        s = float(chart[i][0]) if chart else _shell_s(c)
         kind = "plain"
         section = lock
         amp = intensity_at(s, spec)
@@ -138,27 +163,51 @@ def paint_faces(net: dict[str, Any], spec: dict[str, Any]) -> list[dict[str, Any
             kind = "plain"
             section = lock
             amp = 1.0
+        elif mode in ("setal-table", "sites"):
+            hit = setal_assigned.get(i)
+            if hit:
+                kind = hit["kind"]
+                section = hit["section"]
+                amp = hit["amplitude"]
+                psi = hit["psi"]
+            else:
+                kind = "plain"
+                section = lock
+                if paint.get("bands"):
+                    kind = "band"
+                    section = _band_section(s, spec)
         else:
             raise ValueError(f"unknown paint mode {mode!r}")
 
-        out.append(
-            {
-                "i": i,
-                "kind": kind,
-                "section": section,
-                "theta": theta,
-                "phi": phi,
-                "psi": psi,
-                "offset": offset,
-                "amplitude": amp,
-                "shell_s": s,
-                "persist": persist,
-                "field": field,
-                "layer": 0,
-                "degree": len(face),
-                "centroid": c,
-            }
-        )
+        rec = {
+            "i": i,
+            "kind": kind,
+            "section": section,
+            "theta": theta,
+            "phi": phi,
+            "psi": psi,
+            "offset": offset,
+            "amplitude": amp,
+            "shell_s": s,
+            "persist": persist,
+            "field": field,
+            "layer": 0,
+            "degree": len(face),
+            "centroid": c,
+        }
+        if mode in ("setal-table", "sites") and i in setal_assigned:
+            rec["setal_id"] = setal_assigned[i]["id"]
+            rec["snap_deg"] = setal_assigned[i]["snap_deg"]
+            rec["setal_group"] = setal_assigned[i].get("group")
+            rec["seta"] = setal_assigned[i].get("seta")
+            rec["segment"] = setal_assigned[i].get("segment")
+        out.append(rec)
+    if mode in ("setal-table", "sites"):
+        from .setal import homology_score, setal_stats
+
+        spec["_setal_stats"] = setal_stats(setal_log, setal_assigned)
+        spec["_setal_log"] = setal_log
+        spec["_homology"] = homology_score(net, out, setal_log)
     return out
 
 

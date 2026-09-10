@@ -1,0 +1,261 @@
+{
+  "claim": "Hypothesis",
+  "cluster_pure": true,
+  "axial_hue_pure": true,
+  "phi_order_ok": true,
+  "embed_phi_order_ok": true,
+  "phi_means": {
+    "D": 22.857142857142858,
+    "SD": 38.333333333333336,
+    "L": 102.6470588235294,
+    "SV": 151.0,
+    "V": 175.0
+  },
+  "embed_phi_means": {
+    "D": 22.857142857142858,
+    "SD": 38.333333333333336,
+    "L": 102.6470588235294,
+    "SV": 151.0,
+    "V": 175.0
+  },
+  "groups": {
+    "D": {
+      "n": 12,
+      "sections": [
+        "elliptic"
+      ],
+      "pure": true
+    },
+    "L": {
+      "n": 17,
+      "sections": [
+        "hyperbolic"
+      ],
+      "pure": true
+    },
+    "SD": {
+      "n": 12,
+      "sections": [
+        "parabolic"
+      ],
+      "pure": true
+    },
+    "SV": {
+      "n": 15,
+      "sections": [
+        "flat-pockets"
+      ],
+      "pure": true
+    },
+    "V": {
+      "n": 6,
+      "sections": [
+        "flat-pockets"
+      ],
+      "pure": true
+    },
+    "XD": {
+      "n": 2,
+      "sections": [
+        "elliptic"
+      ],
+      "pure": true
+    },
+    "spiracle": {
+      "n": 4,
+      "sections": [
+        "parabolic"
+      ],
+      "pure": true
+    }
+  },
+  "homologs": {
+    "D1": {
+      "n": 6,
+      "section_pure": true,
+      "sections": [
+        "elliptic"
+      ],
+      "std_phi_deg": 0.0,
+      "std_phi_embed": 0.0,
+      "std_shell_s": 0.25162195744301735,
+      "shell_s_range": 0.6153846153846154,
+      "mean_phi_abs": 15.0,
+      "mean_phi_embed": 14.999999999999998
+    },
+    "D2": {
+      "n": 6,
+      "section_pure": true,
+      "sections": [
+        "elliptic"
+      ],
+      "std_phi_deg": 4.0824829046386295,
+      "std_phi_embed": 4.082482904638631,
+      "std_shell_s": 0.25162195744301735,
+      "shell_s_range": 0.6153846153846154,
+      "mean_phi_abs": 33.333333333333336,
+      "mean_phi_embed": 33.333333333333336
+    },
+    "L1": {
+      "n": 6,
+      "section_pure": true,
+      "sections": [
+        "hyperbolic"
+      ],
+      "std_phi_deg": 5.163977794943222,
+      "std_phi_embed": 5.163977794943222,
+      "std_shell_s": 0.25162195744301735,
+      "shell_s_range": 0.6153846153846154,
+      "mean_phi_abs": 91.66666666666667,
+      "mean_phi_embed": 91.66666666666667
+    },
+    "L2": {
+      "n": 6,
+      "section_pure": true,
+      "sections": [
+        "hyperbolic"
+      ],
+      "std_phi_deg": 4.08248290463863,
+      "std_phi_embed": 4.08248290463863,
+      "std_shell_s": 0.25162195744301735,
+      "shell_s_range": 0.6153846153846154,
+      "mean_phi_abs": 103.33333333333333,
+      "mean_phi_embed": 103.33333333333333
+    },
+    "L3": {
+      "n": 5,
+      "section_pure": true,
+      "sections": [
+        "hyperbolic"
+      ],
+      "std_phi_deg": 0.0,
+      "std_phi_embed": 0.0,
+      "std_shell_s": 0.20783470901701995,
+      "shell_s_range": 0.5384615384615384,
+      "mean_phi_abs": 115.0,
+      "mean_phi_embed": 115.0
+    },
+    "SD1": {
+      "n": 6,
+      "section_pure": true,
+      "sections": [
+        "parabolic"
+      ],
+      "std_phi_deg": 4.0824829046386295,
+      "std_phi_embed": 4.0824829046386295,
+      "std_shell_s": 0.25162195744301735,
+      "shell_s_range": 0.6153846153846154,
+      "mean_phi_abs": 53.333333333333336,
+      "mean_phi_embed": 53.333333333333336
+    },
+    "SD2": {
+      "n": 2,
+      "section_pure": true,
+      "sections": [
+        "parabolic"
+      ],
+      "std_phi_deg": 7.0710678118654755,
+      "std_phi_embed": 7.071067811865465,
+      "std_shell_s": 0.05439282932204212,
+      "shell_s_range": 0.07692307692307693,
+      "mean_phi_abs": 60.0,
+      "mean_phi_embed": 59.99999999999999
+    },
+    "SV1": {
+      "n": 6,
+      "section_pure": true,
+      "sections": [
+        "flat-pockets"
+      ],
+      "std_phi_deg": 5.163977794943222,
+      "std_phi_embed": 5.163977794943222,
+      "std_shell_s": 0.25162195744301735,
+      "shell_s_range": 0.6153846153846154,
+      "mean_phi_abs": 138.33333333333334,
+      "mean_phi_embed": 138.33333333333334
+    },
+    "SV2": {
+      "n": 5,
+      "section_pure": true,
+      "sections": [
+        "flat-pockets"
+      ],
+      "std_phi_deg": 0.0,
+      "std_phi_embed": 0.0,
+      "std_shell_s": 0.23957556157534518,
+      "shell_s_range": 0.6153846153846154,
+      "mean_phi_abs": 155.0,
+      "mean_phi_embed": 155.0
+    },
+    "SV3": {
+      "n": 4,
+      "section_pure": true,
+      "sections": [
+        "flat-pockets"
+      ],
+      "std_phi_deg": 0.0,
+      "std_phi_embed": 0.0,
+      "std_shell_s": 0.09930726528736966,
+      "shell_s_range": 0.23076923076923078,
+      "mean_phi_abs": 165.0,
+      "mean_phi_embed": 165.0
+    },
+    "V1": {
+      "n": 6,
+      "section_pure": true,
+      "sections": [
+        "flat-pockets"
+      ],
+      "std_phi_deg": 0.0,
+      "std_phi_embed": 0.0,
+      "std_shell_s": 0.25162195744301735,
+      "shell_s_range": 0.6153846153846154,
+      "mean_phi_abs": 175.0,
+      "mean_phi_embed": 175.0
+    },
+    "spiracle1": {
+      "n": 4,
+      "section_pure": true,
+      "sections": [
+        "parabolic"
+      ],
+      "std_phi_deg": 0.0,
+      "std_phi_embed": 0.0,
+      "std_shell_s": 0.09930726528736966,
+      "shell_s_range": 0.23076923076923078,
+      "mean_phi_abs": 85.0,
+      "mean_phi_embed": 85.0
+    },
+    "tentacle1": {
+      "n": 2,
+      "section_pure": true,
+      "sections": [
+        "parabolic"
+      ],
+      "std_phi_deg": 0.0,
+      "std_phi_embed": 0.0,
+      "std_shell_s": 0.48953546389837904,
+      "shell_s_range": 0.6923076923076923,
+      "mean_phi_abs": 5.0,
+      "mean_phi_embed": 4.999999999999999
+    },
+    "tentacle2": {
+      "n": 2,
+      "section_pure": true,
+      "sections": [
+        "parabolic"
+      ],
+      "std_phi_deg": 0.0,
+      "std_phi_embed": 0.0,
+      "std_shell_s": 0.48953546389837904,
+      "shell_s_range": 0.6923076923076923,
+      "mean_phi_abs": 5.0,
+      "mean_phi_embed": 5.000000000000001
+    }
+  },
+  "n_sites": 68,
+  "max_snap_deg": 7.0,
+  "mean_snap_deg": 2.9558823529411766,
+  "twist": 0.0,
+  "snap": "segment-ring, nearest unused azimuth"
+}

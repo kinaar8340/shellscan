@@ -1,0 +1,21 @@
+name: setal-danaus-gilippus
+claim: Hypothesis
+source: "Scott 2020 Papilio N.S. 32 Fig. 35: D. gilippus L1 has fleshy subdorsal tubercles on T2, A2, and A8 (plexippus: T2 and A8 only). Primary φ is the Hinton table, not a digitization of Kitching 1984 figures."
+dynamics:
+  windings: 0
+  intensity: site
+  orientation: circumferential
+  morph_t: 0.0
+carrier:
+  kind: cylinder
+  n_phi: 36
+  twist: 0.0
+wrap:
+  field: 0
+  section_lock: elliptic
+  persist: 1.0
+paint:
+  mode: sites
+  inherit: setal-hinton-cylinder
+  singularities:
+    - {kind: tentacle, segment: A2, phi: 0, count: 2, amplitude: 0.8, hue: parabolic}

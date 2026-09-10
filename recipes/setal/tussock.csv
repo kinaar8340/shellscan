@@ -1,0 +1,8 @@
+id,kind,segment,chart,s,phi_deg,amplitude,section,width,psi
+# Digitized tussock-like tuft map (four anterior brushes + rear horn).
+# Hypothesis. Empty phi unused; each tuft is a point site.
+tuft-0,tuft,T1,dorsal,0.10,0,1.0,parabolic,,
+tuft-90,tuft,T1,dorsal,0.10,90,1.0,parabolic,,
+tuft-180,tuft,T1,dorsal,0.10,180,1.0,parabolic,,
+tuft-270,tuft,T1,dorsal,0.10,270,1.0,parabolic,,
+horn,tentacle,A8,dorsal,0.92,0,1.0,hyperbolic,,

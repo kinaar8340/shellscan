@@ -1,0 +1,96 @@
+name: setal-hinton
+claim: Hypothesis
+source: "Hinton 1946 / Stehr 1987 primary chaetotaxy; T1, T2, A3 left side; A3 repeated A4-A6"
+dynamics:
+  windings: 0
+  intensity: site
+  orientation: circumferential
+  morph_t: 0.0
+carrier:
+  kind: icosahedral
+  m: 3
+  n: 0
+  dual: goldberg
+wrap:
+  field: 0
+  section_lock: elliptic
+  persist: 1.0
+paint:
+  mode: sites
+  unroll: cylinder
+  default_hue: elliptic
+  groups:
+    XD: elliptic
+    D: elliptic
+    SD: parabolic
+    L: hyperbolic
+    SV: flat
+    V: flat
+  singularities:
+    - {kind: tentacle, segment: T2, phi: 0, count: 2, amplitude: 1.0, hue: parabolic}
+    - {kind: tentacle, segment: A8, phi: 0, count: 2, amplitude: 0.7, hue: parabolic}
+    - {kind: spiracle, segment: A3, phi: 80, count: 1, amplitude: 0.3, hue: gold}
+    - {kind: spiracle, segment: A4, phi: 80, count: 1, amplitude: 0.3, hue: gold}
+    - {kind: spiracle, segment: A5, phi: 80, count: 1, amplitude: 0.3, hue: gold}
+    - {kind: spiracle, segment: A6, phi: 80, count: 1, amplitude: 0.3, hue: gold}
+  sites:
+    - {segment: T1, seta: XD1, phi: 8, amp: 0.8, group: XD}
+    - {segment: T1, seta: XD2, phi: 22, amp: 0.8, group: XD}
+    - {segment: T1, seta: D1, phi: 12, amp: 0.7, group: D}
+    - {segment: T1, seta: D2, phi: 28, amp: 1.0, group: D}
+    - {segment: T1, seta: SD1, phi: 48, amp: 1.0, group: SD}
+    - {segment: T1, seta: SD2, phi: 58, amp: 0.4, group: SD}
+    - {segment: T1, seta: L1, phi: 88, amp: 1.0, group: L}
+    - {segment: T1, seta: L2, phi: 100, amp: 0.6, group: L}
+    - {segment: T1, seta: SV1, phi: 140, amp: 0.8, group: SV}
+    - {segment: T1, seta: SV2, phi: 155, amp: 0.5, group: SV}
+    - {segment: T1, seta: V1, phi: 178, amp: 0.4, group: V}
+    - {segment: T2, seta: D1, phi: 10, amp: 0.7, group: D}
+    - {segment: T2, seta: D2, phi: 28, amp: 1.0, group: D}
+    - {segment: T2, seta: SD1, phi: 50, amp: 1.0, group: SD}
+    - {segment: T2, seta: SD2, phi: 62, amp: 0.3, group: SD}
+    - {segment: T2, seta: L1, phi: 85, amp: 1.0, group: L}
+    - {segment: T2, seta: L2, phi: 98, amp: 0.6, group: L}
+    - {segment: T2, seta: L3, phi: 110, amp: 0.5, group: L}
+    - {segment: T2, seta: SV1, phi: 145, amp: 0.7, group: SV}
+    - {segment: T2, seta: V1, phi: 178, amp: 0.4, group: V}
+    - {segment: A3, seta: D1, phi: 12, amp: 0.6, group: D}
+    - {segment: A3, seta: D2, phi: 32, amp: 1.0, group: D}
+    - {segment: A3, seta: SD1, phi: 55, amp: 1.0, group: SD}
+    - {segment: A3, seta: L1, phi: 92, amp: 1.0, group: L}
+    - {segment: A3, seta: L2, phi: 105, amp: 0.6, group: L}
+    - {segment: A3, seta: L3, phi: 118, amp: 0.5, group: L}
+    - {segment: A3, seta: SV1, phi: 138, amp: 0.7, group: SV}
+    - {segment: A3, seta: SV2, phi: 150, amp: 0.5, group: SV}
+    - {segment: A3, seta: SV3, phi: 162, amp: 0.4, group: SV}
+    - {segment: A3, seta: V1, phi: 178, amp: 0.4, group: V}
+    - {segment: A4, seta: D1, phi: 12, amp: 0.6, group: D}
+    - {segment: A4, seta: D2, phi: 32, amp: 1.0, group: D}
+    - {segment: A4, seta: SD1, phi: 55, amp: 1.0, group: SD}
+    - {segment: A4, seta: L1, phi: 92, amp: 1.0, group: L}
+    - {segment: A4, seta: L2, phi: 105, amp: 0.6, group: L}
+    - {segment: A4, seta: L3, phi: 118, amp: 0.5, group: L}
+    - {segment: A4, seta: SV1, phi: 138, amp: 0.7, group: SV}
+    - {segment: A4, seta: SV2, phi: 150, amp: 0.5, group: SV}
+    - {segment: A4, seta: SV3, phi: 162, amp: 0.4, group: SV}
+    - {segment: A4, seta: V1, phi: 178, amp: 0.4, group: V}
+    - {segment: A5, seta: D1, phi: 12, amp: 0.6, group: D}
+    - {segment: A5, seta: D2, phi: 32, amp: 1.0, group: D}
+    - {segment: A5, seta: SD1, phi: 55, amp: 1.0, group: SD}
+    - {segment: A5, seta: L1, phi: 92, amp: 1.0, group: L}
+    - {segment: A5, seta: L2, phi: 105, amp: 0.6, group: L}
+    - {segment: A5, seta: L3, phi: 118, amp: 0.5, group: L}
+    - {segment: A5, seta: SV1, phi: 138, amp: 0.7, group: SV}
+    - {segment: A5, seta: SV2, phi: 150, amp: 0.5, group: SV}
+    - {segment: A5, seta: SV3, phi: 162, amp: 0.4, group: SV}
+    - {segment: A5, seta: V1, phi: 178, amp: 0.4, group: V}
+    - {segment: A6, seta: D1, phi: 12, amp: 0.6, group: D}
+    - {segment: A6, seta: D2, phi: 32, amp: 1.0, group: D}
+    - {segment: A6, seta: SD1, phi: 55, amp: 1.0, group: SD}
+    - {segment: A6, seta: L1, phi: 92, amp: 1.0, group: L}
+    - {segment: A6, seta: L2, phi: 105, amp: 0.6, group: L}
+    - {segment: A6, seta: L3, phi: 118, amp: 0.5, group: L}
+    - {segment: A6, seta: SV1, phi: 138, amp: 0.7, group: SV}
+    - {segment: A6, seta: SV2, phi: 150, amp: 0.5, group: SV}
+    - {segment: A6, seta: SV3, phi: 162, amp: 0.4, group: SV}
+    - {segment: A6, seta: V1, phi: 178, amp: 0.4, group: V}

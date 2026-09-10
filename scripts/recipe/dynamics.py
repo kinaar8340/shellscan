@@ -30,6 +30,8 @@ def intensity_at(s: float, spec: dict[str, Any]) -> float:
             return float(kind[-1])
         t = x - i
         return float(kind[i]) * (1.0 - t) + float(kind[i + 1]) * t
+    if str(kind) == "site":
+        return 0.25
     w = max(1, windings(spec))
     # raised cosine so bands read as intensity, not a fifth hue
     return 0.35 + 0.65 * 0.5 * (1.0 + math.cos(2.0 * math.pi * w * s))

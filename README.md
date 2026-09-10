@@ -125,6 +125,9 @@ make track-synth      # bench points.json (not a live still)
 make track-calibrate  # solvePnP → calib.json
 make track-gaze       # EYE=u,v → gaze.json (not consumed)
 make recipe           # sidecar: recipes/*.yaml → output/recipe/ (not γ)
+make recipe RECIPE=setal-hinton
+# PYTHONPATH=scripts python3 -m recipe score setal-hinton
+# PYTHONPATH=scripts python3 -m recipe compare monarch-setal banded-larva
 ```
 
 Sidecar (once, not in the frame loop):

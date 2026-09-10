@@ -54,9 +54,13 @@ track-gaze:
 	$(TRACK_PY) scripts/vision_tracker.py gaze --eye-px $(EYE)
 
 # Recipe sidecar. Not a faceplate verb. Does not write output/pick/.
-# Compile only — pytest is optional (CI / `python3 -m pytest tests/test_recipe.py`).
+# RECIPE=setal-hinton compiles one; default is --all.
 recipe:
-	PYTHONPATH=scripts $(TRACK_PY) -m recipe --all
+	@if [ -n "$(RECIPE)" ]; then \
+		PYTHONPATH=scripts $(TRACK_PY) -m recipe --name $(RECIPE); \
+	else \
+		PYTHONPATH=scripts $(TRACK_PY) -m recipe --all; \
+	fi
 
 stills:
 	mkdir -p output/png

@@ -94,6 +94,9 @@ def manifest(
         "tentacle_indices": tent,
         "morph_t": (spec.get("dynamics") or {}).get("morph_t", 0.0),
         "subunits_60T": 60 * int(net.get("T") or 0),
+        "setal": spec.get("_setal_stats"),
+        "table": (spec.get("paint") or {}).get("table"),
+        "homology": spec.get("_homology"),
     }
 
 

@@ -1,0 +1,18 @@
+name: setal-hinton-helicoid
+claim: Hypothesis
+source: "Same Hinton 68 sites; helicoid generators (twist=π). Chart snap unchanged."
+dynamics:
+  windings: 0
+  intensity: site
+  orientation: circumferential
+  morph_t: 0.0
+carrier:
+  kind: helicoid
+  n_phi: 36
+wrap:
+  field: 0
+  section_lock: elliptic
+  persist: 1.0
+paint:
+  mode: sites
+  inherit: setal-hinton-cylinder

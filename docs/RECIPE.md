@@ -15,6 +15,7 @@ A recipe is a generative schedule. It is **not** a theorem that organisms are de
 | Hopf `S³→S²` and the 32-byte `QgaPixel` layout. | **Theorem** (Hopf) + **Software fact** (layout) |
 | This crate compiles a recipe into a painted net and an `N×32` field dump. | **Model** + **Software fact** (counts, round-trip) |
 | Larval setal maps / chrysalis hang / adult wing mosaics are low-frequency instances of the same schedule. | **Hypothesis** — visual rhyme, not a developmental proof |
+| A digitized setal-position table (CSV) snapped to nearest Goldberg faces yields a `qga_pixel` field that can be compared, facewise, to a generative recipe on the same net. | **Hypothesis** (biology) + **Software fact** (snap + compare) |
 | Two-clock interlacing on the faceplate will read the painted field as a living form. | **Out of scope.** Falsified at sculpture distance. Do not re-test on `γ(s)`. |
 
 If a sentence cannot wear one of those tags, it does not belong here.
@@ -57,6 +58,82 @@ Occupancy 256 is a faceplate number. Face count `10T+2` (Goldberg) is independen
 | `capsid-t3.yaml` | (1,1) Class II | 3 | Caspar–Klug | 12 pentamers, 20 hexamers, 180 subunits |
 | `capsid-t7.yaml` | (2,1) Class III | 7 | Caspar–Klug | 12 pentamers, 60 hexamers, 420 subunits |
 | `capsid-t7-polyoma.yaml` | (2,1) Class III | 7 | all-pentamer | 72 pentamers painted, 360 subunits |
+| `monarch-setal.yaml` | (3,0) Class I | 9 | setal table `setal/monarch.csv` | 4 tentacles from table; rings as bands |
+| `tussock-setal.yaml` | (3,0) Class I | 9 | setal table `setal/tussock.csv` | 4 tufts + 1 rear horn |
+| `setal-hinton.yaml` | (3,0) Class I | 9 | Hinton/Stehr named sites | 68 sites; SV/V collapse (`phi_order_ok` false) |
+| `setal-hinton-cylinder.yaml` | open cylinder | — | same sites, segment-indexed `u` | 13×36 quads; `phi_order_ok` true |
+
+## Setal table (paint input)
+
+A photograph is **digitized by hand** into CSV. Automatic vision is a different claim. Do not vendor JPEGs.
+
+Chart: `s=0` anterior (`+z`), `s=1` posterior (`−z`); `phi_deg` around the body. Empty `phi_deg` on a `band` row paints a ring of faces whose `shell_s` is within `width`. Point sites (`seta`, `tuft`, `tentacle`, `spine`) snap to the nearest face centroid. Collisions: higher amplitude wins; logged in `setal_log.json`.
+
+```
+id,kind,segment,chart,s,phi_deg,amplitude,section,width,psi
+ant-L,tentacle,T2,dorsal,0.04,25,1.0,parabolic,,
+b0,band,T1,circumferential,0.10,,0.70,elliptic,0.08,
+```
+
+`kind` ∈ {seta, tuft, tentacle, band, spine}. `section` is one of the four inner_cone hues.
+
+```
+PYTHONPATH=scripts python3 -m recipe --name monarch-setal
+PYTHONPATH=scripts python3 -m recipe compare monarch-setal banded-larva
+```
+
+Compare requires the same `(m,n)` / `T` / face count. It reports `section_agree` and `kind_agree` plus the two kind histograms. Self-compare is 1.0 (Software fact). Table vs `banded-larva` is a Hypothesis test: same 4 tentacles on the same net, not proof that Monarchs use a T=9 Goldberg.
+
+Output extras: `painted.json`, `setal_log.json` (row → face, `snap_deg`).
+
+## Hinton sites (cylinder unroll)
+
+Primary chaetotaxy is a homology language on a cylinder (Hinton 1946 / Stehr 1987), not a Caspar–Klug capsid. `paint.mode: sites` still wraps onto the existing T=9 Goldberg so the wrap can be scored.
+
+- Axial chart: segment order T1…A10 → `s`. Azimuth: `phi` from the middorsal line (left-side map).
+- Groups lock the four-bin palette: XD/D elliptic, SD parabolic, L hyperbolic, SV/V flat-pockets. `gold` → parabolic. No fifth hue.
+- `make recipe RECIPE=setal-hinton` then `python3 -m recipe score setal-hinton`.
+
+Score (Hypothesis, except where tagged):
+
+| Check | Meaning |
+|---|---|
+| `cluster_pure` | each homology group occupies one section — **Software fact** of the paint rule |
+| `axial_hue_pure` | T1 vs A3 homologs (D1, SD1, L1, …) keep that section |
+| `shell_s_range` on D1 | homologs differ in the axial coordinate |
+| `phi_order_ok` | mean face-φ of D < SD < L < SV < V after wrap. **If this is false, T=9 scrambled the cylinder** — next carrier is an open helicoid/cylinder, not a fifth hue and not a silent T bump on the faceplate |
+
+A9–A10 and species maps (Kitching *Danaus gilippus*, measured *D. plexippus* pinacula) reuse the same `sites:` list. Do not vendor photographs.
+
+## Open cylinder chart
+
+T=9 Goldberg closed the sphere and mixed SV with V. The next carrier is an **open cylinder** (`carrier.kind: cylinder`): 13 segment rings × `n_phi` azimuthal quads, no pentagons, no polar identification. `u` is the segment index. `twist` rotates the generators (helicoid); `twist: 0` is a circular cylinder.
+
+Snap stays on the ring: exact segment, nearest unused φ bin. Homologs of D1 differ in `shell_s` (= `u`), not in φ. This is not a higher T on the faceplate and not a fifth hue.
+
+```
+make recipe RECIPE=setal-hinton-cylinder
+PYTHONPATH=scripts python3 -m recipe score setal-hinton-cylinder
+PYTHONPATH=scripts python3 -m recipe twist-scan setal-hinton-cylinder
+make recipe RECIPE=setal-danaus-gilippus
+```
+
+Scored dumps: [docs/recipe-scores/](recipe-scores/). Faceplate stays frozen.
+
+```
+Hypothesis (bounded). Homologous primary setae on the open 13×36
+cylinder are isolines of chart φ and vary only in u.
+  Invariant under twist: D1_std_phi_chart = 0, phi_order_ok = true
+    at twist ∈ {0, π/4, π/2, π}. Snap = exact ring, nearest unused azimuth.
+  Embedding is the associate-family shear (software fact):
+      σ_φ,embed = |twist| · σ_u · 180/π
+    D1 σ_u = 0.2516 reproduces 0° / 11.32° / 22.65° / 45.29°.
+    embed_phi_order_ok holds at π/4 and fails at π/2.
+  Stable under species delta: Hinton 68-site table → D. gilippus
+    70-site table (A2 tubercle pair). phi_order_ok and D1 σ_φ = 0 survive.
+Not claimed: larvae are this mesh; Kitching 1984 digitized; field on γ(s).
+What would change the claim: a primary table with measured φ.
+```
 
 `(2,1)` and `(1,2)` are enantiomorphs. The T=7 file does not swap them.
 
@@ -66,7 +143,7 @@ Same four inner_cone hues as `docs/SPEC.md`: elliptic cyan, parabolic gold, hype
 
 ## Freeze
 
-Do not: grow a 33rd byte, fold this into `bin/shellscan.rs` or `pick`, instance geodesic orbs in `qga_gpu`, promote unfinished math into `flux_hopf_lib`, ingest photographs, claim Goldberg polyhedra occur in lepidopteran development, re-prove clocks or nested shells as pictures.
+Do not: grow a 33rd byte, fold this into `bin/shellscan.rs` or `pick`, instance geodesic orbs in `qga_gpu`, promote unfinished math into `flux_hopf_lib`, run automatic photograph segmentation, claim Goldberg polyhedra occur in lepidopteran development, re-prove clocks or nested shells as pictures, bind the field dump to `γ(s)`.
 
 `qga_gpu` Class I stamp (`scene_core.rs`, default 2v → 80 faces) is a volume-bench object. This sidecar’s `(2,0)` geodesic matches those counts and then stops.
 

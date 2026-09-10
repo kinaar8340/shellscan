@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 import math
 import sys
 from pathlib import Path
@@ -19,6 +20,7 @@ from recipe.archimedean import (  # noqa: E402
     triangulation_number,
 )
 from recipe.compile import compile_recipe, load_recipe  # noqa: E402
+from recipe.setal import compare_painted, load_setal_table, table_xyz  # noqa: E402
 from recipe.yaml_lite import load_simple_yaml  # noqa: E402
 from recipe.geodesic import ck_triangles, geodesic_polyhedron  # noqa: E402
 from recipe.goldberg import goldberg_dual  # noqa: E402
@@ -132,8 +134,11 @@ def test_polyoma_exception_numbers():
 
 
 def _compile(name: str, tmp_path: Path) -> dict:
-    spec = load_recipe(ROOT / "recipes" / f"{name}.yaml")
-    return compile_recipe(spec, tmp_path / name, render=False)
+    return compile_recipe(
+        ROOT / "recipes" / f"{name}.yaml",
+        tmp_path / name,
+        render=False,
+    )
 
 
 def test_banded_larva_acceptance(tmp_path: Path):
@@ -219,6 +224,143 @@ def test_load_recipe_without_pyyaml(monkeypatch: pytest.MonkeyPatch):
     spec = load_recipe(ROOT / "recipes" / "capsid-t3.yaml")
     assert spec["name"] == "capsid-t3"
     assert spec["carrier"]["n"] == 1
+
+
+def test_setal_table_load_and_snap():
+    rows = load_setal_table(ROOT / "recipes" / "setal" / "monarch.csv")
+    points = [r for r in rows if r["kind"] == "tentacle"]
+    rings = [r for r in rows if r["kind"] == "band"]
+    assert len(points) == 4
+    assert len(rings) == 8
+    xyz = table_xyz(0.0, 0.0)
+    assert xyz[2] == pytest.approx(1.0)
+    xyz_t = table_xyz(1.0, 0.0)
+    assert xyz_t[2] == pytest.approx(-1.0)
+
+
+def test_monarch_setal_paint(tmp_path: Path):
+    meta = _compile("monarch-setal", tmp_path)
+    assert meta["T"] == 9
+    assert meta["n_faces"] == 92
+    assert meta["kinds"].get("tentacle") == 4
+    assert meta["table"] == "setal/monarch.csv"
+    st = meta["setal"]
+    assert st["n_point_rows"] == 4
+    assert st["mean_snap_deg"] < 35.0
+    log = json.loads((tmp_path / "monarch-setal" / "setal_log.json").read_text())
+    tent_faces = {x["face"] for x in log if x["kind"] == "tentacle"}
+    assert len(tent_faces) == 4
+
+
+def test_tussock_setal_paint(tmp_path: Path):
+    meta = _compile("tussock-setal", tmp_path)
+    assert meta["kinds"].get("tuft") == 4
+    assert meta["kinds"].get("tentacle") == 1
+    assert meta["setal"]["n_point_rows"] == 5
+    assert meta["setal"]["mean_snap_deg"] < 35.0
+
+
+def test_setal_compare_self(tmp_path: Path):
+    _compile("monarch-setal", tmp_path)
+    painted = json.loads((tmp_path / "monarch-setal" / "painted.json").read_text())
+    cmp = compare_painted(painted, painted)
+    assert cmp["section_agree"] == pytest.approx(1.0)
+    assert cmp["kind_agree"] == pytest.approx(1.0)
+
+
+def test_hinton_helicoid_chart_vs_embed(tmp_path: Path):
+    meta = _compile("setal-hinton-helicoid", tmp_path)
+    assert meta["kind"] == "cylinder"
+    h = meta["homology"]
+    assert h["phi_order_ok"] is True
+    assert h["cluster_pure"] is True
+    d1 = h["homologs"]["D1"]
+    assert d1["std_phi_deg"] < 8.0
+    assert d1["std_phi_embed"] > d1["std_phi_deg"] + 5.0
+
+
+def test_twist_scan_chart_stable():
+    from recipe.setal import twist_scan
+
+    out = twist_scan("setal-hinton-cylinder")
+    rows = out["twists"]
+    assert [round(r["twist"], 5) for r in rows] == [
+        0.0,
+        round(math.pi / 4, 5),
+        round(math.pi / 2, 5),
+        round(math.pi, 5),
+    ]
+    for r in rows:
+        assert r["phi_order_ok"] is True
+        assert r["D1_std_phi_chart"] == pytest.approx(0.0, abs=1e-9)
+        assert r["D1_std_phi_embed"] == pytest.approx(r["D1_std_phi_embed_pred"], rel=1e-6, abs=1e-6)
+    assert rows[0]["embed_phi_order_ok"] is True
+    assert rows[1]["embed_phi_order_ok"] is True
+    assert rows[2]["embed_phi_order_ok"] is False
+    assert rows[3]["embed_phi_order_ok"] is False
+
+
+def test_danaus_gilippus_extra_A2(tmp_path: Path):
+    meta = _compile("setal-danaus-gilippus", tmp_path)
+    assert meta["homology"]["n_sites"] == 70
+    assert meta["kinds"].get("tentacle") == 6
+    assert meta["homology"]["phi_order_ok"] is True
+    assert meta["homology"]["homologs"]["D1"]["std_phi_deg"] < 8.0
+    log = json.loads((tmp_path / "setal-danaus-gilippus" / "setal_log.json").read_text())
+    assert {x["id"] for x in log if x.get("segment") == "A2"} >= {"A2-tentacle1", "A2-tentacle2"}
+
+
+def test_hinton_cylinder_phi_order(tmp_path: Path):
+    meta = _compile("setal-hinton-cylinder", tmp_path)
+    assert meta["kind"] == "cylinder"
+    assert meta.get("n_pentagons") == 0
+    assert meta["n_faces"] == 13 * 36
+    assert meta["kinds"].get("tentacle") == 4
+    h = meta["homology"]
+    assert h["n_sites"] == 68
+    assert h["cluster_pure"] is True
+    assert h["axial_hue_pure"] is True
+    assert h["phi_order_ok"] is True
+    means = h["phi_means"]
+    assert means["D"] < means["SD"] < means["L"] < means["SV"] < means["V"]
+    d1 = h["homologs"]["D1"]
+    assert d1["n"] == 6
+    assert d1["std_phi_deg"] < 8.0
+    assert d1["shell_s_range"] > 0.2
+
+
+def test_hinton_sites_homology(tmp_path: Path):
+    meta = _compile("setal-hinton", tmp_path)
+    assert meta["T"] == 9
+    assert meta["n_faces"] == 92
+    assert meta["kinds"].get("tentacle") == 4
+    assert meta["kinds"].get("spiracle") == 4
+    h = meta["homology"]
+    assert h["n_sites"] == 68
+    assert h["cluster_pure"] is True
+    assert h["axial_hue_pure"] is True
+    d1 = h["homologs"]["D1"]
+    assert d1["n"] == 6
+    assert d1["section_pure"] is True
+    assert d1["shell_s_range"] > 0.05
+    assert set(h["groups"]["D"]["sections"]) == {"elliptic"}
+    assert set(h["groups"]["L"]["sections"]) == {"hyperbolic"}
+    assert set(h["groups"]["SD"]["sections"]) == {"parabolic"}
+    assert isinstance(h["phi_order_ok"], bool)
+    log = json.loads((tmp_path / "setal-hinton" / "setal_log.json").read_text())
+    ids = {x["id"] for x in log}
+    assert "T1-XD1" in ids
+    assert "A6-V1" in ids
+
+
+def test_setal_compare_vs_banded_larva(tmp_path: Path):
+    a = _compile("monarch-setal", tmp_path)
+    b = _compile("banded-larva", tmp_path)
+    pa = json.loads((tmp_path / "monarch-setal" / "painted.json").read_text())
+    pb = json.loads((tmp_path / "banded-larva" / "painted.json").read_text())
+    cmp = compare_painted(pa, pb)
+    assert a["n_faces"] == b["n_faces"] == cmp["n_faces"] == 92
+    assert cmp["kinds_a"]["tentacle"] == cmp["kinds_b"]["tentacle"] == 4
 
 
 def test_does_not_touch_pick_blob(tmp_path: Path):

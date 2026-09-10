@@ -9,6 +9,20 @@ from .helicoid_catenoid import morph_aa, patch_grid
 from .wrap import rgb_preview
 
 
+def _fit_axes(ax, verts) -> None:
+    xs = [v[0] for v in verts]
+    ys = [v[1] for v in verts]
+    zs = [v[2] for v in verts]
+    mx = max(max(abs(min(xs)), abs(max(xs))), 0.5)
+    my = max(max(abs(min(ys)), abs(max(ys))), 0.5)
+    mz = max(max(abs(min(zs)), abs(max(zs))), 0.5)
+    m = max(mx, my, mz) * 1.15
+    ax.set_xlim(-m, m)
+    ax.set_ylim(-m, m)
+    ax.set_zlim(-m, m)
+    ax.set_box_aspect((1, 1, 1))
+
+
 def render_all(
     spec: dict[str, Any],
     net: dict[str, Any],
@@ -41,10 +55,7 @@ def _net_png(net, painted, path, plt, Poly3DCollection) -> None:
         colors.append((r, g, b, 0.92))
     col = Poly3DCollection(polys, facecolors=colors, edgecolors=(0.1, 0.1, 0.12, 0.45), linewidths=0.35)
     ax.add_collection3d(col)
-    ax.set_xlim(-1.15, 1.15)
-    ax.set_ylim(-1.15, 1.15)
-    ax.set_zlim(-1.15, 1.15)
-    ax.set_box_aspect((1, 1, 1))
+    _fit_axes(ax, verts)
     ax.set_axis_off()
     ax.view_init(elev=18, azim=35)
     fig.tight_layout(pad=0)
@@ -63,10 +74,7 @@ def _field_preview(painted, path, plt) -> None:
         zs.append(c[2])
         cs.append(rgb_preview(rec["section"], rec["amplitude"], rec["persist"]))
     ax.scatter(xs, ys, zs, c=cs, s=18, depthshade=True)
-    ax.set_xlim(-1.15, 1.15)
-    ax.set_ylim(-1.15, 1.15)
-    ax.set_zlim(-1.15, 1.15)
-    ax.set_box_aspect((1, 1, 1))
+    _fit_axes(ax, list(zip(xs, ys, zs)) or [(0, 0, 0)])
     ax.set_axis_off()
     ax.view_init(elev=18, azim=35)
     fig.tight_layout(pad=0)

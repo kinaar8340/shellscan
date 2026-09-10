@@ -1,0 +1,15 @@
+id,kind,segment,chart,s,phi_deg,amplitude,section,width,psi
+# Digitized Monarch-like setal map. Hypothesis, not a measured specimen.
+# s=0 anterior (+z), s=1 posterior. Empty phi_deg on a band = ring.
+ant-L,tentacle,T2,dorsal,0.04,25,1.0,parabolic,,
+ant-R,tentacle,T2,dorsal,0.04,-25,1.0,parabolic,,
+post-L,tentacle,A8,dorsal,0.96,25,1.0,parabolic,,
+post-R,tentacle,A8,dorsal,0.96,-25,1.0,parabolic,,
+b0,band,T1,circumferential,0.10,,0.70,elliptic,0.08,
+b1,band,T2,circumferential,0.22,,0.70,hyperbolic,0.08,
+b2,band,T3,circumferential,0.34,,0.70,elliptic,0.08,
+b3,band,A2,circumferential,0.46,,0.70,hyperbolic,0.08,
+b4,band,A4,circumferential,0.58,,0.70,elliptic,0.08,
+b5,band,A6,circumferential,0.70,,0.70,hyperbolic,0.08,
+b6,band,A8,circumferential,0.82,,0.70,elliptic,0.08,
+b7,band,A9,circumferential,0.94,,0.70,hyperbolic,0.08,

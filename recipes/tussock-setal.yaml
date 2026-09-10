@@ -1,0 +1,19 @@
+name: tussock-setal
+claim: Hypothesis
+dynamics:
+  windings: 1
+  intensity: periodic
+  orientation: circumferential
+  morph_t: 0.0
+carrier:
+  kind: icosahedral
+  m: 3
+  n: 0
+  dual: goldberg
+wrap:
+  field: 0
+  section_lock: elliptic
+  persist: 1.0
+paint:
+  mode: setal-table
+  table: setal/tussock.csv
