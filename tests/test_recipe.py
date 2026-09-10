@@ -268,6 +268,20 @@ def test_setal_compare_self(tmp_path: Path):
     assert cmp["kind_agree"] == pytest.approx(1.0)
 
 
+def test_capsid_t3_ms2_dimer_vs_ck(tmp_path: Path):
+    ms2 = _compile("capsid-t3-ms2", tmp_path)
+    ck = _compile("capsid-t3", tmp_path)
+    assert ms2["n_faces"] == ck["n_faces"] == 32
+    assert ms2["occupancy"]["pentamer"] == 12
+    assert ms2["occupancy"]["dimer"] == 20
+    assert ms2["occupancy"]["hexamer"] == 0
+    pa = json.loads((tmp_path / "capsid-t3-ms2" / "painted.json").read_text())
+    pb = json.loads((tmp_path / "capsid-t3" / "painted.json").read_text())
+    cmp = compare_painted(pa, pb)
+    assert cmp["kind_agree"] == pytest.approx(12 / 32)
+    assert cmp["section_agree"] == pytest.approx(12 / 32)
+
+
 def test_capsid_t7_p22_portal_one_face(tmp_path: Path):
     portal = _compile("capsid-t7-p22-portal", tmp_path)
     ck = _compile("capsid-t7", tmp_path)

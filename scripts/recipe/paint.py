@@ -176,6 +176,20 @@ def paint_faces(net: dict[str, Any], spec: dict[str, Any]) -> list[dict[str, Any
             section = pent_sec
             offset = pent_off
             amp = 1.0
+        elif mode == "ms2-dimer":
+            # T=3 MS2: stoichiometry still 180; hexagon read as dimer pair
+            # not hexamer. Goldberg face resolution, not 90 rhombs meshed.
+            deg = len(face)
+            if deg == 5:
+                kind = "pentamer"
+                section = pent_sec
+                offset = pent_off
+                amp = 1.0
+            else:
+                kind = "dimer"
+                section = _section((paint.get("dimer_section") or "parabolic"))
+                offset = hex_off
+                amp = 0.85
         elif mode == "none":
             kind = "plain"
             section = lock

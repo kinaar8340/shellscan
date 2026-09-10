@@ -1,0 +1,25 @@
+name: capsid-t3-ms2
+claim: Model
+source: "MS2 / Twarock TD_t(1,1): 90 dimers (60 AB + 30 CC), 180 proteins. Same Goldberg (1,1) as capsid-t3. Hexagons painted dimer (parabolic), pentagons stay pentamer. Face resolution, not 90 rhombs. No virion JPEG."
+dynamics:
+  windings: 1
+  intensity: periodic
+  orientation: circumferential
+  morph_t: 0.0
+carrier:
+  kind: icosahedral
+  m: 1
+  n: 1
+  dual: goldberg
+wrap:
+  field: 0
+  section_lock: elliptic
+  persist: 1.0
+paint:
+  mode: ms2-dimer
+  dimer_section: parabolic
+  quasi_equivalence:
+    pentamer_offset: 0.40
+    hexamer_offset: 0.45
+    pentamer_section: elliptic
+    hexamer_section: hyperbolic
