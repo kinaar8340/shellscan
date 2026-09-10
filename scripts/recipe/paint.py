@@ -190,6 +190,11 @@ def paint_faces(net: dict[str, Any], spec: dict[str, Any]) -> list[dict[str, Any
                 section = _section((paint.get("dimer_section") or "parabolic"))
                 offset = hex_off
                 amp = 0.85
+        elif mode == "all-dimer":
+            kind = "dimer"
+            section = _section((paint.get("dimer_section") or "parabolic"))
+            offset = 0.45
+            amp = 1.0
         elif mode == "kite-trimer":
             # T=3 kite / Laves dual of 3.4.6.4: hexagon read as trimer, not
             # hexamer. Same 32 Goldberg faces as capsid-t3. Not 60T kites meshed.

@@ -42,11 +42,21 @@ def build_net(spec: dict[str, Any]) -> dict[str, Any]:
         dual = str(carrier.get("dual", "goldberg"))
         if dual == "goldberg":
             return goldberg_dual(geo)
+        if dual == "rhombille":
+            from .rhombille import rhombille_from_goldberg
+
+            return rhombille_from_goldberg(goldberg_dual(geo))
         if dual in ("geodesic", "none"):
             geo = dict(geo)
             geo["faces"] = [list(f) for f in geo["faces"]]
             return geo
         raise ValueError(f"unknown dual {dual!r}")
+    if kind == "rhombille":
+        from .rhombille import rhombille_from_goldberg
+
+        m = int(carrier.get("m", 1))
+        n = int(carrier.get("n", 1))
+        return rhombille_from_goldberg(goldberg_dual(geodesic_polyhedron(m, n)))
     if kind in ("cylinder", "helicoid"):
         from .cylinder import cylinder_net
 

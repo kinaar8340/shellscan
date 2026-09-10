@@ -1,0 +1,20 @@
+name: capsid-t3-rhomb30
+claim: Model
+source: "Edge-rhombille of GP(1,1). 30T=90 rhombs. Parent capsid-t3 1-skeleton. All faces dimer/parabolic. Not 90 MS2 Cα positions. Not papova 60+90."
+dynamics:
+  windings: 1
+  intensity: periodic
+  orientation: circumferential
+  morph_t: 0.0
+carrier:
+  kind: rhombille
+  m: 1
+  n: 1
+  parent: capsid-t3
+wrap:
+  field: 0
+  section_lock: elliptic
+  persist: 1.0
+paint:
+  mode: all-dimer
+  dimer_section: parabolic

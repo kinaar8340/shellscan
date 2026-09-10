@@ -1,0 +1,43 @@
+{
+  "name": "capsid-t3-rhomb30",
+  "claim": "Model",
+  "m": 1,
+  "n": 1,
+  "T": 3,
+  "class": "II",
+  "kind": "rhombille",
+  "V": 92,
+  "F": 90,
+  "E": 180,
+  "chi": 2,
+  "n_pentagons": 0,
+  "n_hexagons": 0,
+  "n_faces": 90,
+  "n_bytes": 2880,
+  "hash": "6feffe9ffdb2f487e4831230a5ebc16148a711d422d6a5f6c32c03ed49f6be51",
+  "kinds": {
+    "dimer": 90
+  },
+  "sections": {
+    "parabolic": 90
+  },
+  "tentacle_indices": [],
+  "morph_t": 0.0,
+  "subunits_60T": 180,
+  "setal": null,
+  "table": null,
+  "homology": null,
+  "occupancy": {
+    "pentamer": 0,
+    "hexamer": 0,
+    "portal": 0,
+    "dimer": 90,
+    "trimer": 0,
+    "vp1": 0,
+    "vp2": 0,
+    "vp3": 0,
+    "subunits_60T": 180,
+    "T": 3,
+    "portal_faces": []
+  }
+}

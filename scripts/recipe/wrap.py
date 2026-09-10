@@ -84,6 +84,8 @@ def manifest(
         "kind": net.get("kind"),
         "V": net.get("V"),
         "F": net.get("F"),
+        "E": net.get("E"),
+        "chi": net.get("chi"),
         "n_pentagons": net.get("n_pentagons"),
         "n_hexagons": net.get("n_hexagons"),
         "n_faces": len(painted),

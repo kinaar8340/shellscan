@@ -60,6 +60,7 @@ Occupancy 256 is a faceplate number. Face count `10T+2` (Goldberg) is independen
 | `capsid-t3.yaml` | (1,1) Class II | 3 | Caspar–Klug | 12 pentamers, 20 hexamers, 180 subunits |
 | `capsid-t3-ms2.yaml` | (1,1) Class II | 3 | MS2 dimer (hexagon ≠ hexamer) | vs CK \(12/32=0.375\); 12 pentamer + 20 dimer |
 | `capsid-t3-kite.yaml` | (1,1) Class II | 3 | kite / trimer (hexagon ≠ hexamer) | vs CK and MS2 kind \(12/32\); vs CK section 1.0 |
+| `capsid-t3-rhomb30.yaml` | rhombille of (1,1) | 3 | all dimer / parabolic | F=90 V=92 E=180 χ=2; compare F=32 rejected |
 | `capsid-t7.yaml` | (2,1) Class III | 7 | Caspar–Klug | 12 pentamers, 60 hexamers, 420 subunits |
 | `capsid-t7-polyoma.yaml` | (2,1) Class III | 7 | all-pentamer | 72 pentamers painted, 360 subunits |
 | `monarch-setal.yaml` | (3,0) Class I | 9 | setal table `setal/monarch.csv` | 4 tentacles from table; rings as bands |
@@ -224,7 +225,13 @@ Smallest net that can show both coincidence and disagreement. `(1,1)` Class II, 
 
 `capsid-t3-ms2`: hexagons painted `dimer` (parabolic), pentagons stay pentamer. Stoichiometry still 180; generator is the dimer (MS2 / \(\mathrm{TD}_t(1,1)\)). Goldberg face resolution, not 90 rhombs meshed. Compare vs CK at F=32: kind and section \(12/32=0.375\) — agree only on pentagons. Four bins, pentagons elliptic, hexagons parabolic instead of hyperbolic. **Model** + **Software fact**. Not a Hypothesis that MS2 “is” this mesh.
 
-`capsid-t3-kite`: hexagons painted `trimer` (hyperbolic), pentagons elliptic. Laves dual of 3.4.6.4 at Goldberg resolution, not 60T kites meshed. vs CK: kind \(12/32\), section 1.0 (hexagons both hyperbolic). vs MS2: kind and section \(12/32\) (dimer/parabolic vs trimer/hyperbolic). Three paints, one catalog. pT=3 (VP1/VP2/VP3) stays closed. Do not remesh 30T rhombs or mixed papova 60+90 in this file.
+`capsid-t3-kite`: hexagons painted `trimer` (hyperbolic), pentagons elliptic. Laves dual of 3.4.6.4 at Goldberg resolution, not 60T kites meshed. vs CK: kind \(12/32\), section 1.0 (hexagons both hyperbolic). vs MS2: kind and section \(12/32\) (dimer/parabolic vs trimer/hyperbolic). Three paints, one catalog. pT=3 (VP1/VP2/VP3) stays closed.
+
+`capsid-t3-rhomb30`: **one Laves dual meshed.** Edge-rhombille of GP(1,1): keep 60 parent verts, add 32 face centroids, one quad per parent edge. F=90, V=92, E=180, χ=2. All faces dimer/parabolic. 90 dimers, 180 subunits (not written into the 32-byte field). Index compare vs F=32 is rejected. Not a Hypothesis that the quads are MS2 Cα. Snub, floret, kite mesh, and papova 60+90 still counted only. T=7 30T=210 still unmeshed.
+
+```
+make recipe RECIPE=capsid-t3-rhomb30
+```
 
 ```
 make recipe RECIPE=capsid-t3-ms2
@@ -248,6 +255,7 @@ Pentagons remain the elliptic cells; hexagons are the remainder. The outline sti
 | T=3 MS2-dimer vs CK \(12/32\) | frozen | Model + Software fact |
 | T=3 kite-trimer vs CK and MS2 \(12/32\) | frozen | Model + Software fact |
 | T=7 P22 (1,2) vs (2,1) occupancy 12+60, kind \(68/72\) | frozen | Model + Software fact |
+| T=3 rhombille 30T F=90 χ=2 all-parabolic | frozen | Model + Software fact |
 | Atlas / pierid / faceplate / \(\gamma(s)\) / snub mesh | off | — |
 
 ## Palette (do not invent a fifth)

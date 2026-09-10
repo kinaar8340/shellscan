@@ -268,6 +268,27 @@ def test_setal_compare_self(tmp_path: Path):
     assert cmp["kind_agree"] == pytest.approx(1.0)
 
 
+def test_capsid_t3_rhomb30_euler_and_refuse_f32(tmp_path: Path):
+    rh = _compile("capsid-t3-rhomb30", tmp_path)
+    assert rh["kind"] == "rhombille"
+    assert rh["F"] == rh["n_faces"] == 90
+    assert rh["V"] == 92
+    assert rh["occupancy"]["dimer"] == 90
+    assert rh["occupancy"]["pentamer"] == 0
+    assert rh["chi"] == 2
+    assert rh["E"] == 180
+    painted = json.loads((tmp_path / "capsid-t3-rhomb30" / "painted.json").read_text())
+    assert len(painted) == 90
+    assert all(p["kind"] == "dimer" for p in painted)
+    assert all(p["section"] == "parabolic" for p in painted)
+    cmp = compare_painted(painted, painted)
+    assert cmp["kind_agree"] == pytest.approx(1.0)
+    ck = _compile("capsid-t3", tmp_path)
+    ck_p = json.loads((tmp_path / "capsid-t3" / "painted.json").read_text())
+    with pytest.raises(ValueError, match="face counts"):
+        compare_painted(painted, ck_p)
+
+
 def test_capsid_t3_kite_vs_ck_and_ms2(tmp_path: Path):
     kite = _compile("capsid-t3-kite", tmp_path)
     ck = _compile("capsid-t3", tmp_path)
