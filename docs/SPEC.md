@@ -18,6 +18,8 @@ This is a thin scene crate in the inner_cone pattern. It does not own the frame,
 
 If a sentence cannot wear one of those four tags, it does not belong here.
 
+Keep this file and `README.md` as the doors. VISION / TESTIMONY / NEST / SIGN / ATLAS / PHASE5 live in `docs/archive/`.
+
 ## Ownership (do not collapse)
 
 | Layer | Owner |

@@ -1,5 +1,14 @@
 # Phosphor Loom
 
+This binary is a **Model** visualization of objects defined in [`qga`](https://github.com/kinaar8340/qga). It proves nothing about OP1–OP6.
+
+Spine: [`qga`](https://github.com/kinaar8340/qga) — manuscript + pedagogical Python  
+Shared math: [`flux_hopf_lib`](https://github.com/kinaar8340/flux_hopf_lib)  
+Engine: [`qga_engine`](https://github.com/kinaar8340/qga_engine) (scenes, Rust math) · [`qga_gpu`](https://github.com/kinaar8340/qga_gpu) (frame)  
+This repo: inverse-Hopf scan / pixel model. Not a generic renderer.
+
+`inner_cone` is the sculpture viewer. This crate stays the pixel/scan model. Neither absorbs the other for 90 days; no third Vulkan front-end.
+
 **The Realism Interface** — *a 3D CRT*
 
 | | |
@@ -9,7 +18,7 @@
 | Subtitle | a 3D CRT |
 | Crate | `shellscan` |
 | Type (not a repo) | `qga_pixel` |
-| Checkout | `~/Projects/shellscan` |
+| Checkout | git clone; pin `qga_gpu` / `qga-math` tags, not `~/Projects` |
 | Remote | [github.com/kinaar8340/shellscan](https://github.com/kinaar8340/shellscan) |
 
 A CRT writes a glowing surface by sweeping a beam in two fields. This crate writes a glowing shell by lifting a chart through inverse-Hopf in two clocks. The pixel is a local plane-cut of the observer’s double cone. Color is a conic type, not an RGB triple. The shell is a trajectoid, so the screen has an identity and a trench, not a rectangle.
@@ -89,6 +98,13 @@ After bind: `pos = γ(shell_s)`. Occupancy \(256\). `RAIL_EPS = 0.02R` (collapse
 
 ## Test / run
 
+Ten-minute CPU path (no GPU, no sibling checkout):
+
+```
+make test             # cargo test: record, clocks, trench bind
+python3 -m pytest tests/test_parse_pixel.py tests/test_sign_mask.py -q
+```
+
 ```
 make test             # CPU: record, clocks, trench bind
 make headless         # 8 frames, elliptic, static_uploads == 1
@@ -111,7 +127,7 @@ make track-gaze       # EYE=u,v → gaze.json (not consumed)
 Sidecar (once, not in the frame loop):
 
 ```
-make export-shell     # sibling flux_trajectoid → assets/shell_trench.bin
+make export-shell     # optional sidecar; not required to run the crate
 ```
 
 Picker: click hemisphere; `L` lock-to-4; `shell_s`; `F` field bit (packed, not a picture); `E` export.
@@ -152,4 +168,4 @@ Default \(\hat E_{\mathrm{def}}=(0,0,1)\), \((\theta,\phi)_{\mathrm{def}}=(0,0)\
 
 ## License
 
-MIT — same ecosystem as qga / qga_gpu / inner_cone.
+Geometry libraries are MIT. Several VQC repos are PolyForm Noncommercial plus patent notice US 63/913,110. This repo is MIT.

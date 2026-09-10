@@ -939,6 +939,7 @@ fn run_windowed(frames: u32) -> Result<()> {
 
 fn main() -> Result<()> {
     env_logger::Builder::from_env(env_logger::Env::default().default_filter_or("info")).init();
+    qga_gpu::print_claim_banner("OP1–OP6 / inner_cone mosaic");
     let args = parse_args();
     if args.stills {
         run_stills(args.width.max(1280), args.height.max(720))

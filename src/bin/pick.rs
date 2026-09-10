@@ -354,6 +354,7 @@ impl ApplicationHandler for App {
 
 fn main() -> Result<()> {
     env_logger::Builder::from_env(env_logger::Env::default().default_filter_or("info")).init();
+    qga_gpu::print_claim_banner("OP1–OP6");
     if std::env::args().any(|a| a == "--dump") {
         return Pick::new().export();
     }

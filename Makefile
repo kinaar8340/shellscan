@@ -14,7 +14,7 @@ check:
 	cargo test --offline 2>/dev/null || cargo test
 
 export-shell:
-	PYTHONPATH=../flux_trajectoid/src python3 scripts/export_shell_trench.py
+	python3 scripts/export_shell_trench.py
 
 headless:
 	cargo run --release --bin shellscan -- --headless --frames 8
