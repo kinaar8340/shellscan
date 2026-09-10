@@ -72,7 +72,7 @@ Do not: Scan A consume `site`, HITL Pluto, nested draw, `LF`, stacked clear wind
 - [ ] `vision_tracker` — real lens \(K\) + still. Well is specified. Scan A does not consume `site`. [docs/VISION.md](docs/VISION.md)
 - [x] Sign mask — `--mask {none,antipode,blank,nappe}` on the SLM seed. [docs/SIGN.md](docs/SIGN.md)
 - [ ] Fig 6.1 atlas — four isolated loom presets in `qga_gpu`, not a composition window on \(\gamma\). [docs/ATLAS.md](docs/ATLAS.md)
-- [x] Recipe sidecar — dynamics → carrier → wrap → paint. Cylinder Hypothesis bounded; T=7 occupancy Model. Not a faceplate verb. [docs/RECIPE.md](docs/RECIPE.md) · [scores](docs/recipe-scores/)
+- [x] Recipe sidecar — pass closed. Cylinder Hypothesis frozen; T=7 occupancy Model + Software fact (P22 vs CK 1.0, vs polyoma \(12/72\)). Not a faceplate verb. [docs/RECIPE.md](docs/RECIPE.md) · [scores](docs/recipe-scores/)
 
 End goal compatible with the freeze: a pipeline that emits a drive signal (record → dump → phase package → later a named panel / glass). Not a single Vulkan window that is a 4D OAM crystal ball.
 

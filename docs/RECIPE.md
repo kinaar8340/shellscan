@@ -14,6 +14,7 @@ A recipe is a generative schedule. It is **not** a theorem that organisms are de
 | Four Archimedean lattices contain a hexagonal sublattice and admit the CK close: hexagonal `6.6.6`, trihexagonal `3.6.3.6`, snub hexagonal `3⁴.6`, rhombitrihexagonal `3.4.6.4`. Their Laves duals are triangle / rhomb / floret / kite tiles. Dual counts: `20T` triangles, `30T` rhombs, `60T` florets, `60T` kites (Twarock & Luque 2019, Suppl. Table 5). | **Theorem** (cited: Nat Commun 10, 4414) |
 | Hopf `S³→S²` and the 32-byte `QgaPixel` layout. | **Theorem** (Hopf) + **Software fact** (layout) |
 | This crate compiles a recipe into a painted net and an `N×32` field dump. | **Model** + **Software fact** (counts, round-trip) |
+| Face-degree paint on Goldberg T=7 is Caspar–Klug: 12 pentagons → pentamer, 60 hexagons → hexamer, 420 subunits. `capsid-t7-p22` vs `capsid-t7` is 1.0 (same paint). vs polyoma is \(12/72=1/6\): pentagons agree, hexagons do not. | **Model** + **Software fact**. Not a Hypothesis about organisms. |
 | Larval setal maps / chrysalis hang / adult wing mosaics are low-frequency instances of the same schedule. | **Hypothesis** — visual rhyme, not a developmental proof |
 | A digitized setal-position table (CSV) snapped to nearest Goldberg faces yields a `qga_pixel` field that can be compared, facewise, to a generative recipe on the same net. | **Hypothesis** (biology) + **Software fact** (snap + compare) |
 | Open 13×36 cylinder: Hinton group order (`phi_order_ok`) holds through measured danaine, Heliconiini, and Papilionidae. Abdomen isolines; T1/T2 may walk one 10° bin. Atlas stop. | **Hypothesis (bounded)** |
@@ -181,7 +182,13 @@ Nymphalidae is a closed loop on this carrier. Atlas stop. No pierid for complete
 
 ## Capsid track (different claim family)
 
-Closed 532, `(m,n)` / T, 12 pentagons. Not the cylinder. One YAML opens it: same `(2,1)` net as `capsid-t7` / `capsid-t7-polyoma`, paint from a VIPERdb T=7 entry by site class (pentamer vs hexamer), hand table, no virion JPEG. Occupancy histograms; compare only to other T=7 recipes (F=72). Do not mesh snub/rhombitrihexagonal families. Do not fold the dump into `make scan`.
+Closed 532, `(m,n)` / T, 12 pentagons. Not the cylinder. P22 did **not** add a new paint rule. It showed the two T=7 paints already shipped are the only two occupancy classes on that net.
+
+Face-degree paint on a Goldberg T=7 net is Caspar–Klug: 12 pentagonal faces → pentamer, 60 hexagonal faces → hexamer, 420 subunits. Same `(2,1)`, same F=72, same 12+60 split. `capsid-t7-p22` vs `capsid-t7` is 1.0 / 1.0 — self-compare in all but name. **Software fact.**
+
+vs polyoma is \(12/72 = 1/6 \approx 0.167\): the twelve pentagons agree (pentamer either way); the sixty hexagons do not (hexamer vs all-pentamer). That is CK locations vs polyoma/papilloma capsomer type on one net — the sentence this doc already had, now a number. **Software fact.**
+
+Nothing in that pair is a Hypothesis about organisms. VIPERdb supplied the degree table; the mesh supplied the faces. Do not write it as if P22 “confirmed” T=7 in nature.
 
 ```
 make recipe RECIPE=capsid-t7-p22
@@ -189,10 +196,19 @@ PYTHONPATH=scripts python3 -m recipe compare capsid-t7-p22 capsid-t7
 PYTHONPATH=scripts python3 -m recipe compare capsid-t7-p22 capsid-t7-polyoma
 ```
 
-Occupancy (Software fact): P22/CK 12 pentamers + 60 hexamers, 420 subunits. Compare vs `capsid-t7` kind/section 1.0. vs polyoma (72 pentamers) 0.167 — same net, different paint (CK type vs all-pentamer). Filed under `docs/recipe-scores/capsid-t7-p22.*` and `compare_t7_p22_*.json`.
+Filed: `docs/recipe-scores/capsid-t7-p22.field.json`, `compare_t7_p22_t7.json`, `compare_t7_p22_polyoma.json`. Do not mesh snub/rhombitrihexagonal. Do not fold into `make scan`.
 
+`(2,1)` and `(1,2)` are enantiomorphs. The T=7 file does not swap them. A later pass, if opened, is a different paint on the same 72 faces (Twarock dimer/trimer as rhomb vs kite, four-bin, two bins unused) or the `(1,2)` enantiomorph with the same P22 table. Not another butterfly, not a second T=7 degree paint, not an unfreeze of `make scan`.
 
-`(2,1)` and `(1,2)` are enantiomorphs. The T=7 file does not swap them.
+## This pass (closed)
+
+| Track | Status | Label |
+|---|---|---|
+| Five cylinder scores (Hinton, gilippus, plexippus, Heliconiini, Papilio) | frozen | Hypothesis |
+| Danaine same-net compares ~0.94 | frozen | Hypothesis |
+| Extra-familial compare 0.89 | frozen | Hypothesis |
+| T=7 P22 vs CK 1.0, vs polyoma 0.167 | frozen | Model + Software fact |
+| Atlas / pierid / faceplate / \(\gamma(s)\) / snub mesh | off | — |
 
 ## Palette (do not invent a fifth)
 
