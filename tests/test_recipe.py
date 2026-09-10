@@ -268,6 +268,77 @@ def test_setal_compare_self(tmp_path: Path):
     assert cmp["kind_agree"] == pytest.approx(1.0)
 
 
+def test_capsid_t7_p22_occupancy(tmp_path: Path):
+    p22 = _compile("capsid-t7-p22", tmp_path)
+    ck = _compile("capsid-t7", tmp_path)
+    occ = p22["occupancy"]
+    assert occ["T"] == 7
+    assert occ["pentamer"] == 12
+    assert occ["hexamer"] == 60
+    assert occ["subunits_60T"] == 420
+    pa = json.loads((tmp_path / "capsid-t7-p22" / "painted.json").read_text())
+    pb = json.loads((tmp_path / "capsid-t7" / "painted.json").read_text())
+    cmp = compare_painted(pa, pb)
+    assert cmp["kind_agree"] == pytest.approx(1.0)
+    py = _compile("capsid-t7-polyoma", tmp_path)
+    assert py["occupancy"]["pentamer"] == 72
+    assert py["occupancy"]["hexamer"] == 0
+
+
+def test_polyxenes_extrafamilial_order(tmp_path: Path):
+    meta = _compile("setal-polyxenes-cylinder", tmp_path)
+    h = meta["homology"]
+    assert h["cluster_pure"] is True
+    assert h["phi_order_ok"] is True
+    means = h["phi_means"]
+    assert means["D"] < means["SD"] < means["L"] < means["SV"] < means["V"]
+    assert means["SD"] > 60.0
+    d1 = h["homologs"]["D1"]
+    assert d1["std_phi_deg"] < 10.0
+    assert meta["n_faces"] == 468
+
+
+def test_melpomene_outgroup_order(tmp_path: Path):
+    meta = _compile("setal-melpomene-cylinder", tmp_path)
+    h = meta["homology"]
+    assert h["cluster_pure"] is True
+    means = h["phi_means"]
+    assert means["D"] < means["SD"] < means["L"] < means["SV"] < means["V"]
+    assert h["phi_order_ok"] is True
+    assert means["SD"] > 60.0
+    d1 = h["homologs"]["D1"]
+    assert d1["std_phi_deg"] < 10.0
+    assert d1["std_shell_s"] == pytest.approx(0.2516, rel=0.05)
+
+
+def test_plexippus_abdomen_L2_isoline(tmp_path: Path):
+    meta = _compile("setal-plexippus-cylinder", tmp_path)
+    l2 = meta["homology"]["homologs"]["L2"]
+    assert l2["std_phi_deg"] > 8.0
+    assert l2["abdomen"]["std_phi_deg"] == pytest.approx(0.0, abs=1e-9)
+    assert l2["abdomen"]["n"] == 4
+
+
+def test_plexippus_measured_phi(tmp_path: Path):
+    meta = _compile("setal-plexippus-cylinder", tmp_path)
+    assert meta["kind"] == "cylinder"
+    h = meta["homology"]
+    assert h["cluster_pure"] is True
+    assert h["axial_hue_pure"] is True
+    assert h["phi_order_ok"] is True
+    d1 = h["homologs"]["D1"]
+    assert d1["std_phi_deg"] < 10.0
+    assert d1["shell_s_range"] > 0.2
+    means = h["phi_means"]
+    assert means["D"] < means["SD"] < means["L"] < means["SV"] < means["V"]
+    from recipe.setal import twist_scan
+
+    scan = twist_scan("setal-plexippus-cylinder")
+    rows = scan["twists"]
+    assert rows[1]["embed_phi_order_ok"] is True
+    assert rows[2]["embed_phi_order_ok"] is False
+
+
 def test_hinton_helicoid_chart_vs_embed(tmp_path: Path):
     meta = _compile("setal-hinton-helicoid", tmp_path)
     assert meta["kind"] == "cylinder"

@@ -97,6 +97,12 @@ def manifest(
         "setal": spec.get("_setal_stats"),
         "table": (spec.get("paint") or {}).get("table"),
         "homology": spec.get("_homology"),
+        "occupancy": {
+            "pentamer": kinds.get("pentamer", 0),
+            "hexamer": kinds.get("hexamer", 0),
+            "subunits_60T": 60 * int(net.get("T") or 0),
+            "T": net.get("T"),
+        },
     }
 
 

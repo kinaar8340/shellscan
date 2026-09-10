@@ -1,0 +1,25 @@
+{
+  "n_faces": 72,
+  "section_agree": 1.0,
+  "kind_agree": 1.0,
+  "kinds_a": {
+    "pentamer": 12,
+    "hexamer": 60
+  },
+  "kinds_b": {
+    "pentamer": 12,
+    "hexamer": 60
+  },
+  "sections_a": {
+    "elliptic": 12,
+    "hyperbolic": 60
+  },
+  "sections_b": {
+    "elliptic": 12,
+    "hyperbolic": 60
+  },
+  "a": "capsid-t7-p22",
+  "b": "capsid-t7",
+  "T": 7,
+  "claim": "Hypothesis"
+}

@@ -1,0 +1,473 @@
+{
+  "name": "setal-melpomene-cylinder",
+  "claim": "Hypothesis",
+  "m": 0,
+  "n": 0,
+  "T": 0,
+  "class": "cylinder",
+  "kind": "cylinder",
+  "V": 504,
+  "F": 468,
+  "n_pentagons": 0,
+  "n_hexagons": 0,
+  "n_faces": 468,
+  "n_bytes": 14976,
+  "hash": "6e78b2077bfe9fdba96100413e6262a93ba956246cae15054b776688a451a2f5",
+  "kinds": {
+    "plain": 417,
+    "seta": 47,
+    "spiracle": 4
+  },
+  "sections": {
+    "elliptic": 430,
+    "parabolic": 12,
+    "hyperbolic": 13,
+    "flat-pockets": 13
+  },
+  "tentacle_indices": [],
+  "morph_t": 0.0,
+  "subunits_60T": 0,
+  "setal": {
+    "n_rows": 51,
+    "n_assigned_faces": 51,
+    "n_point_rows": 51,
+    "n_collisions": 0,
+    "mean_snap_deg": 3.3529411764705883,
+    "max_snap_deg": 11.0,
+    "kinds": {
+      "seta": 47,
+      "spiracle": 4
+    }
+  },
+  "table": "setal/melpomene-measured.csv",
+  "homology": {
+    "claim": "Hypothesis",
+    "cluster_pure": true,
+    "axial_hue_pure": true,
+    "phi_order_ok": true,
+    "embed_phi_order_ok": true,
+    "phi_means": {
+      "D": 25.0,
+      "SD": 77.5,
+      "L": 116.53846153846153,
+      "SV": 143.57142857142858,
+      "V": 175.0
+    },
+    "embed_phi_means": {
+      "D": 25.0,
+      "SD": 77.5,
+      "L": 116.53846153846153,
+      "SV": 143.57142857142858,
+      "V": 175.0
+    },
+    "groups": {
+      "D": {
+        "n": 12,
+        "sections": [
+          "elliptic"
+        ],
+        "pure": true
+      },
+      "L": {
+        "n": 13,
+        "sections": [
+          "hyperbolic"
+        ],
+        "pure": true
+      },
+      "SD": {
+        "n": 8,
+        "sections": [
+          "parabolic"
+        ],
+        "pure": true
+      },
+      "SV": {
+        "n": 7,
+        "sections": [
+          "flat-pockets"
+        ],
+        "pure": true
+      },
+      "V": {
+        "n": 6,
+        "sections": [
+          "flat-pockets"
+        ],
+        "pure": true
+      },
+      "XD": {
+        "n": 1,
+        "sections": [
+          "elliptic"
+        ],
+        "pure": true
+      },
+      "spiracle": {
+        "n": 4,
+        "sections": [
+          "parabolic"
+        ],
+        "pure": true
+      }
+    },
+    "homologs": {
+      "D1": {
+        "n": 6,
+        "section_pure": true,
+        "sections": [
+          "elliptic"
+        ],
+        "std_phi_deg": 0.0,
+        "std_phi_embed": 0.0,
+        "std_shell_s": 0.25162195744301735,
+        "shell_s_range": 0.6153846153846154,
+        "mean_phi_abs": 15.0,
+        "mean_phi_embed": 14.999999999999998,
+        "segments": [
+          "T1",
+          "T2",
+          "A3",
+          "A4",
+          "A5",
+          "A6"
+        ],
+        "abdomen": {
+          "n": 4,
+          "section_pure": true,
+          "sections": [
+            "elliptic"
+          ],
+          "std_phi_deg": 0.0,
+          "std_phi_embed": 0.0,
+          "std_shell_s": 0.09930726528736966,
+          "shell_s_range": 0.23076923076923078,
+          "mean_phi_abs": 15.0,
+          "mean_phi_embed": 14.999999999999998,
+          "segments": [
+            "A3",
+            "A4",
+            "A5",
+            "A6"
+          ]
+        }
+      },
+      "D2": {
+        "n": 6,
+        "section_pure": true,
+        "sections": [
+          "elliptic"
+        ],
+        "std_phi_deg": 0.0,
+        "std_phi_embed": 0.0,
+        "std_shell_s": 0.25162195744301735,
+        "shell_s_range": 0.6153846153846154,
+        "mean_phi_abs": 35.0,
+        "mean_phi_embed": 35.0,
+        "segments": [
+          "T1",
+          "T2",
+          "A3",
+          "A4",
+          "A5",
+          "A6"
+        ],
+        "abdomen": {
+          "n": 4,
+          "section_pure": true,
+          "sections": [
+            "elliptic"
+          ],
+          "std_phi_deg": 0.0,
+          "std_phi_embed": 0.0,
+          "std_shell_s": 0.09930726528736966,
+          "shell_s_range": 0.23076923076923078,
+          "mean_phi_abs": 35.0,
+          "mean_phi_embed": 35.0,
+          "segments": [
+            "A3",
+            "A4",
+            "A5",
+            "A6"
+          ]
+        }
+      },
+      "L1": {
+        "n": 6,
+        "section_pure": true,
+        "sections": [
+          "hyperbolic"
+        ],
+        "std_phi_deg": 15.491933384829668,
+        "std_phi_embed": 15.491933384829668,
+        "std_shell_s": 0.25162195744301735,
+        "shell_s_range": 0.6153846153846154,
+        "mean_phi_abs": 125.0,
+        "mean_phi_embed": 125.0,
+        "segments": [
+          "T1",
+          "T2",
+          "A3",
+          "A4",
+          "A5",
+          "A6"
+        ],
+        "abdomen": {
+          "n": 4,
+          "section_pure": true,
+          "sections": [
+            "hyperbolic"
+          ],
+          "std_phi_deg": 0.0,
+          "std_phi_embed": 0.0,
+          "std_shell_s": 0.09930726528736966,
+          "shell_s_range": 0.23076923076923078,
+          "mean_phi_abs": 135.0,
+          "mean_phi_embed": 135.0,
+          "segments": [
+            "A3",
+            "A4",
+            "A5",
+            "A6"
+          ]
+        }
+      },
+      "L2": {
+        "n": 2,
+        "section_pure": true,
+        "sections": [
+          "hyperbolic"
+        ],
+        "std_phi_deg": 0.0,
+        "std_phi_embed": 0.0,
+        "std_shell_s": 0.05439282932204212,
+        "shell_s_range": 0.07692307692307693,
+        "mean_phi_abs": 95.0,
+        "mean_phi_embed": 95.0,
+        "segments": [
+          "T1",
+          "T2"
+        ]
+      },
+      "L3": {
+        "n": 5,
+        "section_pure": true,
+        "sections": [
+          "hyperbolic"
+        ],
+        "std_phi_deg": 0.0,
+        "std_phi_embed": 0.0,
+        "std_shell_s": 0.20783470901701995,
+        "shell_s_range": 0.5384615384615384,
+        "mean_phi_abs": 115.0,
+        "mean_phi_embed": 115.0,
+        "segments": [
+          "T2",
+          "A3",
+          "A4",
+          "A5",
+          "A6"
+        ],
+        "abdomen": {
+          "n": 4,
+          "section_pure": true,
+          "sections": [
+            "hyperbolic"
+          ],
+          "std_phi_deg": 0.0,
+          "std_phi_embed": 0.0,
+          "std_shell_s": 0.09930726528736966,
+          "shell_s_range": 0.23076923076923078,
+          "mean_phi_abs": 115.0,
+          "mean_phi_embed": 115.0,
+          "segments": [
+            "A3",
+            "A4",
+            "A5",
+            "A6"
+          ]
+        }
+      },
+      "SD1": {
+        "n": 6,
+        "section_pure": true,
+        "sections": [
+          "parabolic"
+        ],
+        "std_phi_deg": 0.0,
+        "std_phi_embed": 0.0,
+        "std_shell_s": 0.25162195744301735,
+        "shell_s_range": 0.6153846153846154,
+        "mean_phi_abs": 75.0,
+        "mean_phi_embed": 75.0,
+        "segments": [
+          "T1",
+          "T2",
+          "A3",
+          "A4",
+          "A5",
+          "A6"
+        ],
+        "abdomen": {
+          "n": 4,
+          "section_pure": true,
+          "sections": [
+            "parabolic"
+          ],
+          "std_phi_deg": 0.0,
+          "std_phi_embed": 0.0,
+          "std_shell_s": 0.09930726528736966,
+          "shell_s_range": 0.23076923076923078,
+          "mean_phi_abs": 75.0,
+          "mean_phi_embed": 75.0,
+          "segments": [
+            "A3",
+            "A4",
+            "A5",
+            "A6"
+          ]
+        }
+      },
+      "SD2": {
+        "n": 2,
+        "section_pure": true,
+        "sections": [
+          "parabolic"
+        ],
+        "std_phi_deg": 0.0,
+        "std_phi_embed": 0.0,
+        "std_shell_s": 0.05439282932204212,
+        "shell_s_range": 0.07692307692307693,
+        "mean_phi_abs": 85.0,
+        "mean_phi_embed": 85.0,
+        "segments": [
+          "T1",
+          "T2"
+        ]
+      },
+      "SV1": {
+        "n": 6,
+        "section_pure": true,
+        "sections": [
+          "flat-pockets"
+        ],
+        "std_phi_deg": 0.0,
+        "std_phi_embed": 0.0,
+        "std_shell_s": 0.25162195744301735,
+        "shell_s_range": 0.6153846153846154,
+        "mean_phi_abs": 145.0,
+        "mean_phi_embed": 145.0,
+        "segments": [
+          "T1",
+          "T2",
+          "A3",
+          "A4",
+          "A5",
+          "A6"
+        ],
+        "abdomen": {
+          "n": 4,
+          "section_pure": true,
+          "sections": [
+            "flat-pockets"
+          ],
+          "std_phi_deg": 0.0,
+          "std_phi_embed": 0.0,
+          "std_shell_s": 0.09930726528736966,
+          "shell_s_range": 0.23076923076923078,
+          "mean_phi_abs": 145.0,
+          "mean_phi_embed": 145.0,
+          "segments": [
+            "A3",
+            "A4",
+            "A5",
+            "A6"
+          ]
+        }
+      },
+      "V1": {
+        "n": 6,
+        "section_pure": true,
+        "sections": [
+          "flat-pockets"
+        ],
+        "std_phi_deg": 0.0,
+        "std_phi_embed": 0.0,
+        "std_shell_s": 0.25162195744301735,
+        "shell_s_range": 0.6153846153846154,
+        "mean_phi_abs": 175.0,
+        "mean_phi_embed": 175.0,
+        "segments": [
+          "T1",
+          "T2",
+          "A3",
+          "A4",
+          "A5",
+          "A6"
+        ],
+        "abdomen": {
+          "n": 4,
+          "section_pure": true,
+          "sections": [
+            "flat-pockets"
+          ],
+          "std_phi_deg": 0.0,
+          "std_phi_embed": 0.0,
+          "std_shell_s": 0.09930726528736966,
+          "shell_s_range": 0.23076923076923078,
+          "mean_phi_abs": 175.0,
+          "mean_phi_embed": 175.0,
+          "segments": [
+            "A3",
+            "A4",
+            "A5",
+            "A6"
+          ]
+        }
+      },
+      "spiracle1": {
+        "n": 4,
+        "section_pure": true,
+        "sections": [
+          "parabolic"
+        ],
+        "std_phi_deg": 0.0,
+        "std_phi_embed": 0.0,
+        "std_shell_s": 0.09930726528736966,
+        "shell_s_range": 0.23076923076923078,
+        "mean_phi_abs": 95.0,
+        "mean_phi_embed": 95.0,
+        "segments": [
+          "A3",
+          "A4",
+          "A5",
+          "A6"
+        ],
+        "abdomen": {
+          "n": 4,
+          "section_pure": true,
+          "sections": [
+            "parabolic"
+          ],
+          "std_phi_deg": 0.0,
+          "std_phi_embed": 0.0,
+          "std_shell_s": 0.09930726528736966,
+          "shell_s_range": 0.23076923076923078,
+          "mean_phi_abs": 95.0,
+          "mean_phi_embed": 95.0,
+          "segments": [
+            "A3",
+            "A4",
+            "A5",
+            "A6"
+          ]
+        }
+      }
+    },
+    "n_sites": 51,
+    "max_snap_deg": 11.0,
+    "mean_snap_deg": 3.3529411764705883,
+    "twist": 0.0,
+    "snap": "segment-ring, nearest unused azimuth"
+  }
+}

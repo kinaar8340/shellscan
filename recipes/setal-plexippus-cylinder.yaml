@@ -1,0 +1,19 @@
+name: setal-plexippus-cylinder
+claim: Hypothesis
+source: "Scott 2020 Papilio N.S. 32 Fig. 34; φ digitized on the unroll (middorsal=0, midventral=180, ±5°). Not Hinton-nominal."
+dynamics:
+  windings: 0
+  intensity: site
+  orientation: circumferential
+  morph_t: 0.0
+carrier:
+  kind: cylinder
+  n_phi: 36
+  twist: 0.0
+wrap:
+  field: 0
+  section_lock: elliptic
+  persist: 1.0
+paint:
+  mode: setal-table
+  table: setal/plexippus-measured.csv

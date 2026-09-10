@@ -1,0 +1,33 @@
+{
+  "n_faces": 468,
+  "section_agree": 0.9401709401709402,
+  "kind_agree": 0.9230769230769231,
+  "kinds_a": {
+    "seta": 60,
+    "plain": 402,
+    "tentacle": 2,
+    "spiracle": 4
+  },
+  "kinds_b": {
+    "seta": 60,
+    "plain": 398,
+    "tentacle": 6,
+    "spiracle": 4
+  },
+  "sections_a": {
+    "elliptic": 416,
+    "parabolic": 14,
+    "hyperbolic": 17,
+    "flat-pockets": 21
+  },
+  "sections_b": {
+    "elliptic": 412,
+    "parabolic": 18,
+    "hyperbolic": 17,
+    "flat-pockets": 21
+  },
+  "a": "setal-plexippus-cylinder",
+  "b": "setal-danaus-gilippus",
+  "T": 0,
+  "claim": "Hypothesis"
+}

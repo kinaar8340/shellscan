@@ -1,0 +1,296 @@
+{
+  "name": "setal-plexippus-cylinder",
+  "claim": "Hypothesis",
+  "m": 0,
+  "n": 0,
+  "T": 0,
+  "class": "cylinder",
+  "kind": "cylinder",
+  "V": 504,
+  "F": 468,
+  "n_pentagons": 0,
+  "n_hexagons": 0,
+  "n_faces": 468,
+  "n_bytes": 14976,
+  "hash": "5adc5e92445087778b9a8a38083a49ddc86d0a9823d3c5df3851ce12fec3a0ea",
+  "kinds": {
+    "seta": 60,
+    "plain": 402,
+    "tentacle": 2,
+    "spiracle": 4
+  },
+  "sections": {
+    "elliptic": 416,
+    "parabolic": 14,
+    "hyperbolic": 17,
+    "flat-pockets": 21
+  },
+  "tentacle_indices": [
+    39,
+    363
+  ],
+  "morph_t": 0.0,
+  "subunits_60T": 0,
+  "setal": {
+    "n_rows": 66,
+    "n_assigned_faces": 66,
+    "n_point_rows": 66,
+    "n_collisions": 0,
+    "mean_snap_deg": 2.8636363636363638,
+    "max_snap_deg": 13.0,
+    "kinds": {
+      "seta": 60,
+      "tentacle": 2,
+      "spiracle": 4
+    }
+  },
+  "table": "setal/plexippus-measured.csv",
+  "homology": {
+    "claim": "Hypothesis",
+    "cluster_pure": true,
+    "axial_hue_pure": true,
+    "phi_order_ok": true,
+    "embed_phi_order_ok": true,
+    "phi_means": {
+      "D": 20.0,
+      "SD": 47.0,
+      "L": 102.6470588235294,
+      "SV": 149.66666666666666,
+      "V": 175.0
+    },
+    "embed_phi_means": {
+      "D": 19.999999999999996,
+      "SD": 47.0,
+      "L": 102.6470588235294,
+      "SV": 149.66666666666666,
+      "V": 175.0
+    },
+    "groups": {
+      "D": {
+        "n": 12,
+        "sections": [
+          "elliptic"
+        ],
+        "pure": true
+      },
+      "L": {
+        "n": 17,
+        "sections": [
+          "hyperbolic"
+        ],
+        "pure": true
+      },
+      "SD": {
+        "n": 10,
+        "sections": [
+          "parabolic"
+        ],
+        "pure": true
+      },
+      "SV": {
+        "n": 15,
+        "sections": [
+          "flat-pockets"
+        ],
+        "pure": true
+      },
+      "V": {
+        "n": 6,
+        "sections": [
+          "flat-pockets"
+        ],
+        "pure": true
+      },
+      "XD": {
+        "n": 2,
+        "sections": [
+          "elliptic"
+        ],
+        "pure": true
+      },
+      "spiracle": {
+        "n": 4,
+        "sections": [
+          "parabolic"
+        ],
+        "pure": true
+      }
+    },
+    "homologs": {
+      "D1": {
+        "n": 6,
+        "section_pure": true,
+        "sections": [
+          "elliptic"
+        ],
+        "std_phi_deg": 4.08248290463863,
+        "std_phi_embed": 4.08248290463863,
+        "std_shell_s": 0.25162195744301735,
+        "shell_s_range": 0.6153846153846154,
+        "mean_phi_abs": 13.333333333333334,
+        "mean_phi_embed": 13.33333333333333
+      },
+      "D2": {
+        "n": 6,
+        "section_pure": true,
+        "sections": [
+          "elliptic"
+        ],
+        "std_phi_deg": 4.08248290463863,
+        "std_phi_embed": 4.082482904638631,
+        "std_shell_s": 0.25162195744301735,
+        "shell_s_range": 0.6153846153846154,
+        "mean_phi_abs": 26.666666666666668,
+        "mean_phi_embed": 26.66666666666666
+      },
+      "L1": {
+        "n": 6,
+        "section_pure": true,
+        "sections": [
+          "hyperbolic"
+        ],
+        "std_phi_deg": 0.0,
+        "std_phi_embed": 0.0,
+        "std_shell_s": 0.25162195744301735,
+        "shell_s_range": 0.6153846153846154,
+        "mean_phi_abs": 95.0,
+        "mean_phi_embed": 95.0
+      },
+      "L2": {
+        "n": 6,
+        "section_pure": true,
+        "sections": [
+          "hyperbolic"
+        ],
+        "std_phi_deg": 12.24744871391589,
+        "std_phi_embed": 12.24744871391589,
+        "std_shell_s": 0.25162195744301735,
+        "shell_s_range": 0.6153846153846154,
+        "mean_phi_abs": 100.0,
+        "mean_phi_embed": 100.0
+      },
+      "L3": {
+        "n": 5,
+        "section_pure": true,
+        "sections": [
+          "hyperbolic"
+        ],
+        "std_phi_deg": 0.0,
+        "std_phi_embed": 0.0,
+        "std_shell_s": 0.20783470901701995,
+        "shell_s_range": 0.5384615384615384,
+        "mean_phi_abs": 115.0,
+        "mean_phi_embed": 115.0
+      },
+      "SD1": {
+        "n": 6,
+        "section_pure": true,
+        "sections": [
+          "parabolic"
+        ],
+        "std_phi_deg": 4.0824829046386295,
+        "std_phi_embed": 4.0824829046386295,
+        "std_shell_s": 0.25162195744301735,
+        "shell_s_range": 0.6153846153846154,
+        "mean_phi_abs": 46.666666666666664,
+        "mean_phi_embed": 46.666666666666664
+      },
+      "SD2": {
+        "n": 2,
+        "section_pure": true,
+        "sections": [
+          "parabolic"
+        ],
+        "std_phi_deg": 7.0710678118654755,
+        "std_phi_embed": 7.071067811865465,
+        "std_shell_s": 0.05439282932204212,
+        "shell_s_range": 0.07692307692307693,
+        "mean_phi_abs": 60.0,
+        "mean_phi_embed": 59.99999999999999
+      },
+      "SV1": {
+        "n": 6,
+        "section_pure": true,
+        "sections": [
+          "flat-pockets"
+        ],
+        "std_phi_deg": 4.0824829046386295,
+        "std_phi_embed": 4.0824829046386295,
+        "std_shell_s": 0.25162195744301735,
+        "shell_s_range": 0.6153846153846154,
+        "mean_phi_abs": 136.66666666666666,
+        "mean_phi_embed": 136.66666666666666
+      },
+      "SV2": {
+        "n": 5,
+        "section_pure": true,
+        "sections": [
+          "flat-pockets"
+        ],
+        "std_phi_deg": 4.47213595499958,
+        "std_phi_embed": 4.47213595499958,
+        "std_shell_s": 0.23957556157534518,
+        "shell_s_range": 0.6153846153846154,
+        "mean_phi_abs": 153.0,
+        "mean_phi_embed": 153.0
+      },
+      "SV3": {
+        "n": 4,
+        "section_pure": true,
+        "sections": [
+          "flat-pockets"
+        ],
+        "std_phi_deg": 0.0,
+        "std_phi_embed": 0.0,
+        "std_shell_s": 0.09930726528736966,
+        "shell_s_range": 0.23076923076923078,
+        "mean_phi_abs": 165.0,
+        "mean_phi_embed": 165.0
+      },
+      "V1": {
+        "n": 6,
+        "section_pure": true,
+        "sections": [
+          "flat-pockets"
+        ],
+        "std_phi_deg": 0.0,
+        "std_phi_embed": 0.0,
+        "std_shell_s": 0.25162195744301735,
+        "shell_s_range": 0.6153846153846154,
+        "mean_phi_abs": 175.0,
+        "mean_phi_embed": 175.0
+      },
+      "spiracle1": {
+        "n": 4,
+        "section_pure": true,
+        "sections": [
+          "parabolic"
+        ],
+        "std_phi_deg": 0.0,
+        "std_phi_embed": 0.0,
+        "std_shell_s": 0.09930726528736966,
+        "shell_s_range": 0.23076923076923078,
+        "mean_phi_abs": 85.0,
+        "mean_phi_embed": 85.0
+      },
+      "tentacle1": {
+        "n": 2,
+        "section_pure": true,
+        "sections": [
+          "parabolic"
+        ],
+        "std_phi_deg": 0.0,
+        "std_phi_embed": 0.0,
+        "std_shell_s": 0.48953546389837904,
+        "shell_s_range": 0.6923076923076923,
+        "mean_phi_abs": 35.0,
+        "mean_phi_embed": 35.0
+      }
+    },
+    "n_sites": 66,
+    "max_snap_deg": 13.0,
+    "mean_snap_deg": 2.8636363636363638,
+    "twist": 0.0,
+    "snap": "segment-ring, nearest unused azimuth"
+  }
+}

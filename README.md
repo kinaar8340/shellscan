@@ -52,6 +52,7 @@ Tip of the sign-mask fact: `c5c5095`. Working rule: unfreeze is one labeled sent
 | Gun / `LF` | Off |
 | HITL / named panel | Not v1 |
 | Fig 6.1 four-preset clone | Paper in `qga_gpu`. Faceplate stays elliptic. [docs/ATLAS.md](docs/ATLAS.md) |
+| Recipe sidecar | Scored; not a faceplate verb. Atlas stop. [docs/RECIPE.md](docs/RECIPE.md) |
 
 Splat at \(4.2\), persist \(=1\): \(0.0315R\). Rails \(0.02R\) and \(\Delta R=0.08R\) both lost as pictures.
 
@@ -71,11 +72,11 @@ Do not: Scan A consume `site`, HITL Pluto, nested draw, `LF`, stacked clear wind
 - [ ] `vision_tracker` — real lens \(K\) + still. Well is specified. Scan A does not consume `site`. [docs/VISION.md](docs/VISION.md)
 - [x] Sign mask — `--mask {none,antipode,blank,nappe}` on the SLM seed. [docs/SIGN.md](docs/SIGN.md)
 - [ ] Fig 6.1 atlas — four isolated loom presets in `qga_gpu`, not a composition window on \(\gamma\). [docs/ATLAS.md](docs/ATLAS.md)
-- [ ] Recipe sidecar — dynamics → carrier → Hopf wrap → paint. Model, not a faceplate verb. [docs/RECIPE.md](docs/RECIPE.md)
+- [x] Recipe sidecar — dynamics → carrier → wrap → paint. Cylinder Hypothesis bounded; T=7 occupancy Model. Not a faceplate verb. [docs/RECIPE.md](docs/RECIPE.md) · [scores](docs/recipe-scores/)
 
 End goal compatible with the freeze: a pipeline that emits a drive signal (record → dump → phase package → later a named panel / glass). Not a single Vulkan window that is a 4D OAM crystal ball.
 
-The only box still worth ticking **on the faceplate** is `make scan`. The recipe sidecar is a new claim in this crate, not a loom unfreeze.
+The only box still worth ticking **on the faceplate** is `make scan`. The recipe sidecar is scored and frozen off \(\gamma(s)\): atlas stop (no pierid), no bind.
 
 ## `qga_pixel`
 
@@ -124,11 +125,14 @@ make slm-mask         # antipode seed (ψ+π)
 make track-synth      # bench points.json (not a live still)
 make track-calibrate  # solvePnP → calib.json
 make track-gaze       # EYE=u,v → gaze.json (not consumed)
-make recipe           # sidecar: recipes/*.yaml → output/recipe/ (not γ)
-make recipe RECIPE=setal-hinton
-# PYTHONPATH=scripts python3 -m recipe score setal-hinton
-# PYTHONPATH=scripts python3 -m recipe compare monarch-setal banded-larva
+make recipe                          # all recipes/*.yaml → output/recipe/ (not γ)
+make recipe RECIPE=setal-polyxenes-cylinder
+PYTHONPATH=scripts python3 -m recipe score setal-polyxenes-cylinder
+PYTHONPATH=scripts python3 -m recipe twist-scan setal-plexippus-cylinder --dense
+PYTHONPATH=scripts python3 -m recipe compare capsid-t7-p22 capsid-t7
 ```
+
+Recipe verbs: `--name`, `score`, `twist-scan`, `compare`. Carriers: Goldberg `(m,n)` or open 13×36 cylinder. Scores: [docs/recipe-scores/](docs/recipe-scores/). Bound and freeze: [docs/RECIPE.md](docs/RECIPE.md).
 
 Sidecar (once, not in the frame loop):
 

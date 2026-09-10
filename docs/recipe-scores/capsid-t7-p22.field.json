@@ -1,0 +1,36 @@
+{
+  "name": "capsid-t7-p22",
+  "claim": "Model",
+  "m": 2,
+  "n": 1,
+  "T": 7,
+  "class": "III",
+  "kind": "goldberg",
+  "V": 140,
+  "F": 72,
+  "n_pentagons": 12,
+  "n_hexagons": 60,
+  "n_faces": 72,
+  "n_bytes": 2304,
+  "hash": "79a13bd319dcba7123657998ca50c3f362f5159ecb43629ceca3f7c8b3f86e29",
+  "kinds": {
+    "pentamer": 12,
+    "hexamer": 60
+  },
+  "sections": {
+    "elliptic": 12,
+    "hyperbolic": 60
+  },
+  "tentacle_indices": [],
+  "morph_t": 0.0,
+  "subunits_60T": 420,
+  "setal": null,
+  "table": null,
+  "homology": null,
+  "occupancy": {
+    "pentamer": 12,
+    "hexamer": 60,
+    "subunits_60T": 420,
+    "T": 7
+  }
+}

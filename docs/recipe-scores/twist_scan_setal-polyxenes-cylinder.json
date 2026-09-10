@@ -1,0 +1,53 @@
+{
+  "claim": "Hypothesis",
+  "base": "setal-polyxenes-cylinder",
+  "snap": "segment-ring, nearest unused azimuth",
+  "shear": "|twist| * sigma_u * 180/pi",
+  "embed_order_bound": "pi/4 on 36-bin Hinton chart",
+  "twists": [
+    {
+      "twist": 0.0,
+      "phi_order_ok": true,
+      "embed_phi_order_ok": true,
+      "cluster_pure": true,
+      "D1_std_phi_chart": 4.08248290463863,
+      "D1_std_phi_embed": 4.0824829046386295,
+      "D1_std_phi_embed_pred": 0.0,
+      "D1_sigma_u": 0.25162195744301735,
+      "D1_shell_s_range": 0.6153846153846154
+    },
+    {
+      "twist": 0.7853981633974483,
+      "phi_order_ok": true,
+      "embed_phi_order_ok": true,
+      "cluster_pure": true,
+      "D1_std_phi_chart": 4.08248290463863,
+      "D1_std_phi_embed": 9.086750438444538,
+      "D1_std_phi_embed_pred": 11.32298808493578,
+      "D1_sigma_u": 0.25162195744301735,
+      "D1_shell_s_range": 0.6153846153846154
+    },
+    {
+      "twist": 1.5707963267948966,
+      "phi_order_ok": true,
+      "embed_phi_order_ok": false,
+      "cluster_pure": true,
+      "D1_std_phi_chart": 4.08248290463863,
+      "D1_std_phi_embed": 20.12191637835901,
+      "D1_std_phi_embed_pred": 22.64597616987156,
+      "D1_sigma_u": 0.25162195744301735,
+      "D1_shell_s_range": 0.6153846153846154
+    },
+    {
+      "twist": 3.141592653589793,
+      "phi_order_ok": true,
+      "embed_phi_order_ok": false,
+      "cluster_pure": true,
+      "D1_std_phi_chart": 4.08248290463863,
+      "D1_std_phi_embed": 42.64735448045353,
+      "D1_std_phi_embed_pred": 45.29195233974312,
+      "D1_sigma_u": 0.25162195744301735,
+      "D1_shell_s_range": 0.6153846153846154
+    }
+  ]
+}

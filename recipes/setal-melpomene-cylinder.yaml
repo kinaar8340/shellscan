@@ -1,0 +1,19 @@
+name: setal-melpomene-cylinder
+claim: Hypothesis
+source: "Scott 2020 Fig. 52 Typical Dione–Heliconius (Fleming 1960); Heliconiini outgroup. Not a species-specific H. melpomene plate. φ digitized middorsal=0 / midventral=180, ±5°."
+dynamics:
+  windings: 0
+  intensity: site
+  orientation: circumferential
+  morph_t: 0.0
+carrier:
+  kind: cylinder
+  n_phi: 36
+  twist: 0.0
+wrap:
+  field: 0
+  section_lock: elliptic
+  persist: 1.0
+paint:
+  mode: setal-table
+  table: setal/melpomene-measured.csv

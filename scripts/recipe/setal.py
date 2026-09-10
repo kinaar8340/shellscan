@@ -77,14 +77,21 @@ def load_setal_table(path: Path) -> list[dict[str, Any]]:
     if not lines:
         raise ValueError(f"empty setal table {path}")
     reader = csv.DictReader(lines)
-    required = {"id", "kind", "s"}
+    required = {"id", "kind"}
     if reader.fieldnames is None or not required.issubset(set(reader.fieldnames)):
         raise ValueError(f"{path} needs columns {sorted(required)}")
     for raw in reader:
         kind = str(raw.get("kind", "")).strip()
         if kind not in KINDS:
             raise ValueError(f"kind {kind!r} not in {KINDS}")
-        s = float(raw["s"])
+        seg = str(raw.get("segment") or "").strip() or None
+        s_raw = (raw.get("s") or "").strip()
+        if s_raw:
+            s = float(s_raw)
+        elif seg:
+            s = segment_s(seg)
+        else:
+            raise ValueError(f"{raw.get('id')} needs s or segment")
         if not 0.0 <= s <= 1.0:
             raise ValueError(f"s={s} not in [0,1] for {raw.get('id')}")
         phi_raw = (raw.get("phi_deg") or "").strip()
@@ -104,11 +111,14 @@ def load_setal_table(path: Path) -> list[dict[str, Any]]:
             else:
                 raise ValueError(f"{raw.get('id')} needs phi_deg or a named chart")
         section = _section(sec_raw) if sec_raw else ("parabolic" if kind in ("tentacle", "tuft", "spine") else "elliptic")
+        grp = str(raw.get("group") or "").strip() or None
         rows.append(
             {
                 "id": str(raw.get("id") or f"row{len(rows)}"),
                 "kind": kind,
-                "segment": str(raw.get("segment") or "") or None,
+                "segment": seg,
+                "seta": str(raw.get("seta") or "").strip() or None,
+                "group": grp,
                 "chart": chart,
                 "s": s,
                 "phi_deg": phi,
@@ -380,6 +390,25 @@ def _count(items) -> dict[str, int]:
     return out
 
 
+def _homolog_block(recs: list[dict[str, Any]]) -> dict[str, Any]:
+    phis = [r["phi_abs"] for r in recs]
+    ss = [r["shell_s"] for r in recs]
+    secs = sorted({r["section"] for r in recs})
+    phis_e = [r["phi_embed"] for r in recs]
+    return {
+        "n": len(recs),
+        "section_pure": len(secs) == 1,
+        "sections": secs,
+        "std_phi_deg": _std(phis),
+        "std_phi_embed": _std(phis_e),
+        "std_shell_s": _std(ss),
+        "shell_s_range": max(ss) - min(ss) if ss else 0.0,
+        "mean_phi_abs": sum(phis) / len(phis) if phis else 0.0,
+        "mean_phi_embed": sum(phis_e) / len(phis_e) if phis_e else 0.0,
+        "segments": [r.get("segment") for r in recs],
+    }
+
+
 def _std(xs: list[float]) -> float:
     if len(xs) < 2:
         return 0.0
@@ -548,21 +577,10 @@ def homology_score(
     for seta, recs in sorted(by_seta.items()):
         if len(recs) < 2:
             continue
-        phis = [r["phi_abs"] for r in recs]
-        ss = [r["shell_s"] for r in recs]
-        secs = sorted({r["section"] for r in recs})
-        phis_e = [r["phi_embed"] for r in recs]
-        homologs[seta] = {
-            "n": len(recs),
-            "section_pure": len(secs) == 1,
-            "sections": secs,
-            "std_phi_deg": _std(phis),
-            "std_phi_embed": _std(phis_e),
-            "std_shell_s": _std(ss),
-            "shell_s_range": max(ss) - min(ss),
-            "mean_phi_abs": sum(phis) / len(phis),
-            "mean_phi_embed": sum(phis_e) / len(phis_e),
-        }
+        homologs[seta] = _homolog_block(recs)
+        abd = [r for r in recs if str(r.get("segment") or "").startswith("A")]
+        if len(abd) >= 2:
+            homologs[seta]["abdomen"] = _homolog_block(abd)
 
     means: dict[str, float] = {}
     embed_means: dict[str, float] = {}

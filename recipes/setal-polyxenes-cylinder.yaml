@@ -1,0 +1,19 @@
+name: setal-polyxenes-cylinder
+claim: Hypothesis
+source: "Scott 2020 Fig. 28 Papilio polyxenes (Papilionidae). Extra-familial unroll. φ=0 middorsal / 180 midventral, ±5°. BD/BSD/BL/BSV mapped to D/SD/L/SV."
+dynamics:
+  windings: 0
+  intensity: site
+  orientation: circumferential
+  morph_t: 0.0
+carrier:
+  kind: cylinder
+  n_phi: 36
+  twist: 0.0
+wrap:
+  field: 0
+  section_lock: elliptic
+  persist: 1.0
+paint:
+  mode: setal-table
+  table: setal/polyxenes-measured.csv

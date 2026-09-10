@@ -1,0 +1,23 @@
+{
+  "n_faces": 72,
+  "section_agree": 0.16666666666666666,
+  "kind_agree": 0.16666666666666666,
+  "kinds_a": {
+    "pentamer": 12,
+    "hexamer": 60
+  },
+  "kinds_b": {
+    "pentamer": 72
+  },
+  "sections_a": {
+    "elliptic": 12,
+    "hyperbolic": 60
+  },
+  "sections_b": {
+    "elliptic": 72
+  },
+  "a": "capsid-t7-p22",
+  "b": "capsid-t7-polyoma",
+  "T": 7,
+  "claim": "Hypothesis"
+}

@@ -1,0 +1,32 @@
+{
+  "n_faces": 468,
+  "section_agree": 0.8910256410256411,
+  "kind_agree": 0.8867521367521367,
+  "kinds_a": {
+    "plain": 427,
+    "seta": 37,
+    "spiracle": 4
+  },
+  "kinds_b": {
+    "seta": 60,
+    "plain": 402,
+    "tentacle": 2,
+    "spiracle": 4
+  },
+  "sections_a": {
+    "elliptic": 440,
+    "parabolic": 10,
+    "hyperbolic": 6,
+    "flat-pockets": 12
+  },
+  "sections_b": {
+    "elliptic": 416,
+    "parabolic": 14,
+    "hyperbolic": 17,
+    "flat-pockets": 21
+  },
+  "a": "setal-polyxenes-cylinder",
+  "b": "setal-plexippus-cylinder",
+  "T": 0,
+  "claim": "Hypothesis"
+}

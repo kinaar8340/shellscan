@@ -76,10 +76,19 @@ def _score(argv: list[str]) -> int:
 def _twist_scan(argv: list[str]) -> int:
     p = argparse.ArgumentParser(prog="recipe twist-scan")
     p.add_argument("name", nargs="?", default="setal-hinton-cylinder")
+    p.add_argument(
+        "--dense",
+        action="store_true",
+        help="six twists from π/4 to π/2 (embed D/SD crossing)",
+    )
     args = p.parse_args(argv)
     from .setal import twist_scan
+    import math as _math
 
-    out = twist_scan(args.name)
+    twists = None
+    if args.dense:
+        twists = [_math.pi / 4.0 + i * (_math.pi / 4.0) / 5.0 for i in range(6)]
+    out = twist_scan(args.name, twists=twists)
     root = recipe_dir().parent
     dest = root / "output" / "recipe" / f"twist_scan_{args.name}.json"
     dest.parent.mkdir(parents=True, exist_ok=True)
@@ -106,6 +115,7 @@ def _brief(meta: dict) -> dict:
         "setal",
         "table",
         "homology",
+        "occupancy",
     )
     return {k: meta.get(k) for k in keep}
 

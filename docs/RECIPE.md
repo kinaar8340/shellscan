@@ -16,6 +16,7 @@ A recipe is a generative schedule. It is **not** a theorem that organisms are de
 | This crate compiles a recipe into a painted net and an `N×32` field dump. | **Model** + **Software fact** (counts, round-trip) |
 | Larval setal maps / chrysalis hang / adult wing mosaics are low-frequency instances of the same schedule. | **Hypothesis** — visual rhyme, not a developmental proof |
 | A digitized setal-position table (CSV) snapped to nearest Goldberg faces yields a `qga_pixel` field that can be compared, facewise, to a generative recipe on the same net. | **Hypothesis** (biology) + **Software fact** (snap + compare) |
+| Open 13×36 cylinder: Hinton group order (`phi_order_ok`) holds through measured danaine, Heliconiini, and Papilionidae. Abdomen isolines; T1/T2 may walk one 10° bin. Atlas stop. | **Hypothesis (bounded)** |
 | Two-clock interlacing on the faceplate will read the painted field as a living form. | **Out of scope.** Falsified at sculpture distance. Do not re-test on `γ(s)`. |
 
 If a sentence cannot wear one of those tags, it does not belong here.
@@ -61,7 +62,13 @@ Occupancy 256 is a faceplate number. Face count `10T+2` (Goldberg) is independen
 | `monarch-setal.yaml` | (3,0) Class I | 9 | setal table `setal/monarch.csv` | 4 tentacles from table; rings as bands |
 | `tussock-setal.yaml` | (3,0) Class I | 9 | setal table `setal/tussock.csv` | 4 tufts + 1 rear horn |
 | `setal-hinton.yaml` | (3,0) Class I | 9 | Hinton/Stehr named sites | 68 sites; SV/V collapse (`phi_order_ok` false) |
-| `setal-hinton-cylinder.yaml` | open cylinder | — | same sites, segment-indexed `u` | 13×36 quads; `phi_order_ok` true |
+| `setal-hinton-cylinder.yaml` | open cylinder | — | Hinton sites, segment-indexed `u` | 13×36; `phi_order_ok` true |
+| `setal-hinton-helicoid.yaml` | cylinder `twist=π` | — | inherit Hinton sites | chart order holds; embed shears |
+| `setal-danaus-gilippus.yaml` | open cylinder | — | Hinton + A2 tubercles | 70 sites; order holds |
+| `setal-plexippus-cylinder.yaml` | open cylinder | — | Scott Fig. 34 measured φ | D1 `σ_φ` 4.08° (one bin); order holds |
+| `setal-melpomene-cylinder.yaml` | open cylinder | — | Scott Fig. 52 Heliconiini | SD ~78°; order holds |
+| `setal-polyxenes-cylinder.yaml` | open cylinder | — | Scott Fig. 28 Papilionidae | extra-familial order holds |
+| `capsid-t7-p22.yaml` | (2,1) Class III | 7 | VIPERdb P22 CK paint | vs `capsid-t7` kind 1.0; vs polyoma 0.167 |
 
 ## Setal table (paint input)
 
@@ -121,19 +128,69 @@ make recipe RECIPE=setal-danaus-gilippus
 Scored dumps: [docs/recipe-scores/](recipe-scores/). Faceplate stays frozen.
 
 ```
-Hypothesis (bounded). Homologous primary setae on the open 13×36
-cylinder are isolines of chart φ and vary only in u.
-  Invariant under twist: D1_std_phi_chart = 0, phi_order_ok = true
-    at twist ∈ {0, π/4, π/2, π}. Snap = exact ring, nearest unused azimuth.
-  Embedding is the associate-family shear (software fact):
-      σ_φ,embed = |twist| · σ_u · 180/π
-    D1 σ_u = 0.2516 reproduces 0° / 11.32° / 22.65° / 45.29°.
-    embed_phi_order_ok holds at π/4 and fails at π/2.
-  Stable under species delta: Hinton 68-site table → D. gilippus
-    70-site table (A2 tubercle pair). phi_order_ok and D1 σ_φ = 0 survive.
-Not claimed: larvae are this mesh; Kitching 1984 digitized; field on γ(s).
-What would change the claim: a primary table with measured φ.
+Hypothesis (bounded). Open 13×36 cylinder, snap = exact ring + nearest unused azimuth. Four-bin palette only.
+  phi_order_ok holds for Hinton-nominal, D. gilippus, measured D. plexippus (Scott Fig. 34),
+    Heliconiini-typical (Scott Fig. 52), and Papilio polyxenes (Scott Fig. 28).
+  Abdomen homologs are isolines of chart φ; T1/T2 may walk one 10° bin.
+  SD azimuth is tribe-shaped (47° danaine, 75–78° heliconiine/papilionid) and does not cross L on these plates.
+  D1 σ_u = 0.2516 is the shared segment list.
+  embed_phi_order_ok last true at π/4, first false at ~0.94 on plexippus.
+Not claimed: larvae are this mesh; Fig. 52 is species-specific; a pierid was scored; field on γ(s).
+Atlas stop. No pierid for completeness.
 ```
+
+## Measured φ (*D. plexippus*, Scott 2020 Fig. 34)
+
+Measured φ keeps order, replaces D1 `σ_φ` = 0 with ≤ one 10° bin, puts tentacles at 35° not 0°, embed bound unchanged. Same 13×36 cylinder, same snap. Do not compare this field to `banded-larva` (468 vs 92 faces). L2 φ by segment: T1 78°, T2/A3–A6 108°. The 12° L2 spread is an anterior T1 offset, not A7/A8; leave `n_phi = 36`.
+
+```
+make recipe RECIPE=setal-plexippus-cylinder
+PYTHONPATH=scripts python3 -m recipe score setal-plexippus-cylinder
+PYTHONPATH=scripts python3 -m recipe twist-scan setal-plexippus-cylinder
+```
+
+Filed: `docs/recipe-scores/setal-plexippus-cylinder.field.json`, `.homology.json`, `twist_scan_setal-plexippus-cylinder.json`.
+
+## Heliconiini outgroup (Scott 2020 Fig. 52)
+
+Typical Dione–Heliconius unroll (Fleming 1960 via Scott), same protocol, not a species-specific *H. melpomene* plate. `phi_order_ok` stays true: D 25° < SD 77.5° < L 116.5° < SV 144° < V 175°. D1 `σ_φ` chart = 0, `σ_u` = 0.2516. Embed bound unchanged (π/4 holds, π/2 fails). SD is ~30° more ventral than danaine SD (~47°) but does not cross L. Hypothesis widens to two nymphalid subfamilies (Danainae, Heliconiini), still not a theorem.
+
+Plexippus L2 abdomen-only: T1 78° vs T2/A3–A6 108°; abdomen `std_phi_deg` → 0. Dense twist: `embed_phi_order_ok` last true at π/4, first false at 0.94. Same-net compare (468 faces): plexippus vs hinton `section_agree` 0.94 / `kind_agree` 0.93; vs gilippus 0.94 / 0.92.
+
+```
+make recipe RECIPE=setal-melpomene-cylinder
+PYTHONPATH=scripts python3 -m recipe score setal-melpomene-cylinder
+PYTHONPATH=scripts python3 -m recipe twist-scan setal-melpomene-cylinder
+PYTHONPATH=scripts python3 -m recipe twist-scan setal-plexippus-cylinder --dense
+PYTHONPATH=scripts python3 -m recipe compare setal-plexippus-cylinder setal-hinton-cylinder
+PYTHONPATH=scripts python3 -m recipe compare setal-plexippus-cylinder setal-danaus-gilippus
+```
+
+## Extra-familial: *Papilio polyxenes* (Scott 2020 Fig. 28)
+
+One papilionid unroll, then the atlas stops. Plate labels BD/BSD/BL/BSV; rows use Hinton D/SD/L/SV. `phi_order_ok` true: D 30° < SD 75° < L 103° < SV 125° < V 175°. SD ~75° matches Heliconiini, not danaine ~47°, and still does not reach L. D1 `σ_φ` 4.08° all-segments, 0° abdomen. Embed bound unchanged (π/4 yes, π/2 no). Compare vs plexippus (468 faces): section_agree 0.89 / kind_agree 0.89 (no tentacles; 37 setae vs 60).
+
+```
+make recipe RECIPE=setal-polyxenes-cylinder
+PYTHONPATH=scripts python3 -m recipe score setal-polyxenes-cylinder
+PYTHONPATH=scripts python3 -m recipe twist-scan setal-polyxenes-cylinder
+PYTHONPATH=scripts python3 -m recipe compare setal-polyxenes-cylinder setal-plexippus-cylinder
+```
+
+Nymphalidae is a closed loop on this carrier. Atlas stop. No pierid for completeness.
+
+## Capsid track (different claim family)
+
+Closed 532, `(m,n)` / T, 12 pentagons. Not the cylinder. One YAML opens it: same `(2,1)` net as `capsid-t7` / `capsid-t7-polyoma`, paint from a VIPERdb T=7 entry by site class (pentamer vs hexamer), hand table, no virion JPEG. Occupancy histograms; compare only to other T=7 recipes (F=72). Do not mesh snub/rhombitrihexagonal families. Do not fold the dump into `make scan`.
+
+```
+make recipe RECIPE=capsid-t7-p22
+PYTHONPATH=scripts python3 -m recipe compare capsid-t7-p22 capsid-t7
+PYTHONPATH=scripts python3 -m recipe compare capsid-t7-p22 capsid-t7-polyoma
+```
+
+Occupancy (Software fact): P22/CK 12 pentamers + 60 hexamers, 420 subunits. Compare vs `capsid-t7` kind/section 1.0. vs polyoma (72 pentamers) 0.167 — same net, different paint (CK type vs all-pentamer). Filed under `docs/recipe-scores/capsid-t7-p22.*` and `compare_t7_p22_*.json`.
+
 
 `(2,1)` and `(1,2)` are enantiomorphs. The T=7 file does not swap them.
 
