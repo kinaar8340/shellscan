@@ -212,6 +212,7 @@ def assign_setal(
                 "seta": row.get("seta"),
                 "segment": row.get("segment"),
                 "phi_deg": row.get("phi_deg"),
+                "amplitude": row.get("amplitude"),
             }
         )
 
@@ -618,3 +619,138 @@ def homology_score(
         "twist": net.get("twist", 0.0),
         "snap": "segment-ring, nearest unused azimuth",
     }
+
+
+def first_instar(kind: str, segment: str | None, seta: str | None, group: str | None) -> int:
+    """First ring-count that may draw this site. Not morphogenesis."""
+    kind = str(kind or "")
+    segment = str(segment or "")
+    seta = str(seta or "")
+    group = str(group or "")
+    if kind == "tentacle":
+        return 1 if segment == "T2" else 5
+    if kind == "spiracle":
+        if segment in ("A3", "A4"):
+            return 3
+        if segment in ("A5", "A6"):
+            return 4
+        return 5
+    if segment in ("T1", "T2") and seta in ("XD1", "XD2", "D1", "D2", "SD1", "L1"):
+        return 2
+    if seta in ("L2", "L3", "SD2", "SV1"):
+        return 3
+    if seta in ("SV2", "SV3"):
+        return 4
+    return 5
+
+
+def _hinton_phi_lookup(recipe_root: Path) -> dict[tuple[str, str], float]:
+    path = recipe_root / "setal-hinton-cylinder.yaml"
+    if not path.is_file():
+        return {}
+    from .compile import load_recipe
+
+    spec = load_recipe(path)
+    paint = spec.get("paint") or {}
+    out: dict[tuple[str, str], float] = {}
+    for row in paint.get("sites") or []:
+        seg = str(row.get("segment") or "")
+        seta = str(row.get("seta") or "")
+        if seg and seta and row.get("phi") is not None:
+            out[(seg, seta)] = float(row["phi"])
+    for sg in paint.get("singularities") or []:
+        kind = str(sg.get("kind") or "")
+        seg = str(sg.get("segment") or "")
+        phi = float(sg.get("phi") or 0.0)
+        if kind == "tentacle" and seg:
+            out[(seg, "tentacle1")] = phi
+        elif kind == "spiracle" and seg:
+            out[(seg, "spiracle1")] = phi
+    return out
+
+
+def _dphi_deg(a: float, b: float) -> float:
+    return abs(((a - b + 180.0) % 360.0) - 180.0)
+
+
+def write_chaetotaxy(
+    outdir: Path,
+    spec: dict[str, Any],
+    net: dict[str, Any],
+    log: list[dict[str, Any]],
+) -> dict[str, Any]:
+    """Unilateral atlas. Preview mirrors ±φ except V*. Not a second parser in swarm."""
+    from .compile import recipe_dir
+
+    hinton = _hinton_phi_lookup(recipe_dir())
+    sites: list[dict[str, Any]] = []
+    for row in log:
+        if row.get("kind") == "band":
+            continue
+        seg = str(row.get("segment") or "")
+        seta = str(row.get("seta") or "")
+        kind = str(row.get("kind") or "seta")
+        group = str(row.get("group") or "")
+        phi_m = row.get("phi_deg")
+        phi_h = hinton.get((seg, seta))
+        if phi_m is None and phi_h is None:
+            continue
+        measured = float(phi_m) if phi_m is not None else None
+        s = segment_s(seg) if seg in SEGMENTS else 0.5
+        rec = {
+            "id": f"{seg}.{seta}" if seg and seta else str(row.get("id") or ""),
+            "segment": seg,
+            "seta": seta,
+            "s": s,
+            "phi_deg": float(measured if measured is not None else phi_h or 0.0),
+            "amp": float(row.get("amplitude") or 1.0),
+            "group": group,
+            "kind": kind,
+            "instar": first_instar(kind, seg, seta, group),
+            "phi_hinton": phi_h,
+            "phi_measured": measured,
+        }
+        sites.append(rec)
+
+    diffs = []
+    for s in sites:
+        if s["phi_hinton"] is not None and s["phi_measured"] is not None:
+            diffs.append(_dphi_deg(s["phi_measured"], s["phi_hinton"]))
+    dphi_rms = math.sqrt(sum(d * d for d in diffs) / len(diffs)) if diffs else 0.0
+
+    means: dict[str, float] = {}
+    for g in GROUP_ORDER:
+        phis = [
+            abs(float(s["phi_deg"]))
+            for s in sites
+            if s.get("group") == g or (g == "D" and s.get("group") == "XD")
+        ]
+        if g == "D":
+            phis = [
+                abs(float(s["phi_deg"]))
+                for s in sites
+                if s.get("group") in ("D", "XD")
+            ]
+        if phis:
+            means[g] = sum(phis) / len(phis)
+    ordered = [g for g in GROUP_ORDER if g in means]
+    phi_order_ok = all(
+        means[ordered[i]] <= means[ordered[i + 1]] + 1e-6 for i in range(max(0, len(ordered) - 1))
+    )
+
+    atlas = {
+        "carrier": net.get("kind") or "cylinder",
+        "n_phi": int(net.get("n_phi") or 36),
+        "rings_l5": int(net.get("n_segments") or 13),
+        "phi0": "middorsal",
+        "claim": "Hypothesis",
+        "dphi_rms": dphi_rms,
+        "phi_order_ok": phi_order_ok,
+        "phi_means": means,
+        "n_sites": len(sites),
+        "n_compared": len(diffs),
+        "source": spec.get("name"),
+        "sites": sites,
+    }
+    (outdir / "chaetotaxy.json").write_text(json.dumps(atlas, indent=2) + "\n")
+    return atlas

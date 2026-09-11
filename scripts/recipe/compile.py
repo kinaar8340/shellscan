@@ -149,6 +149,9 @@ def compile_recipe(
     (outdir / "net.json").write_text(json.dumps(slim_net) + "\n")
     if spec.get("_setal_log"):
         (outdir / "setal_log.json").write_text(json.dumps(spec["_setal_log"], indent=2) + "\n")
+        from .setal import write_chaetotaxy
+
+        write_chaetotaxy(outdir, spec, net, spec["_setal_log"])
     if render:
         from .render import render_all
 

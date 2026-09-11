@@ -418,6 +418,26 @@ def test_plexippus_abdomen_L2_isoline(tmp_path: Path):
     assert l2["abdomen"]["n"] == 4
 
 
+def test_plexippus_chaetotaxy_atlas(tmp_path: Path):
+    _compile("setal-plexippus-cylinder", tmp_path)
+    atlas = json.loads((tmp_path / "setal-plexippus-cylinder" / "chaetotaxy.json").read_text())
+    assert atlas["n_phi"] == 36
+    assert atlas["rings_l5"] == 13
+    assert atlas["phi0"] == "middorsal"
+    assert atlas["n_sites"] >= 60
+    ids = {s["id"] for s in atlas["sites"]}
+    assert "T2.tentacle1" in ids or any(s["kind"] == "tentacle" and s["segment"] == "T2" for s in atlas["sites"])
+    t2 = next(s for s in atlas["sites"] if s["kind"] == "tentacle" and s["segment"] == "T2")
+    a8 = next(s for s in atlas["sites"] if s["kind"] == "tentacle" and s["segment"] == "A8")
+    assert t2["instar"] == 1
+    assert a8["instar"] == 5
+    sd2 = next((s for s in atlas["sites"] if s.get("seta") == "SD2"), None)
+    if sd2 is not None:
+        assert sd2["instar"] == 3
+    assert atlas["phi_order_ok"] is True
+    assert "dphi_rms" in atlas
+
+
 def test_plexippus_net_json_cylinder_chart(tmp_path: Path):
     _compile("setal-plexippus-cylinder", tmp_path)
     net = json.loads((tmp_path / "setal-plexippus-cylinder" / "net.json").read_text())
