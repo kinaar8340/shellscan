@@ -1,0 +1,223 @@
+{
+  "claim": "Hypothesis",
+  "ref": "setal-hinton-cylinder",
+  "cell_deg": 10.0,
+  "groups": [
+    "XD",
+    "D",
+    "SD",
+    "L",
+    "SV",
+    "V"
+  ],
+  "species": {
+    "plexippus-cylinder": {
+      "source": "setal-plexippus-cylinder",
+      "n": 66,
+      "dphi_rms": 7.543811431172634,
+      "phi_order_ok": true,
+      "n_matched": 62,
+      "by_group": {
+        "XD": {
+          "rms": 2.0,
+          "n": 2,
+          "cell_jump": false
+        },
+        "D": {
+          "rms": 4.08248290463863,
+          "n": 12,
+          "cell_jump": false
+        },
+        "SD": {
+          "rms": 11.832159566199232,
+          "n": 10,
+          "cell_jump": true
+        },
+        "L": {
+          "rms": 7.380419245225444,
+          "n": 17,
+          "cell_jump": true
+        },
+        "SV": {
+          "rms": 2.503331114069145,
+          "n": 15,
+          "cell_jump": false
+        },
+        "V": {
+          "rms": 6.0,
+          "n": 6,
+          "cell_jump": false
+        }
+      }
+    },
+    "danaus-gilippus": {
+      "source": "setal-danaus-gilippus",
+      "n": 70,
+      "dphi_rms": 1.3926212476455828,
+      "phi_order_ok": true,
+      "n_matched": 64,
+      "by_group": {
+        "XD": {
+          "rms": 0.0,
+          "n": 2,
+          "cell_jump": false
+        },
+        "D": {
+          "rms": 0.0,
+          "n": 12,
+          "cell_jump": false
+        },
+        "SD": {
+          "rms": 0.0,
+          "n": 12,
+          "cell_jump": false
+        },
+        "L": {
+          "rms": 0.0,
+          "n": 17,
+          "cell_jump": false
+        },
+        "SV": {
+          "rms": 0.0,
+          "n": 15,
+          "cell_jump": false
+        },
+        "V": {
+          "rms": 0.0,
+          "n": 6,
+          "cell_jump": false
+        }
+      }
+    },
+    "melpomene-cylinder": {
+      "source": "setal-melpomene-cylinder",
+      "n": 51,
+      "dphi_rms": 15.30795000427338,
+      "phi_order_ok": true,
+      "n_matched": 47,
+      "by_group": {
+        "XD": {
+          "rms": 0.0,
+          "n": 1,
+          "cell_jump": false
+        },
+        "D": {
+          "rms": 5.477225575051661,
+          "n": 12,
+          "cell_jump": false
+        },
+        "SD": {
+          "rms": 17.649362594722792,
+          "n": 8,
+          "cell_jump": true
+        },
+        "L": {
+          "rms": 23.093455616422855,
+          "n": 13,
+          "cell_jump": true
+        },
+        "SV": {
+          "rms": 11.575836902790225,
+          "n": 7,
+          "cell_jump": true
+        },
+        "V": {
+          "rms": 7.393691004272944,
+          "n": 6,
+          "cell_jump": false
+        }
+      }
+    },
+    "polyxenes-cylinder": {
+      "source": "setal-polyxenes-cylinder",
+      "n": 41,
+      "dphi_rms": 11.312630540952778,
+      "phi_order_ok": true,
+      "n_matched": 37,
+      "by_group": {
+        "XD": {
+          "rms": 2.0,
+          "n": 1,
+          "cell_jump": false
+        },
+        "D": {
+          "rms": 8.366600265340756,
+          "n": 12,
+          "cell_jump": true
+        },
+        "SD": {
+          "rms": 18.81488772222678,
+          "n": 6,
+          "cell_jump": true
+        },
+        "L": {
+          "rms": 9.39858145324779,
+          "n": 6,
+          "cell_jump": true
+        },
+        "SV": {
+          "rms": 13.741664139882525,
+          "n": 6,
+          "cell_jump": true
+        },
+        "V": {
+          "rms": 6.0,
+          "n": 6,
+          "cell_jump": false
+        }
+      }
+    }
+  },
+  "table": [
+    [
+      "group",
+      "plexippus-cylinder",
+      "danaus-gilippus",
+      "melpomene-cylinder",
+      "polyxenes-cylinder"
+    ],
+    [
+      "XD",
+      2.0,
+      0.0,
+      0.0,
+      2.0
+    ],
+    [
+      "D",
+      4.08,
+      0.0,
+      5.48,
+      8.37
+    ],
+    [
+      "SD",
+      11.83,
+      0.0,
+      17.65,
+      18.81
+    ],
+    [
+      "L",
+      7.38,
+      0.0,
+      23.09,
+      9.4
+    ],
+    [
+      "SV",
+      2.5,
+      0.0,
+      11.58,
+      13.74
+    ],
+    [
+      "V",
+      6.0,
+      0.0,
+      7.39,
+      6.0
+    ]
+  ],
+  "note": "RMS \u0394\u03c6 vs Hinton atlas, join (segment,seta). 1.4\u00b0 inside one cell. 7.5\u00b0 short chord. 11\u201315\u00b0 cell jump. Not a Theorem."
+}

@@ -20,7 +20,7 @@ from recipe.archimedean import (  # noqa: E402
     triangulation_number,
 )
 from recipe.compile import compile_recipe, load_recipe  # noqa: E402
-from recipe.setal import compare_painted, load_setal_table, table_xyz  # noqa: E402
+from recipe.setal import compare_groups, compare_painted, load_setal_table, table_xyz  # noqa: E402
 from recipe.yaml_lite import load_simple_yaml  # noqa: E402
 from recipe.geodesic import ck_triangles, geodesic_polyhedron  # noqa: E402
 from recipe.goldberg import goldberg_dual  # noqa: E402
@@ -436,6 +436,39 @@ def test_plexippus_chaetotaxy_atlas(tmp_path: Path):
         assert sd2["instar"] == 3
     assert atlas["phi_order_ok"] is True
     assert "dphi_rms" in atlas
+
+
+def test_compare_groups_per_homology_row(tmp_path: Path):
+    def atlas(path: Path, sites):
+        path.write_text(
+            json.dumps({"source": path.stem, "n_sites": len(sites), "sites": sites}) + "\n"
+        )
+
+    ref = tmp_path / "hinton.json"
+    against = tmp_path / "plex.json"
+    atlas(
+        ref,
+        [
+            {"segment": "T1", "seta": "D1", "group": "D", "phi_deg": 12.0},
+            {"segment": "T1", "seta": "L1", "group": "L", "phi_deg": 90.0},
+            {"segment": "T1", "seta": "V1", "group": "V", "phi_deg": 178.0},
+        ],
+    )
+    atlas(
+        against,
+        [
+            {"segment": "T1", "seta": "D1", "group": "D", "phi_measured": 14.0},
+            {"segment": "T1", "seta": "L1", "group": "L", "phi_measured": 106.0},
+            {"segment": "T1", "seta": "V1", "group": "V", "phi_measured": 178.0},
+        ],
+    )
+    out = compare_groups(ref, {"plexippus": against})
+    d = out["species"]["plexippus"]["by_group"]
+    assert d["D"]["n"] == 1
+    assert d["D"]["rms"] == pytest.approx(2.0, abs=0.05)
+    assert d["L"]["cell_jump"] is True
+    assert d["V"]["rms"] == pytest.approx(0.0, abs=1e-9)
+    assert out["claim"] == "Hypothesis"
 
 
 def test_plexippus_net_json_cylinder_chart(tmp_path: Path):

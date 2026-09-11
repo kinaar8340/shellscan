@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import json
 import sys
+from pathlib import Path
 
 from .compile import compile_all, compile_named, recipe_dir
 
@@ -13,6 +14,8 @@ def main(argv: list[str] | None = None) -> int:
     argv = list(sys.argv[1:] if argv is None else argv)
     if argv and argv[0] == "compare":
         return _compare(argv[1:])
+    if argv and argv[0] == "compare_groups":
+        return _compare_groups(argv[1:])
     if argv and argv[0] == "score":
         return _score(argv[1:])
     if argv and argv[0] == "twist-scan":
@@ -54,6 +57,64 @@ def _compare(argv: list[str]) -> int:
     dest.parent.mkdir(parents=True, exist_ok=True)
     dest.write_text(json.dumps(out, indent=2) + "\n")
     print(json.dumps(out, indent=2))
+    return 0
+
+
+def _compare_groups(argv: list[str]) -> int:
+    p = argparse.ArgumentParser(
+        prog="recipe compare_groups",
+        description="Per-group Δφ vs Hinton atlas. Read dumps. Do not re-snap.",
+    )
+    p.add_argument(
+        "--ref",
+        default="output/recipe/setal-hinton-cylinder/chaetotaxy.json",
+        help="Hinton (or other) chaetotaxy.json",
+    )
+    p.add_argument(
+        "--against",
+        default="plexippus-cylinder,danaus-gilippus,melpomene-cylinder,polyxenes-cylinder",
+        help="comma-separated recipe stems or setal-<stem> names",
+    )
+    args = p.parse_args(argv)
+    from .setal import compare_groups
+
+    root = recipe_dir().parent
+
+    def atlas_path(spec: str) -> Path:
+        raw = Path(spec)
+        if raw.is_file():
+            return raw
+        name = spec
+        if not name.startswith("setal-"):
+            name = f"setal-{name}"
+        if name.endswith(".json"):
+            return root / name
+        return root / "output" / "recipe" / name / "chaetotaxy.json"
+
+    ref = atlas_path(args.ref)
+    if not ref.is_file():
+        raise SystemExit(f"missing ref atlas {ref}")
+    against: dict[str, Path] = {}
+    for item in args.against.split(","):
+        item = item.strip()
+        if not item:
+            continue
+        path = atlas_path(item)
+        if not path.is_file():
+            raise SystemExit(f"missing atlas {path}")
+        key = item
+        if key.startswith("setal-"):
+            key = key[len("setal-") :]
+        against[key] = path
+    out = compare_groups(ref, against)
+    dest = root / "output" / "recipe" / "compare_groups.json"
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    dest.write_text(json.dumps(out, indent=2) + "\n")
+    scores = root / "docs" / "recipe-scores" / "compare_groups.json"
+    scores.parent.mkdir(parents=True, exist_ok=True)
+    scores.write_text(json.dumps(out, indent=2) + "\n")
+    print(json.dumps(out["table"], indent=2))
+    print(json.dumps({"claim": out["claim"], "note": out["note"]}, indent=2))
     return 0
 
 

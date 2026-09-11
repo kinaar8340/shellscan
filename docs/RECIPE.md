@@ -49,6 +49,7 @@ CPU only. No Vulkan. No sibling checkout.
 4. Pack `output/recipe/<name>/qga_pixel_field.bin` (`N×32` bytes) plus JSON manifest.
 5. Write `net.json` (verts + faces, Euclidean). Read-only dump for `qga_swarm`. Not a faceplate verb. Not `γ(s)`. Face degree is `len(face)`.
 5b. If the recipe has a setal log, write `chaetotaxy.json` (unilateral atlas: s, φ, amp, instar, Hinton vs measured φ). Preview instances it; do not parse YAML in the last mile.
+5c. `python3 -m recipe compare_groups` reads those atlases and writes per-group Δφ vs Hinton. Hypothesis. Do not re-snap.
 6. Write `net.png`, `field_preview.png`, `morph.gif` (helicoid→catenoid, 8 frames).
 7. `python3 -m recipe film` — T=3 field strip from dumps + `rgb_preview`. `--strip cylinder` is the isoline Hypothesis. Not `make scan`. Not a live inner_cone solve.
 

@@ -621,6 +621,97 @@ def homology_score(
     }
 
 
+def compare_groups(
+    ref_path: Path,
+    against: dict[str, Path],
+    cell_deg: float = 10.0,
+) -> dict[str, Any]:
+    """Per-group RMS Δφ vs a Hinton atlas. Read dumps only. Do not re-snap.
+
+    Hypothesis. Not a Theorem. 1.4° is inside one 10° cell. 11–15° jumps a cell.
+    """
+    ref = json.loads(ref_path.read_text())
+    ref_sites = {
+        (str(s.get("segment") or ""), str(s.get("seta") or "")): s
+        for s in ref.get("sites") or []
+        if s.get("segment") and s.get("seta")
+    }
+    groups = list(GROUP_ORDER)
+    if any(s.get("group") == "XD" for s in ref.get("sites") or []):
+        groups = ["XD", *GROUP_ORDER]
+
+    def phi_of(site: dict[str, Any]) -> float | None:
+        for k in ("phi_measured", "phi_deg", "phi_hinton"):
+            if site.get(k) is not None:
+                return float(site[k])
+        return None
+
+    species: dict[str, Any] = {}
+    for name, path in against.items():
+        atlas = json.loads(path.read_text())
+        buckets: dict[str, list[float]] = {g: [] for g in groups}
+        n_match = 0
+        for s in atlas.get("sites") or []:
+            key = (str(s.get("segment") or ""), str(s.get("seta") or ""))
+            src = ref_sites.get(key)
+            if src is None:
+                continue
+            a = phi_of(s)
+            b = phi_of(src)
+            if a is None or b is None:
+                continue
+            g = str(s.get("group") or src.get("group") or "")
+            if g == "XD" and "XD" not in buckets:
+                g = "D"
+            if g not in buckets:
+                continue
+            buckets[g].append(_dphi_deg(a, b))
+            n_match += 1
+        by_group: dict[str, Any] = {}
+        for g in groups:
+            diffs = buckets[g]
+            if not diffs:
+                by_group[g] = {"rms": None, "n": 0, "cell_jump": False}
+                continue
+            rms = math.sqrt(sum(d * d for d in diffs) / len(diffs))
+            by_group[g] = {
+                "rms": rms,
+                "n": len(diffs),
+                "cell_jump": rms > cell_deg or max(diffs) > cell_deg,
+            }
+        species[name] = {
+            "source": atlas.get("source") or name,
+            "n": atlas.get("n_sites"),
+            "dphi_rms": atlas.get("dphi_rms"),
+            "phi_order_ok": atlas.get("phi_order_ok"),
+            "n_matched": n_match,
+            "by_group": by_group,
+        }
+
+    header = ["group", *species.keys()]
+    rows = [header]
+    for g in groups:
+        row = [g]
+        for name in species:
+            rec = species[name]["by_group"].get(g) or {}
+            rms = rec.get("rms")
+            row.append(None if rms is None else round(float(rms), 2))
+        rows.append(row)
+
+    return {
+        "claim": "Hypothesis",
+        "ref": str(ref.get("source") or ref_path),
+        "cell_deg": cell_deg,
+        "groups": groups,
+        "species": species,
+        "table": rows,
+        "note": (
+            "RMS Δφ vs Hinton atlas, join (segment,seta). "
+            "1.4° inside one cell. 7.5° short chord. 11–15° cell jump. Not a Theorem."
+        ),
+    }
+
+
 def first_instar(kind: str, segment: str | None, seta: str | None, group: str | None) -> int:
     """First ring-count that may draw this site. Not morphogenesis."""
     kind = str(kind or "")
