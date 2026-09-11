@@ -438,6 +438,17 @@ def test_plexippus_chaetotaxy_atlas(tmp_path: Path):
     assert "dphi_rms" in atlas
 
 
+def test_rd_chart_is_model_not_clock(tmp_path: Path):
+    from recipe.rd_chart import integrate, threshold
+
+    sites = [{"s": 0.1, "phi_deg": 20.0, "group": "D"}]
+    u, v = integrate([6, 8], sites, nphi=16, steps=40)
+    sec = threshold(v)
+    assert u.shape == v.shape == sec.shape
+    assert set(sec.flatten().tolist()) <= {0, 1, 2, 3}
+    assert sec.shape[1] == 16
+
+
 def test_compare_groups_per_homology_row(tmp_path: Path):
     def atlas(path: Path, sites):
         path.write_text(

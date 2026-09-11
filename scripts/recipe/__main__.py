@@ -16,6 +16,8 @@ def main(argv: list[str] | None = None) -> int:
         return _compare(argv[1:])
     if argv and argv[0] == "compare_groups":
         return _compare_groups(argv[1:])
+    if argv and argv[0] == "rd_chart":
+        return _rd_chart(argv[1:])
     if argv and argv[0] == "score":
         return _score(argv[1:])
     if argv and argv[0] == "twist-scan":
@@ -115,6 +117,46 @@ def _compare_groups(argv: list[str]) -> int:
     scores.write_text(json.dumps(out, indent=2) + "\n")
     print(json.dumps(out["table"], indent=2))
     print(json.dumps({"claim": out["claim"], "note": out["note"]}, indent=2))
+    return 0
+
+
+def _rd_chart(argv: list[str]) -> int:
+    p = argparse.ArgumentParser(
+        prog="recipe rd_chart",
+        description="Gray-Scott on growing (s,phi). Model of pigment, not a segment clock.",
+    )
+    p.add_argument(
+        "--chaeta",
+        default="output/recipe/setal-polyxenes-cylinder/chaetotaxy.json",
+    )
+    p.add_argument(
+        "--out",
+        default="output/recipe/setal-polyxenes-cylinder/rd_field.json",
+    )
+    args = p.parse_args(argv)
+    from .rd_chart import run_polyxenes
+
+    root = recipe_dir().parent
+    chaeta = Path(args.chaeta)
+    if not chaeta.is_file():
+        chaeta = root / args.chaeta
+    out = Path(args.out)
+    if not out.is_absolute():
+        out = root / args.out
+    rec = run_polyxenes(chaeta, out)
+    print(
+        json.dumps(
+            {
+                "claim": rec["claim"],
+                "law": rec["law"],
+                "ns": rec["ns"],
+                "nphi": rec["nphi"],
+                "note": rec["note"],
+                "out": str(out),
+            },
+            indent=2,
+        )
+    )
     return 0
 
 
