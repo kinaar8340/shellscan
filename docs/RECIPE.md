@@ -47,8 +47,9 @@ CPU only. No Vulkan. No sibling checkout.
 2. Build the carrier net.
 3. Paint faces (four-bin sections only).
 4. Pack `output/recipe/<name>/qga_pixel_field.bin` (`N×32` bytes) plus JSON manifest.
-5. Write `net.png`, `field_preview.png`, `morph.gif` (helicoid→catenoid, 8 frames).
-6. `python3 -m recipe film` — T=3 field strip from dumps + `rgb_preview`. `--strip cylinder` is the isoline Hypothesis. Not `make scan`. Not a live inner_cone solve.
+5. Write `net.json` (verts + faces, Euclidean). Read-only dump for `qga_swarm`. Not a faceplate verb. Not `γ(s)`. Face degree is `len(face)`.
+6. Write `net.png`, `field_preview.png`, `morph.gif` (helicoid→catenoid, 8 frames).
+7. `python3 -m recipe film` — T=3 field strip from dumps + `rgb_preview`. `--strip cylinder` is the isoline Hypothesis. Not `make scan`. Not a live inner_cone solve.
 
 Occupancy 256 is a faceplate number. Face count `10T+2` (Goldberg) is independent. Do not force `N == 256`. Do not bind the dump to `γ(s)`.
 

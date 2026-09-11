@@ -126,6 +126,20 @@ def compile_recipe(
         for r in painted
     ]
     (outdir / "painted.json").write_text(json.dumps(slim) + "\n")
+    slim_net = {
+        "kind": net.get("kind"),
+        "m": net.get("m"),
+        "n": net.get("n"),
+        "T": net.get("T"),
+        "class": net.get("class"),
+        "verts": net.get("verts"),
+        "faces": net.get("faces"),
+        "V": net.get("V"),
+        "F": net.get("F"),
+        "n_pentagons": net.get("n_pentagons"),
+        "n_hexagons": net.get("n_hexagons"),
+    }
+    (outdir / "net.json").write_text(json.dumps(slim_net) + "\n")
     if spec.get("_setal_log"):
         (outdir / "setal_log.json").write_text(json.dumps(spec["_setal_log"], indent=2) + "\n")
     if render:

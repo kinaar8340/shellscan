@@ -163,6 +163,20 @@ def test_banded_larva_acceptance(tmp_path: Path):
         rgb_preview(rec["section"], rec["amplitude"], rec["persist"] or 1.0)
 
 
+def test_net_json_dump(tmp_path: Path):
+    meta = _compile("banded-larva", tmp_path)
+    net = json.loads((tmp_path / "banded-larva" / "net.json").read_text())
+    painted = json.loads((tmp_path / "banded-larva" / "painted.json").read_text())
+    assert len(net["faces"]) == len(painted) == meta["n_faces"] == 92
+    assert len(net["verts"]) == net["V"]
+    n_pent = sum(1 for f in net["faces"] if len(f) == 5)
+    assert n_pent == 12
+    t3 = _compile("capsid-t3", tmp_path)
+    net3 = json.loads((tmp_path / "capsid-t3" / "net.json").read_text())
+    assert sum(1 for f in net3["faces"] if len(f) == 5) == 12
+    assert t3["n_faces"] == len(net3["faces"]) == 32
+
+
 def test_hang_chrysalis_same_net_no_bands(tmp_path: Path):
     larva = _compile("banded-larva", tmp_path)
     hang = _compile("hang-chrysalis", tmp_path)
