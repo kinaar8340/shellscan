@@ -418,6 +418,17 @@ def test_plexippus_abdomen_L2_isoline(tmp_path: Path):
     assert l2["abdomen"]["n"] == 4
 
 
+def test_plexippus_net_json_cylinder_chart(tmp_path: Path):
+    _compile("setal-plexippus-cylinder", tmp_path)
+    net = json.loads((tmp_path / "setal-plexippus-cylinder" / "net.json").read_text())
+    assert net["kind"] == "cylinder"
+    assert net["n_phi"] == 36
+    assert net["n_segments"] == 13
+    assert net["open"] is True
+    assert net["n_pentagons"] == 0
+    assert len(net["verts"]) == 14 * 36
+
+
 def test_plexippus_measured_phi(tmp_path: Path):
     meta = _compile("setal-plexippus-cylinder", tmp_path)
     assert meta["kind"] == "cylinder"

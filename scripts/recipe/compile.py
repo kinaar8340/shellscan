@@ -138,6 +138,13 @@ def compile_recipe(
         "F": net.get("F"),
         "n_pentagons": net.get("n_pentagons"),
         "n_hexagons": net.get("n_hexagons"),
+        "n_phi": net.get("n_phi"),
+        "n_segments": net.get("n_segments"),
+        "twist": net.get("twist"),
+        "radius": net.get("radius"),
+        "height": net.get("height"),
+        "open": net.get("open"),
+        "segments": net.get("segments"),
     }
     (outdir / "net.json").write_text(json.dumps(slim_net) + "\n")
     if spec.get("_setal_log"):
